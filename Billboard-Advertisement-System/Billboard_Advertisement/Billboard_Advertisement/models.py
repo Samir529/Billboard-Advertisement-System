@@ -3,13 +3,39 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+locations = [
+    ('Dhaka', 'Dhaka'),
+    ('Narayanganj', 'Narayanganj'),
+    ('Gazipur', 'Gazipur'),
+    ('Cumilla', 'Cumilla'),
+    ('Chittagong', 'Chittagong'),
+    ('Noakhali', 'Noakhali'),
+    ('Jessore', 'Jessore'),
+    ('Khulna', 'Khulna'),
+    ('Barisal', 'Barisal'),
+    ('Rajshahi', 'Rajshahi'),
+    ('Sylhet', 'Sylhet'),
+    ('Rangpur', 'Rangpur'),
+    ('Feni', 'Feni'),
+    ('Pabna', 'Pabna'),
+    ('Faridpur', 'Faridpur'),
+    ('Dinajpur', 'Dinajpur'),
+    ('Coxs Bazar', 'Coxs Bazar'),
+    ('Bogra', 'Bogra'),
+    ('Tangail', 'Tangail'),
+    ('Patuakhali', 'Patuakhali'),
+    ('Lalmonirhat', 'Lalmonirhat'),
+    ('Madaripur', 'Madaripur')
+]
+
+
 class UserProfileInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     # username = models.CharField(max_length=30, default='')
     # first_name = models.CharField(max_length=30, default='')
     # last_name = models.CharField(max_length=30, default='')
     # email = models.EmailField(default='')
-    dateofbirth = models.DateField(blank=True,null=True)
+    dateofbirth = models.DateField(blank=True, null=True)
     # nid = models.IntegerField(default='0')
     currentdate = models.DateField(default=timezone.now)
     location = models.CharField(max_length=30, default='', blank=True, null=True, choices=locations)

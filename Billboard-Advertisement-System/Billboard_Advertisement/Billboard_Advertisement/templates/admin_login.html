@@ -1,0 +1,27 @@
+{%  extends 'base.html' %}
+{% block content %}
+<body>
+<div>
+    {% if isadmin == "b" %}
+    <h1 style="color: red">You are not an admin user.</h1>
+    {% endif %}
+    {% if isadmin == "c" %}
+    <h1 style="color: red">Invalid login details.</h1>
+    {% endif %}
+    <h1>Login here</h1>
+    <h3 style="color: darkblue">Login as admin to redirect to admin panel</h3>
+    <br>
+    <form action="{% url 'admin_login' %}" method="post">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" name="username" placeholder="enter username"/>
+        <br><br>
+         <label for="password">Password:</label>
+        <input type="password" name="password" placeholder="enter password"/>
+        <br><br>
+        <button class="button" style="float:middle;"><span>Login</span></button>
+    </form>
+    <a href="/"><button class="button" style="color: darkred;"><span>Go Back</span></button></a>
+</div>
+</body>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Update your profile photo here</h1>
+    <h3 style="color: darkblue">Chose a photo</h3>
+    <br>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br>
+    <button type="submit" class="button" style="float:middle;"><span>Upload</span></button>
+    </form>
+    <a href="/features/"><button class="button" style="color: darkred;"><span>Go Back</span></button></a>
+    <br>
+    {% if t %}
+    <h3 style="color: blue">Succesfully uploaded : {{t.profile_pic}}</h3>
+    <img src="{{ t.profile_pic.url }}" alt="Profile pic" style="max-height:200px">
+    {% endif %}
+</div>
+{% endblock %}

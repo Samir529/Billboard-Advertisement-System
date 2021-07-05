@@ -11,10 +11,11 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-from .forms import UserForm, User, updatePriceForm, profilePicForm
-from .models import priceOfGold, deposit, UserProfileInfo, bankMoney, loan, products, deposit_history, withdraw_history
 from django.shortcuts import render
 import datetime
+
+from .forms import UserProfileInfoForm, UserForm
+
 
 def home(req):
     return render(req, 'home.html')
@@ -22,6 +23,29 @@ def home(req):
 def base(req):
     return render(req, 'base.html')
 
+def adminPanel(request):
+    return render(request, 'adminPanel.html')
+
+
+def admin_login(request):
+    isadmin = 'a'
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_superuser:
+                return HttpResponseRedirect(reverse('adminPanel'))
+
+            else:
+                isadmin = 'b'
+                return render(request, 'admin_login.html',{'isadmin': isadmin})
+        else:
+            isadmin = 'c'
+            return render(request, 'admin_login.html', {'isadmin': isadmin})
+    return render(request, 'admin_login.html', {'isadmin': isadmin})
 
 @login_required
 def user_logout(request):
@@ -66,7 +90,7 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect(reverse('features'))
+                return HttpResponseRedirect(reverse('home'))    ##
 
             else:
                 return HttpResponse("Account not actived.")
