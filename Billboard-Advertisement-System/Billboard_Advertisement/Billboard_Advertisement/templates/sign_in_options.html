@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Registration</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <button type="submit" name="Customer" class="button" style="float:middle;"><span>Customer</span></button>
+        <button type="submit" name="Advertiser" class="button" style="float:middle;"><span>Advertiser</span></button>
+        <button type="submit" name="City_Corporation" class="button" style="float:middle;"><span>City Corporation</span></button>
+<!--     <input type="submit" value="Submit" name="Submit">-->
+    </form>
+</body>
+</html>

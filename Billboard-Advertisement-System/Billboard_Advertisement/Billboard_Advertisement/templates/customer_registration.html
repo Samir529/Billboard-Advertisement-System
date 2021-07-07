@@ -15,7 +15,7 @@
         {{ user_form.as_p }}
         {{ profile_form.as_p }}
         {% csrf_token %}
-        <button class="button" style="float:middle;"><span>Register</span></button>
+        <button type="submit" name="Register" class="button" style="float:middle;"><span>Register</span></button>
     </form>
     {% endif %}
     <a href="/"><button class="button" style="color: darkred;"><span>Go Back</span></button></a>

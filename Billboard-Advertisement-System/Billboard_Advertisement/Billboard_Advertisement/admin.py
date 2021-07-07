@@ -1,6 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import UserProfileInfo
+from .models import CustomerProfileInfo, AdvertiserProfileInfo, CityCorporationProfileInfo
 
-admin.site.register(UserProfileInfo)
+admin.site.register(CustomerProfileInfo)
+admin.site.register(AdvertiserProfileInfo)
+admin.site.register(CityCorporationProfileInfo)

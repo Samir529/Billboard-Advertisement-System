@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from .models import UserProfileInfo
+from .models import CustomerProfileInfo, AdvertiserProfileInfo, CityCorporationProfileInfo
 
 
 class UserForm(forms.ModelForm):
@@ -14,26 +14,101 @@ class UserForm(forms.ModelForm):
             'username': None,
         }
 
-class UserProfileInfoForm(forms.ModelForm):
+class CustomerProfileInfoForm(forms.ModelForm):
     class Meta():
-        model = UserProfileInfo
-        fields = ('mobileNo', 'location', 'dateofbirth',)
+        model = CustomerProfileInfo
+        fields = ('mobileNo', 'location', 'dateofbirth', 'Customer_profile_pic')
         labels = {
             "mobileNo": "Mobile No.:",
             "location": "Home District:",
-            "dateofbirth": "Date of Birth:"
+            "dateofbirth": "Date of Birth:",
+            "Customer_profile_pic": "Profile Photo:"
+        }
+        help_texts = {
+            'mobileNo': '<small style="color:teal">not    mendatory</small>',
+            'location': '<small style="color:teal">not mendatory</small>',
+            'dateofbirth': '<small style="color:teal">not mendatory</small>',
+            #'Customer_profile_pic': '<small style="color:teal">not mendatory</small>',
+        }
+        widgets = {'dateofbirth': forms.SelectDateWidget(years=range(1900, 2021))}
+
+class AdvertiserProfileInfoForm(forms.ModelForm):
+    class Meta():
+        model = AdvertiserProfileInfo
+        fields = ('mobileNo', 'location', 'dateofbirth', 'Advertiser_profile_pic')
+        labels = {
+            "mobileNo": "Mobile No.:",
+            "location": "Home District:",
+            "dateofbirth": "Date of Birth:",
+            "Advertiser_profile_pic": "Profile Photo:"
         }
         help_texts = {
             'mobileNo': '<small style="color:teal">not mendatory</small>',
             'location': '<small style="color:teal">not mendatory</small>',
             'dateofbirth': '<small style="color:teal">not mendatory</small>',
+            #'Advertiser_profile_pic': '<small style="color:teal">not mendatory</small>',
         }
         widgets = {'dateofbirth': forms.SelectDateWidget(years=range(1900, 2021))}
 
-class profilePicForm(forms.ModelForm):
-    class Meta:
-        model = UserProfileInfo
-        fields = ('profile_pic',)
+class CityCorporationProfileInfoForm(forms.ModelForm):
+    class Meta():
+        model = CityCorporationProfileInfo
+        fields = ('mobileNo', 'location', 'dateofbirth', 'cityCor_profile_pic')
         labels = {
-            "profile_pic": "Profile Photo:"
+            "mobileNo": "Mobile No.:",
+            "location": "Home District:",
+            "dateofbirth": "Date of Birth:",
+            "cityCor_profile_pic": "Profile Photo:"
         }
+        help_texts = {
+            'mobileNo': '<small style="color:teal">not mendatory</small>',
+            'location': '<small style="color:teal">not mendatory</small>',
+            'dateofbirth': '<small style="color:teal">not mendatory</small>',
+            #'cityCor_profile_pic': '<small style="color:teal">not mendatory</small>',
+        }
+        widgets = {'dateofbirth': forms.SelectDateWidget(years=range(1900, 2021))}
+
+class customerProfilePicForm(forms.ModelForm):
+    class Meta:
+        model = CustomerProfileInfo
+        fields = ('Customer_profile_pic',)
+        labels = {
+            "Customer_profile_pic": "Profile Photo:"
+        }
+
+class advertiserProfilePicForm(forms.ModelForm):
+    class Meta:
+        model = AdvertiserProfileInfo
+        fields = ('Advertiser_profile_pic',)
+        labels = {
+            "Advertiser_profile_pic": "Profile Photo:"
+        }
+
+class cityCorporationProfilePicForm(forms.ModelForm):
+    class Meta:
+        model = CityCorporationProfileInfo
+        fields = ('cityCor_profile_pic',)
+        labels = {
+            "cityCor_profile_pic": "Profile Photo:"
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
