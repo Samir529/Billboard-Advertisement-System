@@ -21,12 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c19738bb-bea5-4b5f-abae-767c65828fc7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../test.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
