@@ -83,3 +83,7 @@ class CityCorporationProfileInfo(models.Model):
     def __str__(self):
         return str(self.user)
 
+
+class Post_Advertise(models.Model):
+    user = models.CharField(max_length = 100)
+

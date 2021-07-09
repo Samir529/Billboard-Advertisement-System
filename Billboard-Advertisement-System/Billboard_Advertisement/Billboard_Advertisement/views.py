@@ -211,7 +211,8 @@ def cityCor_profile_pic(request):
     return render(request, 'profile_pic.html', {'form': form})
 
 
-
+def post_form(request):
+    return render(request, 'post_form.html')
 
 
 

@@ -33,4 +33,5 @@ urlpatterns = [
     path('Customer_profile_pic/',views.Customer_profile_pic, name='Customer_profile_pic'),
     path('Advertiser_profile_pic/',views.Advertiser_profile_pic, name='Advertiser_profile_pic'),
     path('cityCor_profile_pic/',views.cityCor_profile_pic, name='cityCor_profile_pic'),
+    path('post_form/',views.post_form, name='post_form'),
 ]

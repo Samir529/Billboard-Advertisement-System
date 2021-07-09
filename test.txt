@@ -1,0 +1,9 @@
+git pull
+
+push:
+
+git add *
+
+git commit -m "This is my msg"
+
+git push origin dev
