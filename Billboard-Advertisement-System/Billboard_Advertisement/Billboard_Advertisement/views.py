@@ -16,7 +16,7 @@ import datetime
 
 from .forms import CustomerProfileInfoForm, UserForm, AdvertiserProfileInfoForm, CityCorporationProfileInfoForm, \
     customerProfilePicForm, advertiserProfilePicForm, cityCorporationProfilePicForm
-from .models import CustomerProfileInfo, CityCorporationProfileInfo, AdvertiserProfileInfo
+from .models import CustomerProfileInfo, CityCorporationProfileInfo, AdvertiserProfileInfo, Post_Advertise_table
 
 
 def home(req):
@@ -212,7 +212,30 @@ def cityCor_profile_pic(request):
 
 
 def post_form(request):
-    return render(request, 'post_form.html')
+        return render(request, 'post_form.html')
+
+def post_save(request):
+
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        Spec_loc = request.POST.get('location')
+        size = request.POST.get('bill_size')
+        price = request.POST.get('price')
+        short_desc = request.POST.get('desc')
+
+        mydata = Post_Advertise_table()
+
+        mydata.title = title
+        mydata.spec_loc = spec_loc
+        mydata.size = size
+        mydata.price = price
+        mydata.short_desc = short_desc
+
+        mydata.save()
+        return redirect('/')
+    else:
+
+        return render(request, 'post_form.html')
 
 
 

@@ -34,4 +34,6 @@ urlpatterns = [
     path('Advertiser_profile_pic/',views.Advertiser_profile_pic, name='Advertiser_profile_pic'),
     path('cityCor_profile_pic/',views.cityCor_profile_pic, name='cityCor_profile_pic'),
     path('post_form/',views.post_form, name='post_form'),
+    path('post_form/post_save',views.post_save, name='post_save'),
+
 ]
