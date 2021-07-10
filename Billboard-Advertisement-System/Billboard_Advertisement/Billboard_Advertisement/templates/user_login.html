@@ -1,4 +1,5 @@
-﻿{%  extends 'base.html' %}
+﻿<!DOCTYPE html>
+{% extends 'base.html' %}
 {% block content %}
 <body>
 <div>
@@ -7,14 +8,14 @@
         <a href="register/"><button class="button" style="width: 25%;  padding: 4px;"><span>Register</span></button></a></h1>
     </div>
     {% endif %}
-    <h1>Login here</h1>
+    <h1 style="color:white;">Login here</h1>
     <br>
     <form action="{% url 'user_login' %}" method="post">
         {% csrf_token %}
-        <label for="username">Username:</label>
+        <label for="username" style="color:white;">Username:</label>
         <input type="text" name="username" placeholder="enter username"/>
         <br><br>
-         <label for="password">Password:</label>
+         <label for="password" style="color:white;">Password:</label>
         <input type="password" name="password" placeholder="enter password"/>
         <br><br>
         <button class="button" style="float:middle;"><span>Login</span></button>

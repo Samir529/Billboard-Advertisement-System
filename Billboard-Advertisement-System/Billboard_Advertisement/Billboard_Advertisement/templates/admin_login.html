@@ -1,4 +1,5 @@
-{%  extends 'base.html' %}
+<!DOCTYPE html>
+{% extends 'base.html' %}
 {% block content %}
 <body>
 <div>
@@ -8,15 +9,15 @@
     {% if isadmin == "c" %}
     <h1 style="color: red">Invalid login details.</h1>
     {% endif %}
-    <h1>Login here</h1>
-    <h3 style="color: darkblue">Login as admin to redirect to admin panel</h3>
+    <h1 style="color:white;">Login here</h1>
+    <h3 style="color: white">Login as admin to redirect to admin panel</h3>
     <br>
     <form action="{% url 'admin_login' %}" method="post">
         {% csrf_token %}
-        <label for="username">Username:</label>
+        <label for="username" style="color:white;">Username:</label>
         <input type="text" name="username" placeholder="enter username"/>
         <br><br>
-         <label for="password">Password:</label>
+         <label for="password" style="color:white;">Password:</label>
         <input type="password" name="password" placeholder="enter password"/>
         <br><br>
         <button class="button" style="float:middle;"><span>Login</span></button>

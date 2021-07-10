@@ -5,26 +5,29 @@
     <title>Billboard Advertise</title>
 </head>
 <body>
-            <div class="masthead-heading text-uppercase" style="color:gainsboro;">Welcome To Our Site!</div>
-                {% block content %}
-                <style>
-                body { background-color:gainsboro; }
-                .highlightme { background-color:rgba(0,0,0,.7); }
-                p { background-color:#FFFFFF; }
-                </style>
-                <h1 style="text-align: center; color:gold;"><span class="highlightme" style="color: gainsboro;"> Welcome to </span><span class="highlightme" style="color: gold;">Billboard</span><span class="highlightme" style="color: gainsboro;"> System ;) </span></h1>
-                {% if user.is_authenticated %}
-                <a href="{% url 'logout' %}" class= "button" style="  display: block; margin: auto; width: 30%; color:black;"><span>Logout</span></a>
-                {% else %}
-                <br>
-                <a href="user_login/" class= "button" style="  display: block; margin: auto; width: 30%; color:black;"><span>Login</span></a>
-                {% endif %}
-                <br>
-                <a href="sign_in_options/" class = "button" style="  display: block; margin: auto; width: 30%; color:black;"><span>Sign up</span></a>
-                <br>
-                <a href="admin_login/" class = "button" style="  display: block; margin: auto; width: 30%; color:black;"><span>Admin Panel</span></a>
-                <a href="post_form/" class = "button" style="  display: block; margin: auto; width: 30%; color:black;"><span>post</span></a>
-                {% endblock %}
-            </div>
+    <div class="masthead-heading text-uppercase" style="color:gainsboro;">Welcome To Our Site!</div>
+    {% block content %}
+    <style>
+        body { background-color:gainsboro; }
+        .highlightme { background-color:black; }
+        body { background-image: url('/static/assets/image/background_image.png');
+        background-repeat:no-repeat;
+        background-size:100% 100vh;}
+    </style>
+    <h1 style="text-align: center; color:gold;"><span class="highlightme" style="color: gainsboro;"> Welcome to </span><span class="highlightme" style="color: gold;">Billboard</span><span class="highlightme" style="color: gainsboro;"> System ;) </span></h1>
+    {% if user.is_authenticated %}
+    <a href="{% url 'logout' %}" class= "button" style="  display: block; margin: auto; width: 30%; color:white;"><span>Logout</span></a>
+    {% else %}
+    <br>
+    <a href="user_login/" class= "button" style="  display: block; margin: auto; width: 30%; color:white;"><span>Login</span></a>
+    {% endif %}
+    <br>
+    <a href="sign_in_options/" class = "button" style="  display: block; margin: auto; width: 30%; color:white;"><span>Sign up</span></a>
+    <br>
+    <a href="admin_login/" class = "button" style="  display: block; margin: auto; width: 30%; color:white;"><span>Admin Panel</span></a>
+    <br>
+    <a href="post_form/" class = "button" style="  display: block; margin: auto; width: 30%; color:white;"><span>post</span></a>
+    {% endblock %}
+    </div>
 </body>
 </html>
