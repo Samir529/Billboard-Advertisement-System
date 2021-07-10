@@ -15,7 +15,7 @@ from django.shortcuts import render
 import datetime
 
 from .forms import CustomerProfileInfoForm, UserForm, AdvertiserProfileInfoForm, CityCorporationProfileInfoForm, \
-    customerProfilePicForm, advertiserProfilePicForm, cityCorporationProfilePicForm
+    customerProfilePicForm, advertiserProfilePicForm, cityCorporationProfilePicForm, post_from
 from .models import CustomerProfileInfo, CityCorporationProfileInfo, AdvertiserProfileInfo, Post_Advertise_table
 
 
@@ -212,11 +212,19 @@ def cityCor_profile_pic(request):
 
 
 def post_form(request):
-        return render(request, 'post_form.html')
+    form_of_post = post_from(request.POST or None)
+    if form_of_post.is_valid():
+        form_of_post.save()
+        form_of_post = post_from()
+
+    context = {
+        'form_of_post':form_of_post
+    }
+    return render(request, 'post_form.html', context)
 
 def post_save(request):
 
-    if request.method == 'POST':
+    if request.method == "POST":
         title = request.POST.get('title')
         Spec_loc = request.POST.get('location')
         size = request.POST.get('bill_size')

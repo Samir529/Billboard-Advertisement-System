@@ -89,7 +89,7 @@ class Post_Advertise_table(models.Model):
     Spec_loc = models.CharField(max_length=100)
     size = models.CharField(max_length=100)
     price = models.CharField(max_length=100)
-    short_desc = models.CharField(max_length=100)
+    short_desc = models.TextField(max_length=100)
 
 
     def __str__(self):

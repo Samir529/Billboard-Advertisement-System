@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from .models import CustomerProfileInfo, AdvertiserProfileInfo, CityCorporationProfileInfo
+from .models import CustomerProfileInfo, AdvertiserProfileInfo, CityCorporationProfileInfo, Post_Advertise_table
 
 
 class UserForm(forms.ModelForm):
@@ -94,8 +94,17 @@ class cityCorporationProfilePicForm(forms.ModelForm):
 
 
 
-
-
+class post_from(forms.ModelForm):
+    class Meta:
+        model = Post_Advertise_table
+        fields = ('title', 'Spec_loc', 'size', 'price', 'short_desc')
+        labels = {
+            "title": "Title: ",
+            "Spec_loc": "Specific Location: ",
+            "size": "Size of billboard: ",
+            "price": "Price: ",
+            "short_desc": "Short Description: "
+        }
 
 
 
