@@ -21,7 +21,19 @@
   <component name="ChangeListManager">
     <list default="true" id="c19738bb-bea5-4b5f-abae-767c65828fc7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/static/css/Style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/static/css/Style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/admin_login.html" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/admin_login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/advertiser_registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/advertiser_registration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/customer_registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/customer_registration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/govt_registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/govt_registration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/post_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/post_form.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/sign_in_options.html" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/sign_in_options.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/user_login.html" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/Billboard_Advertisement/templates/user_login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Billboard_Advertisement/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/Billboard_Advertisement/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +60,7 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../CSE475/Lab/Lab2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../for 412 temp backup/GoldBank" />
   </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
@@ -84,6 +96,9 @@
     </task>
     <servers />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.css" />
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -97,10 +112,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1626802270154">
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1626844648382">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1626802270154" />
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1626844648382" />
     <state width="1345" height="179" key="GridCell.Tab.0.bottom" timestamp="1625514555473">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

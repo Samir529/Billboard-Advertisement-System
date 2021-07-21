@@ -25,9 +25,9 @@ class CustomerProfileInfoForm(forms.ModelForm):
             "Customer_profile_pic": "Profile Photo:"
         }
         help_texts = {
-            'mobileNo': '<small style="color:teal">not    mendatory</small>',
-            'location': '<small style="color:teal">not mendatory</small>',
-            'dateofbirth': '<small style="color:teal">not mendatory</small>',
+            'mobileNo': '<small style="color:darkorange">not mendatory</small>',
+            'location': '<small style="color:darkorange">not mendatory</small>',
+            'dateofbirth': '<small style="color:darkorange">not mendatory</small>',
             #'Customer_profile_pic': '<small style="color:teal">not mendatory</small>',
         }
         widgets = {'dateofbirth': forms.SelectDateWidget(years=range(1900, 2021))}
@@ -43,9 +43,9 @@ class AdvertiserProfileInfoForm(forms.ModelForm):
             "Advertiser_profile_pic": "Profile Photo:"
         }
         help_texts = {
-            'mobileNo': '<small style="color:teal">not mendatory</small>',
-            'location': '<small style="color:teal">not mendatory</small>',
-            'dateofbirth': '<small style="color:teal">not mendatory</small>',
+            'mobileNo': '<small style="color:darkorange">not mendatory</small>',
+            'location': '<small style="color:darkorange">not mendatory</small>',
+            'dateofbirth': '<small style="color:darkorange">not mendatory</small>',
             #'Advertiser_profile_pic': '<small style="color:teal">not mendatory</small>',
         }
         widgets = {'dateofbirth': forms.SelectDateWidget(years=range(1900, 2021))}
@@ -61,9 +61,9 @@ class CityCorporationProfileInfoForm(forms.ModelForm):
             "cityCor_profile_pic": "Profile Photo:"
         }
         help_texts = {
-            'mobileNo': '<small style="color:teal">not mendatory</small>',
-            'location': '<small style="color:teal">not mendatory</small>',
-            'dateofbirth': '<small style="color:teal">not mendatory</small>',
+            'mobileNo': '<small style="color:darkorange">not mendatory</small>',
+            'location': '<small style="color:darkorange">not mendatory</small>',
+            'dateofbirth': '<small style="color:darkorange">not mendatory</small>',
             #'cityCor_profile_pic': '<small style="color:teal">not mendatory</small>',
         }
         widgets = {'dateofbirth': forms.SelectDateWidget(years=range(1900, 2021))}
@@ -99,11 +99,11 @@ class post_from(forms.ModelForm):
         model = Post_Advertise_table
         fields = ('title', 'Spec_loc', 'size', 'price', 'short_desc')
         labels = {
-            "title": "Title: ",
-            "Spec_loc": "Specific Location: ",
-            "size": "Size of billboard: ",
-            "price": "Price: ",
-            "short_desc": "Short Description: "
+            "title": "Title:",
+            "Spec_loc": "Specific Location:",
+            "size": "Size of billboard:",
+            "price": "Price:",
+            "short_desc": "Short Description:"
         }
 
 
