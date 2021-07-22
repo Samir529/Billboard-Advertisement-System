@@ -9,7 +9,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/Style.css' %}"/>
 </head>
 <body>
-    {% block content %}
     <video autoplay muted loop id="backgroundVideo">
     <source src="/static/assets/image/billboard2.mp4" type="video/mp4">
     </video>
@@ -27,6 +26,7 @@
         width: 100%;
         padding: 0px 0px 190px 0px;
     }
+    {% block content %}
     </style>
     <div class="content2">
     <br><br><br>
@@ -42,6 +42,8 @@
     <a href="sign_in_options/" class = "button" style="display: block; margin: auto; width: 30%;"><span>Sign up</span></a>
     <br>
     <a href="admin_login/" class = "button" style="display: block; margin: auto; width: 30%;"><span>Admin login</span></a>
+    <br>
+    <a href="sizeMoneyCalculation/" class = "button" style="  display: block; margin: auto; width: 30%; color:black;"><span>Price Calculator</span></a>
     {% endblock %}
     </div>
 </body>
