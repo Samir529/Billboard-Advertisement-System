@@ -1,7 +1,8 @@
 from datetime import date
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.utils import timezone
+from django.conf import settings
 
 locations = [
     ('Dhaka', 'Dhaka'),
@@ -25,7 +26,12 @@ locations = [
     ('Tangail', 'Tangail'),
     ('Patuakhali', 'Patuakhali'),
     ('Lalmonirhat', 'Lalmonirhat'),
-    ('Madaripur', 'Madaripur')
+    ('Madaripur', 'Madaripur'),
+    ('Naogaon', 'Naogaon'),
+    ('Rajbari', 'Rajbari'),
+    ('Narail', 'Narail'),
+    ('Pirojpur', 'Pirojpur'),
+    ('Sherpur', 'Sherpur'),
 ]
 
 
@@ -43,6 +49,7 @@ class CustomerProfileInfo(models.Model):
     account_age = models.CharField(max_length=10, default='', blank=True, null=True)
     # acc_no = models.IntegerField(default='-', blank=True, null=True)
     Customer_profile_pic = models.ImageField(upload_to='profiles_pic', default='/profiles_pic/Customer_profile_pic/demo_profile_pic2.png', blank=True)
+    is_customer = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.user)
@@ -61,6 +68,7 @@ class AdvertiserProfileInfo(models.Model):
     account_age = models.CharField(max_length=10, default='', blank=True, null=True)
     # acc_no = models.IntegerField(default='-', blank=True, null=True)
     Advertiser_profile_pic = models.ImageField(upload_to='profiles_pic', default='/profiles_pic/Advertiser_profile_pic/demo_profile_pic2.png', blank=True)
+    is_advertiser = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.user)
@@ -79,6 +87,7 @@ class CityCorporationProfileInfo(models.Model):
     account_age = models.CharField(max_length=10, default='', blank=True, null=True)
     # acc_no = models.IntegerField(default='-', blank=True, null=True)
     cityCor_profile_pic = models.ImageField(upload_to='profiles_pic', default='/profiles_pic/cityCor_profile_pic/demo_profile_pic2.png', blank=True)
+    is_cityCor = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.user)
@@ -91,7 +100,8 @@ class Post_Advertise_table(models.Model):
     price = models.CharField(max_length=100)
     short_desc = models.TextField(max_length=100)
 
-
     def __str__(self):
         return self.title
+
+
 

@@ -1,15 +1,20 @@
-{% extends "base.html"%}
-
+<!DOCTYPE html>
+{% extends 'base.html' %}
 {% block content %}
-<form method="POST"> {% csrf_token %}
+<body>
+    <div class="content">
+<form method="POST" class="formStyle"> {% csrf_token %}
     <table>
         {{form_of_post.as_table}}
         <tr>
             <td colspan="2">
-                <input type='Submit' value="Post Advertise" />
+<!--                <input type='Submit' value="Post Advertise" />-->
+                <button type="submit" class="button"><span>Post Advertise</span></button>
             </td>>
         </tr>>
     </table>
-
 </form>
+        <a href="/advertiserPanel/"><button class="button"><span>Back</span></button></a>
+    </div>
+    </body>
 {% endblock %}

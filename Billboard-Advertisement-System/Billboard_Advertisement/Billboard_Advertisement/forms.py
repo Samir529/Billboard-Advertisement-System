@@ -17,54 +17,63 @@ class UserForm(forms.ModelForm):
 class CustomerProfileInfoForm(forms.ModelForm):
     class Meta():
         model = CustomerProfileInfo
-        fields = ('mobileNo', 'location', 'dateofbirth', 'Customer_profile_pic')
+        is_customer = forms.BooleanField(initial=True)
+        fields = ('mobileNo', 'location', 'dateofbirth', 'Customer_profile_pic', 'is_customer')
         labels = {
             "mobileNo": "Mobile No.:",
             "location": "Home District:",
             "dateofbirth": "Date of Birth:",
-            "Customer_profile_pic": "Profile Photo:"
+            "Customer_profile_pic": "Profile Photo:",
+            "is_customer": "Customer:"
         }
         help_texts = {
-            'mobileNo': '<small style="color:teal">not    mendatory</small>',
-            'location': '<small style="color:teal">not mendatory</small>',
-            'dateofbirth': '<small style="color:teal">not mendatory</small>',
-            #'Customer_profile_pic': '<small style="color:teal">not mendatory</small>',
+            'mobileNo': '<small style="color:darkorange">not mendatory</small>',
+            'location': '<small style="color:darkorange">not mendatory</small>',
+            'dateofbirth': '<small style="color:darkorange">not mendatory</small>',
+            # 'Customer_profile_pic': '<small style="color:teal">not mendatory</small>',
+            'is_customer': '<small style="color:darkorange">mendatory</small>',
         }
         widgets = {'dateofbirth': forms.SelectDateWidget(years=range(1900, 2021))}
 
 class AdvertiserProfileInfoForm(forms.ModelForm):
     class Meta():
         model = AdvertiserProfileInfo
-        fields = ('mobileNo', 'location', 'dateofbirth', 'Advertiser_profile_pic')
+        is_advertiser = forms.BooleanField(initial=True)
+        fields = ('mobileNo', 'location', 'dateofbirth', 'Advertiser_profile_pic', 'is_advertiser')
         labels = {
             "mobileNo": "Mobile No.:",
             "location": "Home District:",
             "dateofbirth": "Date of Birth:",
-            "Advertiser_profile_pic": "Profile Photo:"
+            "Advertiser_profile_pic": "Profile Photo:",
+            "is_advertiser": "Advertiser:"
         }
         help_texts = {
-            'mobileNo': '<small style="color:teal">not mendatory</small>',
-            'location': '<small style="color:teal">not mendatory</small>',
-            'dateofbirth': '<small style="color:teal">not mendatory</small>',
+            'mobileNo': '<small style="color:darkorange">not mendatory</small>',
+            'location': '<small style="color:darkorange">not mendatory</small>',
+            'dateofbirth': '<small style="color:darkorange">not mendatory</small>',
             #'Advertiser_profile_pic': '<small style="color:teal">not mendatory</small>',
+            'is_advertiser': '<small style="color:darkorange">mendatory</small>',
         }
         widgets = {'dateofbirth': forms.SelectDateWidget(years=range(1900, 2021))}
 
 class CityCorporationProfileInfoForm(forms.ModelForm):
     class Meta():
         model = CityCorporationProfileInfo
-        fields = ('mobileNo', 'location', 'dateofbirth', 'cityCor_profile_pic')
+        is_cityCor = forms.BooleanField(initial=True)
+        fields = ('mobileNo', 'location', 'dateofbirth', 'cityCor_profile_pic', 'is_cityCor')
         labels = {
             "mobileNo": "Mobile No.:",
             "location": "Home District:",
             "dateofbirth": "Date of Birth:",
-            "cityCor_profile_pic": "Profile Photo:"
+            "cityCor_profile_pic": "Profile Photo:",
+            "is_cityCor": "Government:"
         }
         help_texts = {
-            'mobileNo': '<small style="color:teal">not mendatory</small>',
-            'location': '<small style="color:teal">not mendatory</small>',
-            'dateofbirth': '<small style="color:teal">not mendatory</small>',
+            'mobileNo': '<small style="color:darkorange">not mendatory</small>',
+            'location': '<small style="color:darkorange">not mendatory</small>',
+            'dateofbirth': '<small style="color:darkorange">not mendatory</small>',
             #'cityCor_profile_pic': '<small style="color:teal">not mendatory</small>',
+            'is_cityCor': '<small style="color:darkorange">mendatory</small>',
         }
         widgets = {'dateofbirth': forms.SelectDateWidget(years=range(1900, 2021))}
 
@@ -99,11 +108,11 @@ class post_from(forms.ModelForm):
         model = Post_Advertise_table
         fields = ('title', 'Spec_loc', 'size', 'price', 'short_desc')
         labels = {
-            "title": "Title: ",
-            "Spec_loc": "Specific Location: ",
-            "size": "Size of billboard: ",
-            "price": "Price: ",
-            "short_desc": "Short Description: "
+            "title": "Title:",
+            "Spec_loc": "Specific Location:",
+            "size": "Size of billboard:",
+            "price": "Price:",
+            "short_desc": "Short Description:"
         }
 
 

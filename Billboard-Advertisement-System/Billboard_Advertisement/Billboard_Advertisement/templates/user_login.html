@@ -1,25 +1,28 @@
-﻿{%  extends 'base.html' %}
+﻿<!DOCTYPE html>
+{% extends 'base.html' %}
 {% block content %}
 <body>
-<div>
+    <div class="content">
     {% if isuser == "b" %}
+        <br>
     <div style="white-space:nowrap"><h1 style="color: red">You are not registered. Register here first.
-        <a href="register/"><button class="button" style="width: 25%;  padding: 4px;"><span>Register</span></button></a></h1>
+        <a href="register/"><button class="button" style="width: 25%;  padding: 6px;"><span>Register</span></button></a></h1>
     </div>
     {% endif %}
-    <h1>Login here</h1>
+        <br><br>
+    <h1 style="color: white;">Login here</h1>
     <br>
-    <form action="{% url 'user_login' %}" method="post">
+    <form action="{% url 'user_login' %}" method="post" class="formStyle">
         {% csrf_token %}
-        <label for="username">Username:</label>
+        <label for="username" style="color:white;">Username:</label>
         <input type="text" name="username" placeholder="enter username"/>
         <br><br>
-         <label for="password">Password:</label>
+         <label for="password" style="color:white;">Password:</label>
         <input type="password" name="password" placeholder="enter password"/>
         <br><br>
-        <button class="button" style="float:middle;"><span>Login</span></button>
+        <button class="button"><span>Login</span></button>
     </form>
-    <a href="/"><button class="button" style="color: darkred;"><span>Go Back</span></button></a>
+    <a href="/"><button class="button"><span>Back</span></button></a>
 </div>
 </body>
 {% endblock %}

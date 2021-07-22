@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 {% extends "base.html"%}
 {% block content %}
-<div>
+<body>
+    <div class="content">
     {% if registered %}
-    <h1 style="color: blue">Thank you for registering.</h1>
-    <h3>Your current account .</h3>
+        <br>
+    <h1 style="color: white">Thank you for registering.</h1>
     <br>
     {% else %}
-    <h1>Register here</h1>
-    <h3 style="color: darkblue;">Fill out the below form</h3>
+        <br>
+    <h1 style="color: white;">Register here</h1>
+    <h3 style="color: white;">Fill out the below form</h3>
     <br>
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" class="formStyle">
         {% csrf_token %}
         {{ user_form.as_p }}
         {{ profile_form.as_p }}
         {% csrf_token %}
-        <button type="submit" name="Register" class="button" style="float:middle;"><span>Register</span></button>
+        <button type="submit" class="button"><span>Register</span></button>
     </form>
     {% endif %}
-    <a href="/"><button class="button" style="color: darkred;"><span>Go Back</span></button></a>
+        <a href="/sign_in_options"><button class="button"><span>Back</span></button></a>
 </div>
+    </body>
 {% endblock %}

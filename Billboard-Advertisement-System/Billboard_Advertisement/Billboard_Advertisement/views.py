@@ -11,7 +11,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import datetime
 
 from .forms import CustomerProfileInfoForm, UserForm, AdvertiserProfileInfoForm, CityCorporationProfileInfoForm, \
@@ -27,6 +27,15 @@ def base(req):
 
 def adminPanel(request):
     return render(request, 'adminPanel.html')
+
+def customerPanel(request):
+    return render(request, 'Customer_panel.html')
+
+def advertiserPanel(request):
+    return render(request, 'Advertiser_panel.html')
+
+def cityCorporationPanel(request):
+    return render(request, 'cityCorporation_panel.html')
 
 def sign_in_options(request):
     if request.method == 'POST':
@@ -156,8 +165,22 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect(reverse('home'))    ##
-
+                try:
+                    c = CustomerProfileInfo.objects.get(user=request.user)
+                    if c.is_customer==True:
+                        return HttpResponseRedirect(reverse('customerPanel'))
+                except CustomerProfileInfo.DoesNotExist:
+                    try:
+                        a = AdvertiserProfileInfo.objects.get(user=request.user)
+                        if a.is_advertiser == True:
+                            return HttpResponseRedirect(reverse('advertiserPanel'))
+                    except AdvertiserProfileInfo.DoesNotExist:
+                        try:
+                            ct = CityCorporationProfileInfo.objects.get(user=request.user)
+                            if ct.is_cityCor == True:
+                                return HttpResponseRedirect(reverse('cityCorporationPanel'))
+                        except CityCorporationProfileInfo.DoesNotExist:
+                            return HttpResponse("Account not actived.")
             else:
                 return HttpResponse("Account not actived.")
         else:
@@ -234,13 +257,13 @@ def post_save(request):
         mydata = Post_Advertise_table()
 
         mydata.title = title
-        mydata.spec_loc = spec_loc
+        mydata.spec_loc = Spec_loc
         mydata.size = size
         mydata.price = price
         mydata.short_desc = short_desc
 
         mydata.save()
-        return redirect('/')
+        return redirect('advertiserPanel')
     else:
 
         return render(request, 'post_form.html')
