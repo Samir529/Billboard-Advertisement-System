@@ -35,5 +35,8 @@ urlpatterns = [
     path('cityCor_profile_pic/',views.cityCor_profile_pic, name='cityCor_profile_pic'),
     path('post_form/',views.post_form, name='post_form'),
     path('post_form/post_save',views.post_save, name='post_save'),
+    path('sizeMoneyCalculation/', views.sizeMoneyCalculation, name='sizeMoneyCalculation'),
+    path('sizeMoneyCalculation/conv/', views.conv, name='conv'),
+
 
 ]

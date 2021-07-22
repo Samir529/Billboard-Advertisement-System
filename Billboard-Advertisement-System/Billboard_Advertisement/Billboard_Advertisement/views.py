@@ -248,7 +248,16 @@ def post_save(request):
 
 
 
+def sizeMoneyCalculation(request):
+    return render(request, 'sizeMoneyCalculation.html')
 
+
+def conv(request):
+
+    val1 = int(request.GET['num1'])
+    val2 = int(request.GET['num2'])
+    res = val1 * val2
+    return render(request, 'convert.html', {'result': res, 'size': val2})
 
 
 
