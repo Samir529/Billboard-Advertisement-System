@@ -10,20 +10,32 @@
 </head>
 <body>
     {% block content %}
+    <video autoplay muted loop id="backgroundVideo">
+    <source src="/static/assets/image/billboard2.mp4" type="video/mp4">
+    </video>
+<!--    <style>-->
+<!--        body { background-color:gainsboro; }-->
+<!--        .highlightme { background-color:black; }-->
+<!--        body { background-image: url('/static/assets/image/background_image.png');-->
+<!--        background-repeat:no-repeat;-->
+<!--        background-size:100% 125vh;}-->
+<!--    </style>-->
     <style>
-        body { background-color:gainsboro; }
-        .highlightme { background-color:black; }
-        body { background-image: url('/static/assets/image/background_image.png');
-        background-repeat:no-repeat;
-        background-size:100% 125vh;}
+    .content2 {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        padding: 0px 0px 190px 0px;
+    }
     </style>
+    <div class="content2">
     <br><br><br>
     <h1 style="text-align: center;"><span style="color: gainsboro;">Welcome to Billboard Advertisement System</span></h1>
-    <br><br><br><br>
+    <br><br><br><br><br>
     {% if user.is_authenticated %}
     <a href="{% url 'logout' %}" class= "button" style="display: block; margin: auto; width: 30%;"><span>Logout</span></a>
     {% else %}
-    <br>
+    <br><br>
     <a href="user_login/" class= "button" style="display: block; margin: auto; width: 30%;"><span>Login</span></a>
     {% endif %}
     <br>
