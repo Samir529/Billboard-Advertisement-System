@@ -5,7 +5,17 @@
 .page-header {
     background-color: grey;
     margin-top: 0;
-    padding: 20px 20px 15px 30px;
+    padding: 20px 20px 14px 30px;
+	position: fixed;
+	width: 100%
+}
+.home-header {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    margin-top: 0;
+    padding: 20px 20px 14px 30px;
+	position: fixed;
+	width: 100%
 }
 .formStyle {
     color: white;
