@@ -39,8 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Billboard_Advertisement'   ##
+    'Billboard_Advertisement',   ##
+    # 'crispy_forms'  ##
 ]
+
+# CRISPY_TEMPLATE_PACK = 'bootstrap4' ##
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -130,4 +133,5 @@ MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')   ##
 MEDIA_URL = '/media/'   ##
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField' ##
+
 
