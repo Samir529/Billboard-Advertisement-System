@@ -1,0 +1,35 @@
+{% extends "newBase.html" %}
+{% block content %}
+<header class="masthead">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class=" col-md-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h3 class=" site-heading my-4 mt-3 text-black">View Advertisements</h3>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <div class="row">
+    <!-- Blog Entries Column -->
+    <div class="col-md-8 mt-3 left">
+      {% for post in allPosts %}
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title">{{ post.title }}</h2>
+          <p class="card-text text-muted h6">Location: {{ post.Spec_loc }}</p>
+            <p class="card-text text-muted h6">Billboard Size: {{ post.size }}</p>
+            <p class="card-text text-muted h6">Monthly Rent: {{ post.price }}</p>
+          <p class="card-text">{{post.short_desc|slice:":200"}}</p>
+          <a href="{% url 'postDetail' %}" class="btn btn-primary">Confirm Deal &rarr;</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{%endblock%}

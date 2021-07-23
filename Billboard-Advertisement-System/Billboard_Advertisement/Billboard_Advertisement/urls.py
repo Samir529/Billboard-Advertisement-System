@@ -40,6 +40,8 @@ urlpatterns = [
     path('post_form/post_save',views.post_save, name='post_save'),
     path('sizeMoneyCalculation/', views.sizeMoneyCalculation, name='sizeMoneyCalculation'),
     path('sizeMoneyCalculation/conv/', views.conv, name='conv'),
+    path('viewPost/', views.viewPost, name='viewPost'),
+    path('postDetail/', views.postDetail, name='postDetail'),
 
 
 ]

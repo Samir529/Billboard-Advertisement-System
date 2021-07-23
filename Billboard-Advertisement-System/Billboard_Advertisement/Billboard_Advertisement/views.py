@@ -282,9 +282,14 @@ def conv(request):
     res = val1 * val2
     return render(request, 'convert.html', {'result': res, 'size': val2})
 
+def viewPost(request):
+    allPosts = Post_Advertise_table.objects.all()
+    print(allPosts)
+    context = {'allPosts': allPosts}
+    return render(request, 'viewPost.html', context)
 
-
-
+def postDetail(request):
+    return render(request, 'postDetail.html')
 
 
 
