@@ -101,18 +101,26 @@ class cityCorporationProfilePicForm(forms.ModelForm):
             "cityCor_profile_pic": "Profile Photo:"
         }
 
+class postedBillboardPicForm(forms.ModelForm):
+    class Meta:
+        model = Post_Advertise_table
+        fields = ('posted_billboards_pic',)
+        labels = {
+            "posted_billboards_pic": "Billboard Picture:"
+        }
 
 
 class post_from(forms.ModelForm):
     class Meta:
         model = Post_Advertise_table
-        fields = ('title', 'Spec_loc', 'size', 'price', 'short_desc')
+        fields = ('title', 'Spec_loc', 'size', 'price', 'short_desc', 'posted_billboards_pic')
         labels = {
             "title": "Title:",
             "Spec_loc": "Specific Location:",
             "size": "Size of billboard:",
             "price": "Price:",
-            "short_desc": "Short Description:"
+            "short_desc": "Short Description:",
+            "posted_billboards_pic": "Billboard Picture:"
         }
 
 

@@ -99,6 +99,9 @@ class Post_Advertise_table(models.Model):
     size = models.CharField(max_length=100)
     price = models.CharField(max_length=100)
     short_desc = models.TextField(max_length=100)
+    posted_billboards_pic = models.ImageField(upload_to='posted_billboards_pic',
+                                            default='/posted_billboards_pic/billboards_images/demo_billboard_image.JPG',
+                                            blank=True)
 
     def __str__(self):
         return self.title

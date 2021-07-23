@@ -74,13 +74,12 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
 
-
 def register_customer(request):
     registered = False
 
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
-        profile_form = CustomerProfileInfoForm(data=request.POST)
+        profile_form = CustomerProfileInfoForm(request.POST, request.FILES)
 
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
@@ -91,7 +90,9 @@ def register_customer(request):
             profile.user = user
             profile.save()
             registered = True
-
+            # t = CustomerProfileInfo.objects.get(pk=request.user.id)
+            # t.profile_pic = profile_form.cleaned_data['Customer_profile_pic']
+            # t.save()
         else:
             print(user_form.errors, profile_form.errors)
     else:
@@ -194,48 +195,48 @@ def user_login(request):
 def about(request):
     return render(request, 'about.html')
 
-def Customer_profile_pic(request):
-    if request.method == 'POST':
-        form = customerProfilePicForm(request.POST, request.FILES)
-        if form.is_valid():
-            t = CustomerProfileInfo.objects.get(user=request.user)
-            t.profile_pic = form.cleaned_data['profile_pic']
-            t.save()
-            #img_obj = form.instance
-            return render(request, 'profile_pic.html', {'form': form, 't': t})
-    else:
-        form = customerProfilePicForm()
-    return render(request, 'profile_pic.html', {'form': form})
-
-def Advertiser_profile_pic(request):
-    if request.method == 'POST':
-        form = advertiserProfilePicForm(request.POST, request.FILES)
-        if form.is_valid():
-            t = AdvertiserProfileInfo.objects.get(user=request.user)
-            t.profile_pic = form.cleaned_data['profile_pic']
-            t.save()
-            #img_obj = form.instance
-            return render(request, 'profile_pic.html', {'form': form, 't': t})
-    else:
-        form = advertiserProfilePicForm()
-    return render(request, 'profile_pic.html', {'form': form})
-
-def cityCor_profile_pic(request):
-    if request.method == 'POST':
-        form = cityCorporationProfilePicForm(request.POST, request.FILES)
-        if form.is_valid():
-            t = CityCorporationProfileInfo.objects.get(user=request.user)
-            t.profile_pic = form.cleaned_data['profile_pic']
-            t.save()
-            #img_obj = form.instance
-            return render(request, 'profile_pic.html', {'form': form, 't': t})
-    else:
-        form = cityCorporationProfilePicForm()
-    return render(request, 'profile_pic.html', {'form': form})
+# def Customer_profile_pic(request):
+#     if request.method == 'POST':
+#         form = customerProfilePicForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             t = CustomerProfileInfo.objects.get(user=request.user)
+#             t.profile_pic = form.cleaned_data['profile_pic']
+#             t.save()
+#             #img_obj = form.instance
+#             return render(request, 'profile_pic.html', {'form': form, 't': t})
+#     else:
+#         form = customerProfilePicForm()
+#     return render(request, 'profile_pic.html', {'form': form})
+#
+# def Advertiser_profile_pic(request):
+#     if request.method == 'POST':
+#         form = advertiserProfilePicForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             t = AdvertiserProfileInfo.objects.get(user=request.user)
+#             t.profile_pic = form.cleaned_data['profile_pic']
+#             t.save()
+#             #img_obj = form.instance
+#             return render(request, 'profile_pic.html', {'form': form, 't': t})
+#     else:
+#         form = advertiserProfilePicForm()
+#     return render(request, 'profile_pic.html', {'form': form})
+#
+# def cityCor_profile_pic(request):
+#     if request.method == 'POST':
+#         form = cityCorporationProfilePicForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             t = CityCorporationProfileInfo.objects.get(user=request.user)
+#             t.profile_pic = form.cleaned_data['profile_pic']
+#             t.save()
+#             #img_obj = form.instance
+#             return render(request, 'profile_pic.html', {'form': form, 't': t})
+#     else:
+#         form = cityCorporationProfilePicForm()
+#     return render(request, 'profile_pic.html', {'form': form})
 
 
 def post_form(request):
-    form_of_post = post_from(request.POST or None)
+    form_of_post = post_from(request.POST, request.FILES or None)
     if form_of_post.is_valid():
         form_of_post.save()
         form_of_post = post_from()
@@ -267,7 +268,6 @@ def post_save(request):
     else:
 
         return render(request, 'post_form.html')
-
 
 
 

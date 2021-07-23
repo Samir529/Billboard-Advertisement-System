@@ -14,8 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.template.context_processors import static
 from django.urls import path
-from . import views
+from . import views, settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,15 +35,14 @@ urlpatterns = [
     path('cityCorporationPanel/',views.cityCorporationPanel,name='cityCorporationPanel'),
     path('about/',views.about, name="about"),
     path('sign_in_options/',views.sign_in_options, name="sign_in_options"),
-    path('Customer_profile_pic/',views.Customer_profile_pic, name='Customer_profile_pic'),
-    path('Advertiser_profile_pic/',views.Advertiser_profile_pic, name='Advertiser_profile_pic'),
-    path('cityCor_profile_pic/',views.cityCor_profile_pic, name='cityCor_profile_pic'),
+    # path('Customer_profile_pic/',views.Customer_profile_pic, name='Customer_profile_pic'),
+    # path('Advertiser_profile_pic/',views.Advertiser_profile_pic, name='Advertiser_profile_pic'),
+    # path('cityCor_profile_pic/',views.cityCor_profile_pic, name='cityCor_profile_pic'),
     path('post_form/',views.post_form, name='post_form'),
     path('post_form/post_save',views.post_save, name='post_save'),
     path('sizeMoneyCalculation/', views.sizeMoneyCalculation, name='sizeMoneyCalculation'),
     path('sizeMoneyCalculation/conv/', views.conv, name='conv'),
     path('viewPost/', views.viewPost, name='viewPost'),
     path('postDetail/', views.postDetail, name='postDetail'),
-
 
 ]
