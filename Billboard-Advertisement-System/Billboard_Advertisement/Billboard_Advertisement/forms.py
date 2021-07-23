@@ -24,7 +24,7 @@ class CustomerProfileInfoForm(forms.ModelForm):
             "location": "Home District:",
             "dateofbirth": "Date of Birth:",
             "Customer_profile_pic": "Profile Photo:",
-            "is_customer": "Customer:"
+            "is_customer": "Is Customer:"
         }
         help_texts = {
             'mobileNo': '<small style="color:darkorange">not mendatory</small>',
@@ -45,7 +45,7 @@ class AdvertiserProfileInfoForm(forms.ModelForm):
             "location": "Home District:",
             "dateofbirth": "Date of Birth:",
             "Advertiser_profile_pic": "Profile Photo:",
-            "is_advertiser": "Advertiser:"
+            "is_advertiser": "Is Advertiser:"
         }
         help_texts = {
             'mobileNo': '<small style="color:darkorange">not mendatory</small>',
@@ -66,7 +66,7 @@ class CityCorporationProfileInfoForm(forms.ModelForm):
             "location": "Home District:",
             "dateofbirth": "Date of Birth:",
             "cityCor_profile_pic": "Profile Photo:",
-            "is_cityCor": "Government:"
+            "is_cityCor": "Is Government:"
         }
         help_texts = {
             'mobileNo': '<small style="color:darkorange">not mendatory</small>',
