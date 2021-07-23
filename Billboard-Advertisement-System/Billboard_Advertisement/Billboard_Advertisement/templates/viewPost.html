@@ -37,6 +37,7 @@
   {% for post in allPosts %}
   <div class="col">
     <div class="card">
+      {% load static %}
       <img src="{{ post.posted_billboards_pic.url }}" class="card-img-top" alt="billboard image">
       <div class="card-body">
           <h2 class="card-title">{{ post.title }}</h2>

@@ -48,7 +48,7 @@ class CustomerProfileInfo(models.Model):
     mobileNo = models.CharField(max_length=11, default='', blank=True, null=True)
     account_age = models.CharField(max_length=10, default='', blank=True, null=True)
     # acc_no = models.IntegerField(default='-', blank=True, null=True)
-    Customer_profile_pic = models.ImageField(upload_to='profiles_pic', default='/profiles_pic/Customer_profile_pic/demo_profile_pic2.png', blank=True)
+    Customer_profile_pic = models.ImageField(upload_to='profiles_pic/Customer_profile_pic/', default='/profiles_pic/Customer_profile_pic/demo_profile_pic2.png', blank=True)
     is_customer = models.BooleanField(default=False)
 
     def __str__(self):
@@ -67,7 +67,7 @@ class AdvertiserProfileInfo(models.Model):
     mobileNo = models.CharField(max_length=11, default='', blank=True, null=True)
     account_age = models.CharField(max_length=10, default='', blank=True, null=True)
     # acc_no = models.IntegerField(default='-', blank=True, null=True)
-    Advertiser_profile_pic = models.ImageField(upload_to='profiles_pic', default='/profiles_pic/Advertiser_profile_pic/demo_profile_pic2.png', blank=True)
+    Advertiser_profile_pic = models.ImageField(upload_to='profiles_pic/Advertiser_profile_pic/', default='/profiles_pic/Advertiser_profile_pic/demo_profile_pic2.png', blank=True)
     is_advertiser = models.BooleanField(default=False)
 
     def __str__(self):
@@ -86,7 +86,7 @@ class CityCorporationProfileInfo(models.Model):
     mobileNo = models.CharField(max_length=11, default='', blank=True, null=True)
     account_age = models.CharField(max_length=10, default='', blank=True, null=True)
     # acc_no = models.IntegerField(default='-', blank=True, null=True)
-    cityCor_profile_pic = models.ImageField(upload_to='profiles_pic', default='/profiles_pic/cityCor_profile_pic/demo_profile_pic2.png', blank=True)
+    cityCor_profile_pic = models.ImageField(upload_to='profiles_pic/cityCor_profile_pic', default='/profiles_pic/cityCor_profile_pic/demo_profile_pic2.png', blank=True)
     is_cityCor = models.BooleanField(default=False)
 
     def __str__(self):
@@ -99,7 +99,7 @@ class Post_Advertise_table(models.Model):
     size = models.CharField(max_length=100)
     price = models.CharField(max_length=100)
     short_desc = models.TextField(max_length=100)
-    posted_billboards_pic = models.ImageField(upload_to='posted_billboards_pic',
+    posted_billboards_pic = models.ImageField(upload_to='posted_billboards_pic/billboards_images',
                                             default='/posted_billboards_pic/billboards_images/demo_billboard_image.JPG',
                                             blank=True)
 
