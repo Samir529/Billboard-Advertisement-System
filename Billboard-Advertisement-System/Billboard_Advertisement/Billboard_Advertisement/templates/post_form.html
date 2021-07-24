@@ -11,12 +11,18 @@
         <tr>
             <td colspan="2">
 <!--                <input type='Submit' value="Post Advertise" />-->
+                <br>
                 <button type="submit" class="button"><span>Post Advertise</span></button>
             </td>
         </tr>
     </table>
 </form>
         <a href="/advertiserPanel/"><button class="button"><span>Back</span></button></a>
+        {% if posted == "yes" %}
+        <br>
+        <h2 style="color: lime; padding: 10px 0px 0px 60px;">Advertise is successfully posted</h2>
+        {% endif %}
+        <br><br>
     </div>
     </body>
 {% endblock %}
