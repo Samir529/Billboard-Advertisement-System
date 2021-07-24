@@ -118,7 +118,7 @@ class post_from(forms.ModelForm):
             "title": "Title:",
             "Spec_loc": "Specific Location:",
             "size": "Size of billboard:",
-            "price": "Price:",
+            "price": "Rent:",
             "short_desc": "Short Description:",
             "posted_billboards_pic": "Billboard Picture:"
         }
