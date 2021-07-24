@@ -185,7 +185,7 @@ def user_login(request):
             else:
                 return HttpResponse("Account not actived.")
         else:
-            isuser = 'b'
+            isuser = 'x'
             return render(request, 'user_login.html',{'isuser': isuser})
 
     return render(request, 'user_login.html', {'isuser': isuser})
