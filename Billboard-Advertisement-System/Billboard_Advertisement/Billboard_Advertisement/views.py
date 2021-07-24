@@ -237,38 +237,39 @@ def about(request):
 
 def post_form(request):
     form_of_post = post_from(request.POST, request.FILES or None)
+    posted = 'no'
     if form_of_post.is_valid():
         form_of_post.save()
         form_of_post = post_from()
-
+        posted = 'yes'
     context = {
-        'form_of_post':form_of_post
+        'form_of_post':form_of_post,
+        'posted':posted
     }
     return render(request, 'post_form.html', context)
 
-def post_save(request):
-
-    if request.method == "POST":
-        title = request.POST.get('title')
-        Spec_loc = request.POST.get('location')
-        size = request.POST.get('bill_size')
-        price = request.POST.get('price')
-        short_desc = request.POST.get('desc')
-
-        mydata = Post_Advertise_table()
-
-        mydata.title = title
-        mydata.spec_loc = Spec_loc
-        mydata.size = size
-        mydata.price = price
-        mydata.short_desc = short_desc
-
-        mydata.save()
-        return redirect('advertiserPanel')
-    else:
-
-        return render(request, 'post_form.html')
-
+# def post_save(request):
+#
+#     if request.method == "POST":
+#         title = request.POST.get('title')
+#         Spec_loc = request.POST.get('location')
+#         size = request.POST.get('bill_size')
+#         price = request.POST.get('price')
+#         short_desc = request.POST.get('desc')
+#
+#         mydata = Post_Advertise_table()
+#
+#         mydata.title = title
+#         mydata.spec_loc = Spec_loc
+#         mydata.size = size
+#         mydata.price = price
+#         mydata.short_desc = short_desc
+#
+#         mydata.save()
+#         return redirect('advertiserPanel')
+#     else:
+#
+#         return render(request, 'post_form.html')
 
 
 def sizeMoneyCalculation(request):

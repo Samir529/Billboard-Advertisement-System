@@ -5,7 +5,7 @@ from .models import CustomerProfileInfo, AdvertiserProfileInfo, CityCorporationP
 
 
 class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
+    password = forms.CharField(min_length=4, widget=forms.PasswordInput())
 
     class Meta():
         model = User
