@@ -277,11 +277,15 @@ def sizeMoneyCalculation(request):
 
 
 def conv(request):
-
-    val1 = int(request.GET['num1'])
-    val2 = int(request.GET['num2'])
+    num = "no"
+    try:
+        val1 = int(request.GET['num1'])
+        val2 = int(request.GET['num2'])
+    except:
+        return render(request, 'convert.html', {'num': num})
+    num = "yes"
     res = val1 * val2
-    return render(request, 'convert.html', {'result': res, 'size': val2})
+    return render(request, 'convert.html', {'result': res, 'size': val2, 'num': num})
 
 def viewPost(request):
     allPosts = Post_Advertise_table.objects.all()
