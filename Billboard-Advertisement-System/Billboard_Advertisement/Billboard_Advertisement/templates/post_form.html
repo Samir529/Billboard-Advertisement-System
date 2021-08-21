@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+<body>
+<div class="content">
+    <br>
+    <h3 style="color: gainsboro;">Fill out the below form</h3>
+    {% load crispy_forms_tags %}
+    <form method="POST" enctype="multipart/form-data" class="formStyle">
+        {% csrf_token %}
+        <table>
+            {{form_of_post|crispy}}
+            <tr>
+                <td colspan="2">
+                    <!--                <input type='Submit' value="Post Advertise" />-->
+                    <br>
+                    <button type="submit" class="button" style="margin-left: 4px;"><span>Post Advertise</span></button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <a href="/advertiserPanel/">
+        <button class="button"><span>Back</span></button>
+    </a>
+    {% if posted == "yes" %}
+    <br>
+    <h1 style="color: lime; padding: 10px 0px 0px 60px;"><b>Advertise is Successfully Posted</b></h1>
+    {% endif %}
+    <br><br>
+</div>
+</body>
+{% endblock %}
