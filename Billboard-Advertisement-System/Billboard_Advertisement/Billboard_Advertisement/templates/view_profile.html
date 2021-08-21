@@ -1,0 +1,62 @@
+{% extends "newBase.html" %}
+{% block content %}
+{% load static %}
+<body style="position:relative; z-index:2;">
+<!--#00AA9E-->
+{% if profile %}
+<br><br><br>
+<div class="col d-flex justify-content-center">
+    <div class="card2" style="width:400px; background-color: whitesmoke;">
+        <img class="card-img-top" src="{{ profile.profile_picture.url }}" alt="You do not have profile picture"
+             onclick="enlargeImg()" id="pp_img" style="width:100%; border-radius: 5px 5px 0 0;">
+      <script>
+          img = document.getElementById("pp_img");
+
+          function enlargeImg() {
+              img.style.transform = "scale(1.5)";
+              img.style.transition = "transform 0.25s ease";
+          }
+          function resetImg() {
+              img.style.transform = "scale(1)";
+              img.style.transition = "transform 0.25s ease";
+          }
+      </script>
+
+        <div class="card-header text-white" style="background-color: darkorange;">
+            <h5 class="card-title">Profile information</h5>
+        </div>
+        <div class="card-body">
+            <div class="card-block text-center">
+                <h4 class="card-title">{{user.username}}</h4>
+            </div>
+            <p class="card-text text-muted h6">Username: {{user.username}}</p>
+            <p class="card-text text-muted h6">First name: {{user.first_name}}</p>
+            <p class="card-text text-muted h6">Last name: {{user.last_name}}</p>
+            <p class="card-text text-muted h6">Email address: {{user.email}}</p>
+            <p class="card-text text-muted h6">Mobile No.: {{profile.mobileNo}}</p>
+            <p class="card-text text-muted h6">Location: {{profile.location}}</p>
+            <br>
+            <div class="col text-right">
+                <button class="btn btn-primary" onclick="resetImg()">Reset</button>
+                <a href="/update_profile/" class="btn btn-primary">Update Profile</a>
+                <a href="{{ request.META.HTTP_REFERER }}">
+                    <button class="btn btn-primary"><span>Back</span></button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="content">
+    <br>
+    <h1 style="color: red">No data found!</h1>
+    <!--        <h1 style="color: red">Please login first.</h1>-->
+    <!--        <div style="white-space:nowrap"><h2>Login here-->
+    <!--        <a href="/user_login/"><button class="button" style="width: 25%;  padding: 6px;"><span>Login</span></button></a></h2>-->
+</div>
+{% endif %}
+<!--    <br><br>-->
+<!--    <a href="/"><button class="button" style="width: 155px; margin-top : 35px; margin-left: 425px; font-size: 17px;"><span>Home</span></button></a>-->
+</body>
+{%endblock%}
+

@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth import logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -14,9 +14,10 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 import datetime
 
-from .forms import CustomerProfileInfoForm, UserForm, AdvertiserProfileInfoForm, CityCorporationProfileInfoForm, \
-    customerProfilePicForm, advertiserProfilePicForm, cityCorporationProfilePicForm, post_from, confirm_post_form
-from .models import CustomerProfileInfo, CityCorporationProfileInfo, AdvertiserProfileInfo, Post_Advertise_table, confirm_post
+from .filter import billboardFilter
+from .forms import UserForm, customerProfilePicForm, advertiserProfilePicForm, cityCorporationProfilePicForm, post_from, \
+    confirm_post_form, changePassForm
+from .models import CustomerProfileInfo, CityCorporationProfileInfo, AdvertiserProfileInfo, confirm_post, PostAdvertiseTable, CurrentPriceUpdate
 
 
 def home(req):
@@ -25,8 +26,11 @@ def home(req):
 def base(req):
     return render(req, 'base.html')
 
-def adminPanel(request):
-    return render(request, 'adminPanel.html')
+def about(request):
+    return render(request, 'about.html')
+
+def staffPanel(request):
+    return render(request, 'staffPanel.html')
 
 def customerPanel(request):
     return render(request, 'Customer_panel.html')
@@ -48,8 +52,8 @@ def sign_in_options(request):
     return render(request, 'sign_in_options.html')
 
 
-def admin_login(request):
-    isadmin = 'a'
+def staff_login(request):
+    isStaff = 'a'
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -57,102 +61,15 @@ def admin_login(request):
         user = authenticate(username=username, password=password)
 
         if user:
-            if user.is_superuser:
-                return HttpResponseRedirect(reverse('adminPanel'))
-
+            if user.is_staff:
+                return HttpResponseRedirect(reverse('staffPanel'))
             else:
-                isadmin = 'b'
-                return render(request, 'admin_login.html',{'isadmin': isadmin})
+                isStaff = 'b'
+                return render(request, 'staff_login.html', {'isStaff': isStaff})
         else:
-            isadmin = 'c'
-            return render(request, 'admin_login.html', {'isadmin': isadmin})
-    return render(request, 'admin_login.html', {'isadmin': isadmin})
-
-
-@login_required
-def user_logout(request):
-    logout(request)
-    return HttpResponseRedirect(reverse('home'))
-
-def register_customer(request):
-    registered = False
-
-    if request.method == 'POST':
-        user_form = UserForm(data=request.POST)
-        profile_form = CustomerProfileInfoForm(request.POST, request.FILES)
-
-        if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save()
-            user.set_password(user.password)
-            user.save()
-
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            profile.save()
-            registered = True
-            # t = CustomerProfileInfo.objects.get(pk=request.user.id)
-            # t.profile_pic = profile_form.cleaned_data['Customer_profile_pic']
-            # t.save()
-        else:
-            print(user_form.errors, profile_form.errors)
-    else:
-        user_form = UserForm()
-        profile_form = CustomerProfileInfoForm()
-    return render(request, 'customer_registration.html',
-            {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
-
-
-def register_advertiser(request):
-    registered = False
-
-    if request.method == 'POST':
-        user_form = UserForm(data=request.POST)
-        profile_form = AdvertiserProfileInfoForm(data=request.POST)
-
-        if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save()
-            user.set_password(user.password)
-            user.save()
-
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            profile.save()
-            registered = True
-
-        else:
-            print(user_form.errors, profile_form.errors)
-    else:
-        user_form = UserForm()
-        profile_form = AdvertiserProfileInfoForm()
-    return render(request, 'advertiser_registration.html',
-            {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
-
-
-def register_cityCorporation(request):
-    registered = False
-
-    if request.method == 'POST':
-        user_form = UserForm(data=request.POST)
-        profile_form = CityCorporationProfileInfoForm(data=request.POST)
-
-        if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save()
-            user.set_password(user.password)
-            user.save()
-
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            profile.save()
-            registered = True
-
-        else:
-            print(user_form.errors, profile_form.errors)
-    else:
-        user_form = UserForm()
-        profile_form = CityCorporationProfileInfoForm()
-    return render(request, 'govt_registration.html',
-            {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
-
+            isStaff = 'c'
+            return render(request, 'staff_login.html', {'isStaff': isStaff})
+    return render(request, 'staff_login.html', {'isStaff': isStaff})
 
 
 def user_login(request):
@@ -181,58 +98,350 @@ def user_login(request):
                             if ct.is_cityCor == True:
                                 return HttpResponseRedirect(reverse('cityCorporationPanel'))
                         except CityCorporationProfileInfo.DoesNotExist:
-                            return HttpResponse("Account not actived.")
+                            return HttpResponse("Account is Not Active.")
             else:
-                return HttpResponse("Account not actived.")
+                return HttpResponse("Account is Not Active.")
         else:
-            isuser = 'x'
-            return render(request, 'user_login.html',{'isuser': isuser})
+            isuser = 'not_user'
 
     return render(request, 'user_login.html', {'isuser': isuser})
 
 
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
 
-def about(request):
-    return render(request, 'about.html')
 
-# def Customer_profile_pic(request):
+def register_customer(request):
+    registered = False
+
+    if request.method == 'POST':
+
+        mobileNo = request.POST.get('mobileNo')
+        location = request.POST.get('location')
+
+        user_form = UserForm(data=request.POST)
+        profile_picture_form = customerProfilePicForm(request.POST, request.FILES)
+        if user_form.is_valid() and profile_picture_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+
+            t = CustomerProfileInfo()
+            # t2 = User()
+            t.mobileNo = mobileNo
+            t.location = location
+            t.is_customer = True
+            t.user = user
+            t.profile_picture = profile_picture_form.cleaned_data['profile_picture']
+            t.save()
+            # t2.username = username
+            # t2.password = password
+            # t2.first_name = first_name
+            # t2.last_name = last_name
+            # t2.email = email
+            # t2.save()
+
+            registered = True
+
+        else:
+            print(user_form.errors, profile_picture_form.errors)
+    else:
+        user_form = UserForm()
+        profile_picture_form = customerProfilePicForm()
+    return render(request, 'customer_registration.html',
+            {'user_form': user_form, 'profile_picture_form': profile_picture_form, 'registered': registered})
+
+
+def register_advertiser(request):
+    registered = False
+
+    if request.method == 'POST':
+
+        mobileNo = request.POST.get('mobileNo')
+        location = request.POST.get('location')
+
+        user_form = UserForm(data=request.POST)
+        profile_picture_form = advertiserProfilePicForm(request.POST, request.FILES)
+        if user_form.is_valid() and profile_picture_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+
+            t = AdvertiserProfileInfo()
+            t.mobileNo = mobileNo
+            t.location = location
+            t.is_advertiser = True
+            t.user = user
+            t.profile_picture = profile_picture_form.cleaned_data['profile_picture']
+            t.save()
+
+            registered = True
+
+        else:
+            print(user_form.errors, profile_picture_form.errors)
+    else:
+        user_form = UserForm()
+        profile_picture_form = advertiserProfilePicForm()
+    return render(request, 'advertiser_registration.html',
+            {'user_form': user_form, 'profile_picture_form': profile_picture_form, 'registered': registered})
+
+
+def register_cityCorporation(request):
+    registered = False
+
+    if request.method == 'POST':
+
+        mobileNo = request.POST.get('mobileNo')
+        location = request.POST.get('location')
+
+        user_form = UserForm(data=request.POST)
+        profile_picture_form = cityCorporationProfilePicForm(request.POST, request.FILES)
+        if user_form.is_valid() and profile_picture_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+
+            t = CityCorporationProfileInfo()
+            t.mobileNo = mobileNo
+            t.location = location
+            t.is_cityCor = True
+            t.user = user
+            t.profile_picture = profile_picture_form.cleaned_data['profile_picture']
+            t.save()
+
+            registered = True
+
+        else:
+            print(user_form.errors, profile_picture_form.errors)
+    else:
+        user_form = UserForm()
+        profile_picture_form = cityCorporationProfilePicForm()
+    return render(request, 'govt_registration.html',
+            {'user_form': user_form, 'profile_picture_form': profile_picture_form, 'registered': registered})
+
+
+def updateProfile(request):
+    registered = 'a'
+    p=0
+
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        mobileNo = request.POST.get('mobileNo')
+        location = request.POST.get('location')
+
+        if request.user.is_authenticated:
+            try:
+                t = CustomerProfileInfo.objects.get(user=request.user)
+                t2 = User.objects.get(username=request.user)
+                if t.is_customer == True:
+                    profile_picture_form = customerProfilePicForm(request.POST, request.FILES)
+                    if profile_picture_form.is_valid():
+                        profile_pic = profile_picture_form.cleaned_data['profile_picture']
+                    else:
+                        print(profile_picture_form.errors)
+                    if first_name != "":
+                        t2.first_name = first_name
+                    if last_name != "":
+                        t2.last_name = last_name
+                    if email != "":
+                        t2.email = email
+                    if mobileNo != "":
+                        t.mobileNo = mobileNo
+                    if location != "":
+                        t.location = location
+                    if profile_pic != "/profiles_pic/Customer_profile_pic/demo_profile_pic2.png":
+                        t.profile_picture = profile_pic
+                        p=1
+                    t.save()
+                    t2.save()
+
+            except CustomerProfileInfo.DoesNotExist:
+                try:
+                    t = AdvertiserProfileInfo.objects.get(user=request.user)
+                    t2 = User.objects.get(username=request.user)
+                    if t.is_advertiser == True:
+                        profile_picture_form = advertiserProfilePicForm(request.POST, request.FILES)
+                        if profile_picture_form.is_valid():
+                            profile_pic = profile_picture_form.cleaned_data['profile_picture']
+                        else:
+                            print(profile_picture_form.errors)
+                        if first_name != "":
+                            t2.first_name = first_name
+                        if last_name != "":
+                            t2.last_name = last_name
+                        if email != "":
+                            t2.email = email
+                        if mobileNo != "":
+                            t.mobileNo = mobileNo
+                        if location != "":
+                            t.location = location
+                        if profile_pic != "/profiles_pic/Advertiser_profile_pic/demo_profile_pic2.png":
+                            t.profile_picture = profile_pic
+                            p = 1
+                        t.save()
+                        t2.save()
+
+                except AdvertiserProfileInfo.DoesNotExist:
+                    try:
+                        t = CityCorporationProfileInfo.objects.get(user=request.user)
+                        t2 = User.objects.get(username=request.user)
+                        if t.is_cityCor == True:
+                            profile_picture_form = cityCorporationProfilePicForm(request.POST, request.FILES)
+                            if profile_picture_form.is_valid():
+                                profile_pic = profile_picture_form.cleaned_data['profile_picture']
+                            else:
+                                print(profile_picture_form.errors)
+                            if first_name != "":
+                                t2.first_name = first_name
+                            if last_name != "":
+                                t2.last_name = last_name
+                            if email != "":
+                                t2.email = email
+                            if mobileNo != "":
+                                t.mobileNo = mobileNo
+                            if location != "":
+                                t.location = location
+                            if profile_pic != "/profiles_pic/cityCor_profile_pic/demo_profile_pic2.png":
+                                t.profile_picture = profile_pic
+                                p = 1
+                            t.save()
+                            t2.save()
+
+                    except CityCorporationProfileInfo.DoesNotExist:
+                        return HttpResponse("Account is Not Actived.")
+            if first_name=="" and last_name=="" and email=="" and mobileNo=="" and location=="" and p==0:
+                registered = 'all_are_null'
+            else:
+                registered = 'all_are_not_null'
+        else:
+            registered = 'not_registered'
+    else:
+        try:
+            t = CustomerProfileInfo.objects.get(user=request.user)
+            if t.is_customer == True:
+                profile_picture_form = customerProfilePicForm()
+
+        except CustomerProfileInfo.DoesNotExist:
+            try:
+                t = AdvertiserProfileInfo.objects.get(user=request.user)
+                if t.is_advertiser == True:
+                    profile_picture_form = advertiserProfilePicForm()
+
+            except AdvertiserProfileInfo.DoesNotExist:
+                try:
+                    t = CityCorporationProfileInfo.objects.get(user=request.user)
+                    if t.is_cityCor == True:
+                        profile_picture_form = cityCorporationProfilePicForm()
+
+                except CityCorporationProfileInfo.DoesNotExist:
+                    return HttpResponse("Account is Not Active!")
+    return render(request, 'update_profile.html', {'profile_picture_form': profile_picture_form, 'registered': registered, 't':t})
+
+
+def viewProfile(request):
+    if request.user.is_authenticated:
+        user = User.objects.get(username=request.user)
+        try:
+            profile = CustomerProfileInfo.objects.get(user=request.user)
+            if profile.is_customer == True:
+                return render(request, 'view_profile.html', {'profile': profile, 'user': user})
+        except CustomerProfileInfo.DoesNotExist:
+            try:
+                profile = AdvertiserProfileInfo.objects.get(user=request.user)
+                if profile.is_advertiser == True:
+                    return render(request, 'view_profile.html', {'profile': profile, 'user': user})
+            except AdvertiserProfileInfo.DoesNotExist:
+                try:
+                    profile = CityCorporationProfileInfo.objects.get(user=request.user)
+                    if profile.is_cityCor == True:
+                        return render(request, 'view_profile.html', {'profile': profile, 'user': user})
+                except CityCorporationProfileInfo.DoesNotExist:
+                    return render(request, 'view_profile.html', {'profile': profile, 'user': user})
+
+    profile = 0
+    user = 0
+    return render(request, 'view_profile.html', {'profile': profile, 'user': user})
+
+# def change_password(request):
 #     if request.method == 'POST':
-#         form = customerProfilePicForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             t = CustomerProfileInfo.objects.get(user=request.user)
-#             t.profile_pic = form.cleaned_data['profile_pic']
-#             t.save()
-#             #img_obj = form.instance
-#             return render(request, 'profile_pic.html', {'form': form, 't': t})
+#         if request.user.is_authenticated:
+#             t = User.objects.get(username=request.user)
+#             form = PasswordChangeForm(t, request.POST)
+#             if form.is_valid():
+#                 user = form.save()
+#                 # update_session_auth_hash(request, user)
+#                 # messages.success(request, 'Your password was successfully updated!')
+#                 # return redirect('change_password')
+#             else:
+#                 messages.error(request, 'Please correct the error below.')
 #     else:
-#         form = customerProfilePicForm()
-#     return render(request, 'profile_pic.html', {'form': form})
-#
-# def Advertiser_profile_pic(request):
-#     if request.method == 'POST':
-#         form = advertiserProfilePicForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             t = AdvertiserProfileInfo.objects.get(user=request.user)
-#             t.profile_pic = form.cleaned_data['profile_pic']
-#             t.save()
-#             #img_obj = form.instance
-#             return render(request, 'profile_pic.html', {'form': form, 't': t})
-#     else:
-#         form = advertiserProfilePicForm()
-#     return render(request, 'profile_pic.html', {'form': form})
-#
-# def cityCor_profile_pic(request):
-#     if request.method == 'POST':
-#         form = cityCorporationProfilePicForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             t = CityCorporationProfileInfo.objects.get(user=request.user)
-#             t.profile_pic = form.cleaned_data['profile_pic']
-#             t.save()
-#             #img_obj = form.instance
-#             return render(request, 'profile_pic.html', {'form': form, 't': t})
-#     else:
-#         form = cityCorporationProfilePicForm()
-#     return render(request, 'profile_pic.html', {'form': form})
+#         form = PasswordChangeForm(request.user)
+#     return render(request, 'user/change_password.html', {
+#         'form': form
+#     })
+
+def change_password(request):
+    updated = 'no'
+    if request.user.is_authenticated:
+
+        form = changePassForm(request.POST or None)
+
+        old_password = request.POST.get("old_password")
+        new_password = request.POST.get("new_password")
+        re_new_password = request.POST.get("re_new_password")
+        if request.POST.get("old_password"):
+
+            user = User.objects.get(username=request.user.username)
+
+            if user.check_password('{}'.format(old_password)) == False:
+                form.set_old_password_flag()
+            if re_new_password != new_password:
+                form.set_re_new_password_flag()
+
+        if form.is_valid():
+            user.set_password('{}'.format(new_password))
+            user.save()
+            updated = 'yes'
+            update_session_auth_hash(request, user)
+            # return redirect('change_password')
+            return render(request, 'change_password.html', {"form": form, "updated": updated})
+        else:
+            return render(request, 'change_password.html', {"form": form, "updated": updated})
+    else:
+        return redirect('user_login')
+
+
+def current_price_update(request):
+    updated = False
+
+    if request.method == 'POST':
+
+        location = request.POST.get('location')
+        current_price = request.POST.get('current_price')
+        t = CurrentPriceUpdate()
+        t.location = location
+        t.current_price = current_price
+        t.save()
+
+        updated = True
+
+    return render(request, 'update_current_price.html',{'updated': updated})
+
+
+def current_price_view(request):
+    view_current_price = "xyz"
+    if request.method == 'POST':
+        location = request.POST.get('location')
+        view_current_price = CurrentPriceUpdate.objects.filter(location=location)
+        print(view_current_price)
+        if not view_current_price:
+            view_current_price = "no_data"
+        return render(request, 'view_current_price.html', {'filter': view_current_price})
+    return render(request, 'view_current_price.html', {'filter': view_current_price})
 
 
 def post_form(request):
@@ -244,6 +453,7 @@ def post_form(request):
         instance.save()
         form_of_post = post_from()
         posted = 'yes'
+
     context = {
         'form_of_post':form_of_post,
         'posted':posted
@@ -277,7 +487,6 @@ def post_form(request):
 def sizeMoneyCalculation(request):
     return render(request, 'sizeMoneyCalculation.html')
 
-
 def conv(request):
     num = "no"
     try:
@@ -289,15 +498,16 @@ def conv(request):
     res = val1 * val2
     return render(request, 'convert.html', {'result': res, 'size': val2, 'num': num})
 
+
 def viewPost(request):
-    allPosts = Post_Advertise_table.objects.all()
+    allPosts = PostAdvertiseTable.objects.all()
     allConfirmedposts = confirm_post.objects.all()
     print(allPosts)
     print(allConfirmedposts)
 
-
-    context = {'allPosts': allPosts, 'allConfirmedposts':allConfirmedposts, 'user':request.user}
-    #context1 = {'allConfirmedposts': allConfirmedposts}
+    billboard_filter = billboardFilter(request.GET, queryset=allPosts)
+    context = {'allPosts': allPosts, 'allConfirmedposts':allConfirmedposts, 'user':request.user, 'filter': billboard_filter}
+    # context1 = {'allConfirmedposts': allConfirmedposts}
     return render(request, 'viewPost.html', context)
 
 def postDetail(request):

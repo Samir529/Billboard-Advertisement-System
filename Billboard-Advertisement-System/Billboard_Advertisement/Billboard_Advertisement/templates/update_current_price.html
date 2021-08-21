@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% extends "base.html"%}
+{% block content %}
+<body>
+    <style>
+        label {
+            color: white
+        }
+    </style>
+    <div class="content">
+    {% if updated %}
+        <div style="padding: 10px 0px 150px 0px;">
+        <br><br>
+    <h1 style="color: white;">Price is updated.</h1>
+            <br><br><br>
+        <a href="/staffPanel"><button class="button"><span>Back</span></button></a>
+            </div>
+    {% else %}
+        <br><br>
+    <h1 style="color: white;">Update here</h1>
+    <h3 style="color: gainsboro;">Update the current price</h3>
+    <br>
+<form action="{% url 'current_price_update' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <br>
+    <div>
+      <label for="location">Select location:</label>
+            <select id="location" name="location">
+<!--                <option value="">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                <option value="Dhaka">Dhaka</option>
+                <option value="Narayanganj">Narayanganj</option>
+                <option value="Gazipur">Gazipur</option>
+                <option value="Cumilla">Cumilla</option>
+                <option value="Chittagong">Chittagong</option>
+                <option value="Noakhali">Noakhali</option>
+                <option value="Jessore">Jessore</option>
+                <option value="Khulna">Khulna</option>
+                <option value="Barisal">Barisal</option>
+                <option value="Rajshahi">Rajshahi</option>
+                <option value="Sylhet">Sylhet</option>
+                <option value="Rangpur">Rangpur</option>
+                <option value="Feni">Feni</option>
+                <option value="Pabna">Pabna</option>
+                <option value="Faridpur">Faridpur</option>
+                <option value="Dinajpur">Dinajpur</option>
+                <option value="Cox's Bazar">Cox's Bazar</option>
+                <option value="Bogra">Bogra</option>
+                <option value="Tangail">Tangail</option>
+                <option value="Patuakhali">Patuakhali</option>
+                <option value="Lalmonirhat">Lalmonirhat</option>
+                <option value="Madaripur">Madaripur</option>
+                <option value="Naogaon">Naogaon</option>
+                <option value="Rajbari">Rajbari</option>
+                <option value="Narail">Narail</option>
+                <option value="Pirojpur">Pirojpur</option>
+                <option value="Sherpur">Sherpur</option>
+                <option value="Mars">Mars</option>
+            </select>
+  </div>
+    <br>
+    <label for="current_price" class="form-label">Current price per sq. feet:</label>
+    <input type="text" name="current_price" class="form" id="current_price" placeholder="0.0" required>
+    <br><br>
+    <button type="submit" class="button" style="margin-top : 40px;"><span>Submit</span></button>
+</form>
+        <a href="/staffPanel"><button class="button"><span>Back</span></button></a>
+    {% endif %}
+</div>
+    </body>
+{% endblock %}
