@@ -6,9 +6,9 @@
 {% if profile %}
 <br><br><br>
 <div class="col d-flex justify-content-center">
-    <div class="card2" style="width:400px; background-color: whitesmoke;">
-        <img class="card-img-top" src="{{ profile.profile_picture.url }}" alt="You do not have profile picture"
-             onclick="enlargeImg()" id="pp_img" style="width:100%; border-radius: 5px 5px 0 0;">
+    <div class="card2" style="width:450px; background-color: whitesmoke;">
+        <a href="#" onClick="return false;"><img class="card-img-top" src="{{ profile.profile_picture.url }}" alt="You do not have profile picture"
+                          onclick="enlargeImg()" id="pp_img" style="width:100%; border-radius: 5px 5px 0 0;"></a>
       <script>
           img = document.getElementById("pp_img");
 
@@ -29,16 +29,16 @@
             <div class="card-block text-center">
                 <h4 class="card-title">{{user.username}}</h4>
             </div>
-            <p class="card-text text-muted h6">Username: {{user.username}}</p>
-            <p class="card-text text-muted h6">First name: {{user.first_name}}</p>
-            <p class="card-text text-muted h6">Last name: {{user.last_name}}</p>
-            <p class="card-text text-muted h6">Email address: {{user.email}}</p>
-            <p class="card-text text-muted h6">Mobile No.: {{profile.mobileNo}}</p>
-            <p class="card-text text-muted h6">Location: {{profile.location}}</p>
+            <p class="card-text text-muted h6">Username: &nbsp;{{user.username}}</p>
+            <p class="card-text text-muted h6">First name: &nbsp;{{user.first_name}}</p>
+            <p class="card-text text-muted h6">Last name: &nbsp;{{user.last_name}}</p>
+            <p class="card-text text-muted h6">Email address: &nbsp;{{user.email}}</p>
+            <p class="card-text text-muted h6">Mobile No.: &nbsp;{{profile.mobileNo}}</p>
+            <p class="card-text text-muted h6">Location: &nbsp;{{profile.location}}</p>
             <br>
             <div class="col text-right">
-                <button class="btn btn-primary" onclick="resetImg()">Reset</button>
                 <a href="/update_profile/" class="btn btn-primary">Update Profile</a>
+                <button class="btn btn-primary" onclick="resetImg()">Reset</button>
                 <a href="{{ request.META.HTTP_REFERER }}">
                     <button class="btn btn-primary"><span>Back</span></button>
                 </a>

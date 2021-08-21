@@ -460,6 +460,7 @@ def post_form(request):
     }
     return render(request, 'post_form.html', context)
 
+
 # def post_save(request):
 #
 #     if request.method == "POST":

@@ -2,7 +2,7 @@
 {% block content %}
 <body style="position:relative; z-index:2;">
 <!--  <div class="overlay"></div>-->
-<a href="{% url 'postDetail' %}"><button class="button2" style="font-size : 40px; width:100%; height:100px;"><span>CLICK HERE TO CONFIRM ANY BILLBOARD &rarr;</span></button></a>
+<a href="{% url 'postDetail' %}" style="margin-left: -6px;"><button class="button2" style="font-size : 40px; width:100%; height:100px;"><span>CLICK HERE TO CONFIRM ANY BILLBOARD &rarr;</span></button></a>
   <div class="container" style="text-align:center">
     <div class="row">
       <div class=" col-md-8 col-md-10 mx-auto">
@@ -56,7 +56,7 @@
 
   <br><br><br>
 <div class="row row-cols-1 row-cols-md-2 g-4">
-  {% for post in allPosts %}
+  {% for post in filter.qs %}
   <div class="col" style="padding-bottom: 35px">
     <card_opacity>
     <div class="card2" style="background-color: whitesmoke;">
@@ -78,14 +78,16 @@
 <!--      </script>-->
 
       <div class="card-body">
-          <h2 class="card-title">{{ post.title }}</h2>
-        <p class="card-text h6">Post Code: {{ post.code }}</p>
-        <p class="card-text h6">Posted By (username): {{ post.author }}</p>
-        <p class="card-text h6">Posted By (Name): {{ post.author.first_name}} {{post.author.last_name}}</p>
-        <p class="card-text h6">Posted By (E-mail): {{ post.author.email }}</p>
-          <p class="card-text h6">Location: {{ post.Spec_loc }}</p>
-            <p class="card-text h6">Billboard Size: {{ post.size }}</p>
-            <p class="card-text h6">Monthly Rent: {{ post.price }}</p>
+          <h2 class="card-title" style="text-align:center">{{ post.title }}</h2>
+        <p class="card-text h6">Post Code: &nbsp;{{ post.code }}</p>
+        <p class="card-text h6">Posted By (username): &nbsp;{{ post.author }}</p>
+        <p class="card-text h6">Posted By (Name): &nbsp;{{ post.author.first_name}} {{post.author.last_name}}</p>
+        <p class="card-text h6">Posted By (E-mail): &nbsp;{{ post.author.email }}</p>
+          <p class="card-text h6">Location: &nbsp;{{ post.Spec_loc }}</p>
+            <p class="card-text h6">Billboard Width: &nbsp;{{ post.width }} sq. feet</p>
+            <p class="card-text h6">Billboard Height: &nbsp;{{ post.height }} sq. feet</p>
+            <p class="card-text h6">Billboard Size: &nbsp;{{ post.width }}x{{ post.height }} &nbsp; ({{ post.size }} sq. feet)</p>
+            <p class="card-text h6">Monthly Rent: &nbsp;{{ post.price }}</p>
           <p class="card-text text-muted">{{post.short_desc|slice:":200"}}</p>
 <!--        <a href="{% url 'postDetail' %}" class="btn btn-primary">Confirm Deal &rarr;</a>-->
 
@@ -100,11 +102,11 @@
 <!--            {% endif %}-->
 
         {% if post.code == post1.adCode %}
-        <br><br>
-	      <h3 class="card-text h6">Deal Confirmed By: {{ post1.confirmed_by }}</h3>
-        <h3 class="card-text h6">Name: {{ post1.confirmed_by.first_name }} {{ post1.confirmed_by.last_name }}</h3>
-        <h3 class="card-text h6">Email: {{ post1.confirmed_by.email }}</h3>
-              <h3 class="card-text h6">Deal Duration: {{ post1.day }} {{ post1.month }}, {{ post1.year }}</h3>
+        <br>
+        <p class="card-text h6"><b>Deal Confirmed By: &nbsp;{{ post1.confirmed_by }}</b></p>
+        <p class="card-text h6"><b>Name: &nbsp;{{ post1.confirmed_by.first_name }} {{ post1.confirmed_by.last_name }}</b></p>
+        <p class="card-text h6"><b>Email: &nbsp;{{ post1.confirmed_by.email }}</b></p>
+              <p class="card-text"><b>Deal Duration: &nbsp;{{ post1.day }}-{{ post1.month }}-{{ post1.year }}</b></p>
 
         {% endif %}
 
@@ -113,22 +115,20 @@
         {% if user == post.author %}
           <a href="{% url 'deletePost' %}" class="btn btn-primary" style="color:black; background-color: #f44336;">Delete Post &rarr;</a>
         {% endif %}
-
         <br>
-
       </div>
     </div>
       </card_opacity>
   </div>
   {% endfor %}
 
-
 </div>
 </div>
 </body>
 <!--<a href="{% url 'postDetail' %}" class="btn btn-primary" style="font-size : 40px; width:100%; height:100px;">CLICK HERE TO CONFIRM ANY BILLBOARD &rarr;</a>-->
-<a href="{% url 'postDetail' %}"><button class="button2" style="font-size : 40px; width:100%; height:100px;"><span>CLICK HERE TO CONFIRM ANY BILLBOARD &rarr;</span></button></a>
+<a href="{% url 'postDetail' %}" style="margin-left: -6px;"><button class="button2" style="font-size : 40px; width:100%; height:100px;"><span>CLICK HERE TO CONFIRM ANY BILLBOARD &rarr;</span></button></a>
 {%endblock%}
+
 
 
 

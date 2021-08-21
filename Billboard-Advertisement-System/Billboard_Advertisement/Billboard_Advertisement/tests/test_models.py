@@ -11,31 +11,52 @@ from Billboard_Advertisement.models import CustomerProfileInfo, AdvertiserProfil
     CurrentPriceUpdate, PostAdvertiseTable
 
 
-class CustomerProfileTest(TestCase):
+class UserTest(TestCase):
 
     def setUp(self):
         self.user = get_user_model().objects.create_user(
             username='testuser', password='secret', first_name='Samir', last_name='Asif', email='testemail@example.com')
-        CustomerProfileInfo.objects.create(currentdate='2021-08-21', location='Dhaka', mobileNo='+8801845430242', is_customer=True)
 
     def test_content(self):
         user = User.objects.get(id=1)
-        userInfo = CustomerProfileInfo.objects.get(id=1)
         expected_object_username = f'{user.username}'
         # expected_object_password = f'{user.password}'
         expected_object_first_name = f'{user.first_name}'
         expected_object_last_name = f'{user.last_name}'
         expected_object_email = f'{user.email}'
-        expected_object_currentdate = f'{userInfo.currentdate}'
-        expected_object_location = f'{userInfo.location}'
-        expected_object_mobileNo = f'{userInfo.mobileNo}'
-        expected_object_is_customer = f'{userInfo.is_customer}'
         self.assertEquals(expected_object_username, 'testuser')
         # self.assertEquals(expected_object_password, 'secret')
         self.assertEquals(self.user.check_password('secret'), True)
         self.assertEquals(expected_object_first_name, 'Samir')
         self.assertEquals(expected_object_last_name, 'Asif')
         self.assertEquals(expected_object_email, 'testemail@example.com')
+
+    def test_is_customer_label(self):
+        user = User.objects.get(id=1)
+        field_label = user._meta.get_field('username').verbose_name
+        self.assertEqual(field_label, 'username')
+
+    def test_object_name_is_username(self):
+        user = User.objects.get(id=1)
+        expected_object_name = f'{user.username}'
+        self.assertEqual(str(user), expected_object_name)
+
+
+class CustomerProfileTest(TestCase):
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username='testuser', password='secret', first_name='Samir', last_name='Asif', email='testemail@example.com')
+        CustomerProfileInfo.objects.create(user=self.user, currentdate='2021-08-21', location='Dhaka', mobileNo='+8801845430242', is_customer=True)
+
+    def test_content(self):
+        userInfo = CustomerProfileInfo.objects.get(id=1)
+        expected_object_user = f'{userInfo.user}'
+        expected_object_currentdate = f'{userInfo.currentdate}'
+        expected_object_location = f'{userInfo.location}'
+        expected_object_mobileNo = f'{userInfo.mobileNo}'
+        expected_object_is_customer = f'{userInfo.is_customer}'
+        self.assertEquals(expected_object_user, self.user.username)
         self.assertEquals(expected_object_currentdate, '2021-08-21')
         self.assertEquals(expected_object_location, 'Dhaka')
         self.assertEquals(expected_object_mobileNo, '+8801845430242')
@@ -45,7 +66,7 @@ class CustomerProfileTest(TestCase):
         response = self.client.get(reverse('register_customer'))
         self.assertEqual(response.status_code, 200)
         # self.assertContains(response, '')
-        self.assertTemplateUsed(response, 'user/customer_registration.html')
+        self.assertTemplateUsed(response, 'customer_registration.html')
 
     def test_is_customer_label(self):
         user = CustomerProfileInfo.objects.get(id=1)
@@ -63,32 +84,21 @@ class CustomerProfileTest(TestCase):
         self.assertEqual(str(user), expected_object_name)
 
 
-
 class AdvertiserProfileTest(TestCase):
 
     def setUp(self):
         self.user = get_user_model().objects.create_user(
             username='testuser', password='secret', first_name='Samir', last_name='Asif', email='testemail@example.com')
-        AdvertiserProfileInfo.objects.create(currentdate='2021-08-21', location='Dhaka', mobileNo='+8801845430242', is_advertiser=True)
+        AdvertiserProfileInfo.objects.create(user=self.user, currentdate='2021-08-21', location='Dhaka', mobileNo='+8801845430242', is_advertiser=True)
 
     def test_content(self):
-        user = User.objects.get(id=1)
         userInfo = AdvertiserProfileInfo.objects.get(id=1)
-        expected_object_username = f'{user.username}'
-        # expected_object_password = f'{user.password}'
-        expected_object_first_name = f'{user.first_name}'
-        expected_object_last_name = f'{user.last_name}'
-        expected_object_email = f'{user.email}'
+        expected_object_user = f'{userInfo.user}'
         expected_object_currentdate = f'{userInfo.currentdate}'
         expected_object_location = f'{userInfo.location}'
         expected_object_mobileNo = f'{userInfo.mobileNo}'
         expected_object_is_advertiser = f'{userInfo.is_advertiser}'
-        self.assertEquals(expected_object_username, 'testuser')
-        # self.assertEquals(expected_object_password, 'secret')
-        self.assertEquals(self.user.check_password('secret'), True)
-        self.assertEquals(expected_object_first_name, 'Samir')
-        self.assertEquals(expected_object_last_name, 'Asif')
-        self.assertEquals(expected_object_email, 'testemail@example.com')
+        self.assertEquals(expected_object_user, self.user.username)
         self.assertEquals(expected_object_currentdate, '2021-08-21')
         self.assertEquals(expected_object_location, 'Dhaka')
         self.assertEquals(expected_object_mobileNo, '+8801845430242')
@@ -98,7 +108,7 @@ class AdvertiserProfileTest(TestCase):
         response = self.client.get(reverse('register_advertiser'))
         self.assertEqual(response.status_code, 200)
         # self.assertContains(response, '')
-        self.assertTemplateUsed(response, 'user/advertiser_registration.html')
+        self.assertTemplateUsed(response, 'advertiser_registration.html')
 
     def test_is_advertiser_label(self):
         user = AdvertiserProfileInfo.objects.get(id=1)
@@ -121,26 +131,16 @@ class GovtProfileTest(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(
             username='testuser', password='secret', first_name='Samir', last_name='Asif', email='testemail@example.com')
-        CityCorporationProfileInfo.objects.create(currentdate='2021-08-21', location='Dhaka', mobileNo='+8801845430242', is_cityCor=True)
+        CityCorporationProfileInfo.objects.create(user=self.user, currentdate='2021-08-21', location='Dhaka', mobileNo='+8801845430242', is_cityCor=True)
 
     def test_content(self):
-        user = User.objects.get(id=1)
         userInfo = CityCorporationProfileInfo.objects.get(id=1)
-        expected_object_username = f'{user.username}'
-        # expected_object_password = f'{user.password}'
-        expected_object_first_name = f'{user.first_name}'
-        expected_object_last_name = f'{user.last_name}'
-        expected_object_email = f'{user.email}'
+        expected_object_user = f'{userInfo.user}'
         expected_object_currentdate = f'{userInfo.currentdate}'
         expected_object_location = f'{userInfo.location}'
         expected_object_mobileNo = f'{userInfo.mobileNo}'
         expected_object_is_cityCor = f'{userInfo.is_cityCor}'
-        self.assertEquals(expected_object_username, 'testuser')
-        # self.assertEquals(expected_object_password, 'secret')
-        self.assertEquals(self.user.check_password('secret'), True)
-        self.assertEquals(expected_object_first_name, 'Samir')
-        self.assertEquals(expected_object_last_name, 'Asif')
-        self.assertEquals(expected_object_email, 'testemail@example.com')
+        self.assertEquals(expected_object_user, self.user.username)
         self.assertEquals(expected_object_currentdate, '2021-08-21')
         self.assertEquals(expected_object_location, 'Dhaka')
         self.assertEquals(expected_object_mobileNo, '+8801845430242')
@@ -150,7 +150,7 @@ class GovtProfileTest(TestCase):
         response = self.client.get(reverse('register_cityCorporation'))
         self.assertEqual(response.status_code, 200)
         # self.assertContains(response, '')
-        self.assertTemplateUsed(response, 'user/govt_registration.html')
+        self.assertTemplateUsed(response, 'govt_registration.html')
 
     def test_is_cityCor_label(self):
         user = CityCorporationProfileInfo.objects.get(id=1)
@@ -202,8 +202,8 @@ class UpdatePriceTest(TestCase):
     def test_priceUpdate_list_view(self):
         response = self.client.get(reverse('current_price_update'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Dhaka')
-        self.assertTemplateUsed(response, 'ad/update_current_price.html')
+        # self.assertContains(response, 'Dhaka')
+        self.assertTemplateUsed(response, 'update_current_price.html')
 
     def test_update_date_label(self):
         price = CurrentPriceUpdate.objects.get(id=1)
@@ -224,12 +224,16 @@ class UpdatePriceTest(TestCase):
 class PostAdvertiseTest(TestCase):
 
     def setUp(self):
-        PostAdvertiseTable.objects.create(title='ad1', location='Dhaka', Spec_loc='Badda',
+        self.user = get_user_model().objects.create_user(
+            username='testuser', password='secret', first_name='Samir', last_name='Asif', email='testemail@example.com')
+        PostAdvertiseTable.objects.create(author=self.user, code='ab12', title='ad1', location='Dhaka', Spec_loc='Badda',
                                           width=12.0, height=8.0, size=96.0, price=10.0,
                                           short_desc='abcd', post_date='2021-08-21')
 
     def test_content(self):
         post = PostAdvertiseTable.objects.get(id=1)
+        expected_object_author = f'{post.author}'
+        expected_object_code = f'{post.code}'
         expected_object_title = f'{post.title}'
         expected_object_location = f'{post.location}'
         expected_object_Spec_loc = f'{post.Spec_loc}'
@@ -239,6 +243,8 @@ class PostAdvertiseTest(TestCase):
         expected_object_price = f'{post.price}'
         expected_object_short_desc = f'{post.short_desc}'
         expected_object_post_date = f'{post.post_date}'
+        self.assertEquals(expected_object_author, self.user.username)
+        self.assertEquals(expected_object_code, 'ab12')
         self.assertEquals(expected_object_title, 'ad1')
         self.assertEquals(expected_object_location, 'Dhaka')
         self.assertEquals(expected_object_Spec_loc, 'Badda')
@@ -247,13 +253,13 @@ class PostAdvertiseTest(TestCase):
         self.assertEquals(expected_object_size, '96.0')
         self.assertEquals(expected_object_price, '10.0')
         self.assertEquals(expected_object_short_desc, 'abcd')
-        self.assertEquals(expected_object_post_date, '2021-08-21', "fdgfdgdfgdfgdf")
+        self.assertEquals(expected_object_post_date, '2021-08-21')
 
     def test_priceUpdate_list_view(self):
         response = self.client.get(reverse('post_form'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Dhaka')
-        self.assertTemplateUsed(response, 'ad/post_form.html')
+        # self.assertContains(response, 'Dhaka')
+        self.assertTemplateUsed(response, 'post_form.html')
 
     def test_Spec_loc_label(self):
         post = PostAdvertiseTable.objects.get(id=1)
@@ -265,9 +271,9 @@ class PostAdvertiseTest(TestCase):
         max_length = post._meta.get_field('short_desc').max_length
         self.assertEqual(max_length, 1000)
 
-    def test_object_name_is_title(self):
+    def test_object_name_is_code(self):
         post = PostAdvertiseTable.objects.get(id=1)
-        expected_object_name = f'{post.title}'
+        expected_object_name = f'{post.code}'
         self.assertEqual(str(post), expected_object_name)
 
 

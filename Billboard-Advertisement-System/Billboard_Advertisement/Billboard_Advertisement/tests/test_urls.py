@@ -35,3 +35,11 @@ class TestUrls(SimpleTestCase):
         url = reverse('postDetail')
         print(resolve(url))
         self.assertEquals(resolve(url).func, postDetail)
+
+
+
+
+
+
+
+
