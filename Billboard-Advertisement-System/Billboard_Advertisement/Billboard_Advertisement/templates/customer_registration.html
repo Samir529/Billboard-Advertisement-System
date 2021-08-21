@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+{% extends "base.html"%}
+{% block content %}
+<body>
+    <div class="content">
+    {% if registered %}
+        <br>
+    <h1 style="color: white">Thank you for registering.</h1>
+    <br>
+    {% else %}
+        <br>
+    <h1 style="color: white;">Register here</h1>
+    <h3 style="color: white;">Fill out the below form</h3>
+    <br>
+    <form method="post" enctype="multipart/form-data" class="formStyle">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        {% csrf_token %}
+        <button type="submit" class="button"><span>Register</span></button>
+    </form>
+    {% endif %}
+        <a href="/sign_in_options"><button class="button"><span>Back</span></button></a>
+</div>
+    </body>
+{% endblock %}

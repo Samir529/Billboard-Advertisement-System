@@ -1,0 +1,97 @@
+{% extends "newBase.html" %}
+{% block content %}
+<a href="{% url 'postDetail' %}" class="btn btn-primary" style="font-size : 40px; width:100%; height:100px;">CLICK HERE TO CONFIRM ANY BILLBOARD &rarr;</a>
+<body style="position:relative; z-index:2;">
+<!--  <div class="overlay"></div>-->
+  <div class="container">
+    <div class="row">
+      <div class=" col-md-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h3 class=" site-heading my-4 mt-3 text-black"><b>View Advertisements</b></h3>
+
+        </div>
+      </div>
+    </div>
+  </div>
+<!--<div class="container">-->
+<!--  <div class="row">-->
+<!--    &lt;!&ndash; Blog Entries Column &ndash;&gt;-->
+<!--    <div class="col-md-8 mt-3 left">-->
+<!--      {% for post in allPosts %}-->
+<!--      <div class="card mb-4">-->
+<!--        <div class="card-body">-->
+<!--          <h2 class="card-title">{{ post.title }}</h2>-->
+<!--          <p class="card-text text-muted h6">Location: {{ post.Spec_loc }}</p>-->
+<!--            <p class="card-text text-muted h6">Billboard Size: {{ post.size }}</p>-->
+<!--            <p class="card-text text-muted h6">Monthly Rent: {{ post.price }}</p>-->
+<!--          <p class="card-text">{{post.short_desc|slice:":200"}}</p>-->
+<!--          <a href="{% url 'postDetail' %}" class="btn btn-primary">Confirm Deal &rarr;</a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      {% endfor %}-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<div class="container">
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  {% for post in allPosts %}
+  <div class="col" style="padding-bottom: 30px">
+    <div class="card">
+
+      {% load static %}
+      <img src="{{ post.posted_billboards_pic.url }}" class="card-img-top" alt="billboard image">
+      <div class="card-body">
+          <h2 class="card-title">{{ post.title }}</h2>
+        <p class="card-text text-muted h6">Post Code: {{ post.code }}</p>
+        <p class="card-text text-muted h6">Posted By (username): {{ post.author }}</p>
+        <p class="card-text text-muted h6">Posted By (Name): {{ post.author.first_name}} {{post.author.last_name}}</p>
+        <p class="card-text text-muted h6">Posted By (E-mail): {{ post.author.email }}</p>
+          <p class="card-text text-muted h6">Location: {{ post.Spec_loc }}</p>
+            <p class="card-text text-muted h6">Billboard Size: {{ post.size }}</p>
+            <p class="card-text text-muted h6">Monthly Rent: {{ post.price }}</p>
+          <p class="card-text">{{post.short_desc|slice:":200"}}</p>
+<!--        <a href="{% url 'postDetail' %}" class="btn btn-primary">Confirm Deal &rarr;</a>-->
+
+          {% for post1 in allConfirmedposts %}
+<!--              a = {{post.code}}-->
+<!--            {% if post.code != post1.adCode %}-->
+<!--                <a href="{% url 'postDetail' %}" class="btn btn-primary">Confirm Deal &rarr;</a>-->
+<!--            {% endif %}-->
+<!--            {% if post.code == post1.adCode %}-->
+<!--              <p class="card-text text-muted h6">Deal Coonfirmed By: {{ post1.confirmed_by }}</p>-->
+<!--              <p class="card-text text-muted h6">Deal Duration: {{ post1.day }} {{ post1.month }}, {{ post1.year }}</p>-->
+<!--            {% endif %}-->
+
+        {% if post.code == post1.adCode %}
+        <br><br>
+	      <h3 class="card-text text-muted h6">Deal Confirmed By: {{ post1.confirmed_by }}</h3>
+        <h3 class="card-text text-muted h6">Name: {{ post1.confirmed_by.first_name }} {{ post1.confirmed_by.last_name }}</h3>
+        <h3 class="card-text text-muted h6">Email: {{ post1.confirmed_by.email }}</h3>
+              <h3 class="card-text text-muted h6">Deal Duration: {{ post1.day }} {{ post1.month }}, {{ post1.year }}</h3>
+
+        {% endif %}
+
+
+
+  {% endfor %}
+
+
+        {% if user == post.author %}
+          <a href="{% url 'deletePost' %}" class="btn btn-primary" style="color:black; background-color: #f44336;">Delete Post &rarr;</a>
+        {% endif %}
+
+
+        <br>
+
+
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+
+</div>
+</div>
+</body>
+<a href="{% url 'postDetail' %}" class="btn btn-primary" style="font-size : 40px; width:100%; height:100px;">CLICK HERE TO CONFIRM ANY BILLBOARD &rarr;</a>
+{%endblock%}

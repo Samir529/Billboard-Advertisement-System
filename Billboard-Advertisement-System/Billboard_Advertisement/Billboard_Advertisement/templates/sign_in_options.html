@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    <style>
+        .content {
+            max-width: 300px;
+            margin: auto;
+    </style>
+    <div class="content">
+        <br><br><br>
+<h1 style="color:white; padding: 20px 0px 20px 50px;">Sign Up As</h1>
+        <br><br>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <button type="submit" name="Customer" class="button"><span>Customer</span></button>
+        <button type="submit" name="Advertiser" class="button"><span>Advertiser</span></button>
+        <button type="submit" name="City_Corporation" class="button"><span>City Corporation</span></button>
+<!--     <input type="submit" value="Submit" name="Submit">-->
+    </form>
+        <br>
+        <a href="/"><button class="button" style="width: 155px; margin-top : 120px; margin-left: 70px; font-size: 18px;"><span>Back</span></button></a>
+    </div>
+</body>
+{% endblock %}
