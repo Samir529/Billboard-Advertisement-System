@@ -4,21 +4,22 @@
 <body>
     <style>
         label {
-            color: white
+            color: deepskyblue
         }
+        form label {font-weight:bold}
     </style>
     <div class="content">
     {% if registered %}
     <div style="padding: 15px 0px 217px 0px;">
     <br>
-    <h1 style="color: white">Thank you for registering.</h1>
+    <h1 style="color: #0BB5FF">Thank you for registering.</h1>
         <br>
     <a href="/sign_in_options"><button class="button"><span>Back</span></button></a>
     </div>
     {% else %}
         <br>
         {% if user_form.errors %}
-        <h1 style="color: red;">A user with that username already exists.</h1>
+        <h1 style="color: red;">An user with that username already exists.</h1>
         {% endif %}
     <h1 style="color: white;">Register here</h1>
     <h3 style="color: gainsboro;">Fill out the below form</h3>

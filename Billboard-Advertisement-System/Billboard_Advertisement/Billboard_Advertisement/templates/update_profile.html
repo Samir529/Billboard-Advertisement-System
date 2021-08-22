@@ -4,13 +4,14 @@
 <body>
     <style>
         label {
-            color: white
+            color: deepskyblue
         }
+        form label {font-weight:bold}
     </style>
 <div class="content">
     <br>
     {% if registered == "all_are_not_null" %}
-    <h1 style="color: deepskyblue"><b>Your profile is successfully updated</b></h1>
+    <h1 style="color: #0BB5FF"><b>Your profile is successfully updated</b></h1>
     <br>
     {% endif %}
     {% if registered == "not_registered" %}
@@ -84,7 +85,7 @@
     <div class="formStyle">
         {{profile_picture_form.as_p}}
     </div>
-    <button type="submit" class="button" style="margin-top : 35px; margin-left: 730px;"><span>Submit</span></button>
+    <button type="submit" class="button" style="margin-top : 30px; margin-left: 730px;"><span>Submit</span></button>
 </form>
     {% if t.is_customer == True %}
         <a href="/customerPanel/"><button class="button" style="margin-left: 722px;"><span>Back</span></button></a>

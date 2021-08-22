@@ -6,10 +6,13 @@
     <br>
     {% if isuser == "not_user" %}
         <h1 style="color: red">Incorrect username or password.</h1>
-        <div style="white-space:nowrap"><h5 style="color: white">Don't have an account? Register here now!
-            <a href="/sign_in_options/"><button class="button" style="width: 13%;  padding: 6px;"><span>Register</span></button></a></h5>
+        <div style="white-space:nowrap"><h4 style="color: white">Don't have an account? Register here now!
+            <a href="/sign_in_options/"><button class="btn btn-primary" style="width: 11%; padding: 6px;"><span>Register</span></button></a></h4>
         </div>
     {% endif %}
+        {% if isuser == "staff_user" %}
+        <h1 style="color: red">Staff type user cannot login here.</h1>
+        {% endif %}
 <!--    {% if isuser == "wrong_pass" %}-->
 <!--        <br><br>-->
 <!--        <h1 style="color: red">Incorrect password.</h1>-->

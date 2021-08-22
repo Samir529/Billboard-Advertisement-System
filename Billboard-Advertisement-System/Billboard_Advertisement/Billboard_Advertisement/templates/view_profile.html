@@ -2,46 +2,129 @@
 {% block content %}
 {% load static %}
 <body style="position:relative; z-index:2;">
-<!--#00AA9E-->
-{% if profile %}
-<br><br><br>
-<div class="col d-flex justify-content-center">
-    <div class="card2" style="width:450px; background-color: whitesmoke;">
-        <a href="#" onClick="return false;"><img class="card-img-top" src="{{ profile.profile_picture.url }}" alt="You do not have profile picture"
-                          onclick="enlargeImg()" id="pp_img" style="width:100%; border-radius: 5px 5px 0 0;"></a>
-      <script>
-          img = document.getElementById("pp_img");
+<div class="container">
+    {% if profile %}
+    <br><br>
+    <div class="row">
+        <div class="col-12">
+            <div class="card2" style="background-color: whitesmoke;">
+
+                <div class="card-header text-white" style="background-color: darkorange;">
+            <h4 class="card-title">Profile information</h4>
+        </div>
+
+<style>
+  img {
+  opacity: 1.0;
+}
+  img:hover {
+  opacity: 0.9;
+}
+</style>
+                <div class="card-body">
+                    <div class="card-title mb-4">
+                        <div class="d-flex justify-content-start">
+                            <div class="image-container">
+                                <a href="#" onClick="return false;"><img src="{{ profile.profile_picture.url }}" id="imgProfile"
+                                     alt="You do not have any profile picture" onclick="enlargeImg()" style="width: 300px; height: 300px" class="img-thumbnail"/></a>
+        <script>
+          img = document.getElementById("imgProfile");
 
           function enlargeImg() {
-              img.style.transform = "scale(1.5)";
+              img.style.transform = "scale(1.3)";
               img.style.transition = "transform 0.25s ease";
           }
           function resetImg() {
               img.style.transform = "scale(1)";
               img.style.transition = "transform 0.25s ease";
           }
-      </script>
+        </script>
+                            </div>
+                            <div class="userData ml-3">
+                                <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">&nbsp;{{user.first_name}} {{user.last_name}}</h2>
+                                {% if profile.is_customer == True %}
+                                    <h6 class="d-block">&nbsp;Customer</h6>
+                                {% elif profile.is_advertiser == True %}
+                                    <h6 class="d-block">&nbsp;Advertiser</h6>
+                                {% elif profile.is_cityCor == True %}
+                                    <h6 class="d-block">&nbsp;City corporation</h6>
+                                {% endif %}
+                                <br>
+                                &nbsp;<a href="/update_profile/" class="btn btn-primary">Update Profile</a>
+                                <button class="btn btn-primary" onclick="resetImg()">Reset</button>
+                                <a href="{{ request.META.HTTP_REFERER }}">
+                                <button class="btn btn-primary"><span>Back</span></button>
+                                </a>
+                            </div>
 
-        <div class="card-header text-white" style="background-color: darkorange;">
-            <h5 class="card-title">Profile information</h5>
-        </div>
-        <div class="card-body">
-            <div class="card-block text-center">
-                <h4 class="card-title">{{user.username}}</h4>
-            </div>
-            <p class="card-text text-muted h6">Username: &nbsp;{{user.username}}</p>
-            <p class="card-text text-muted h6">First name: &nbsp;{{user.first_name}}</p>
-            <p class="card-text text-muted h6">Last name: &nbsp;{{user.last_name}}</p>
-            <p class="card-text text-muted h6">Email address: &nbsp;{{user.email}}</p>
-            <p class="card-text text-muted h6">Mobile No.: &nbsp;{{profile.mobileNo}}</p>
-            <p class="card-text text-muted h6">Location: &nbsp;{{profile.location}}</p>
-            <br>
-            <div class="col text-right">
-                <a href="/update_profile/" class="btn btn-primary">Update Profile</a>
-                <button class="btn btn-primary" onclick="resetImg()">Reset</button>
-                <a href="{{ request.META.HTTP_REFERER }}">
-                    <button class="btn btn-primary"><span>Back</span></button>
-                </a>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2 col-5">
+                            <label style="font-weight:bold;">&nbsp;Username</label>
+                        </div>
+                        <div class="col-md-8 col-6">
+                            &nbsp;{{user.username}}
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2 col-5">
+                            <label style="font-weight:bold;">&nbsp;First name</label>
+                        </div>
+                        <div class="col-md-8 col-6">
+                            &nbsp;{{user.first_name}}
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2 col-5">
+                            <label style="font-weight:bold;">&nbsp;Last name</label>
+                        </div>
+                        <div class="col-md-8 col-6">
+                            &nbsp;{{user.last_name}}
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2 col-5">
+                            <label style="font-weight:bold;">&nbsp;Email address</label>
+                        </div>
+                        <div class="col-md-8 col-6">
+                            &nbsp;{{user.email}}
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2 col-5">
+                            <label style="font-weight:bold;">&nbsp;Mobile No.</label>
+                        </div>
+                        <div class="col-md-8 col-6">
+                            &nbsp;{{profile.mobileNo}}
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2 col-5">
+                            <label style="font-weight:bold;">&nbsp;Location</label>
+                        </div>
+                        <div class="col-md-8 col-6">
+                            &nbsp;{{profile.location}}
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2 col-5">
+                            <label style="font-weight:bold;"> &nbsp;Account created on</label>
+                        </div>
+                        <div class="col-md-8 col-6">
+                            &nbsp;{{profile.currentdate}}
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
             </div>
         </div>
     </div>
@@ -55,8 +138,27 @@
     <!--        <a href="/user_login/"><button class="button" style="width: 25%;  padding: 6px;"><span>Login</span></button></a></h2>-->
 </div>
 {% endif %}
-<!--    <br><br>-->
-<!--    <a href="/"><button class="button" style="width: 155px; margin-top : 35px; margin-left: 425px; font-size: 17px;"><span>Home</span></button></a>-->
 </body>
 {%endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

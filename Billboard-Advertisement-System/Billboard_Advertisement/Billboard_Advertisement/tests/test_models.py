@@ -31,7 +31,7 @@ class UserTest(TestCase):
         self.assertEquals(expected_object_last_name, 'Asif')
         self.assertEquals(expected_object_email, 'testemail@example.com')
 
-    def test_is_customer_label(self):
+    def test_user_label(self):
         user = User.objects.get(id=1)
         field_label = user._meta.get_field('username').verbose_name
         self.assertEqual(field_label, 'username')
@@ -61,12 +61,6 @@ class CustomerProfileTest(TestCase):
         self.assertEquals(expected_object_location, 'Dhaka')
         self.assertEquals(expected_object_mobileNo, '+8801845430242')
         self.assertEquals(expected_object_is_customer, 'True')
-
-    def test_customer_list_view(self):
-        response = self.client.get(reverse('register_customer'))
-        self.assertEqual(response.status_code, 200)
-        # self.assertContains(response, '')
-        self.assertTemplateUsed(response, 'customer_registration.html')
 
     def test_is_customer_label(self):
         user = CustomerProfileInfo.objects.get(id=1)
@@ -104,12 +98,6 @@ class AdvertiserProfileTest(TestCase):
         self.assertEquals(expected_object_mobileNo, '+8801845430242')
         self.assertEquals(expected_object_is_advertiser, 'True')
 
-    def test_customer_list_view(self):
-        response = self.client.get(reverse('register_advertiser'))
-        self.assertEqual(response.status_code, 200)
-        # self.assertContains(response, '')
-        self.assertTemplateUsed(response, 'advertiser_registration.html')
-
     def test_is_advertiser_label(self):
         user = AdvertiserProfileInfo.objects.get(id=1)
         field_label = user._meta.get_field('is_advertiser').verbose_name
@@ -146,12 +134,6 @@ class GovtProfileTest(TestCase):
         self.assertEquals(expected_object_mobileNo, '+8801845430242')
         self.assertEquals(expected_object_is_cityCor, 'True')
 
-    def test_customer_list_view(self):
-        response = self.client.get(reverse('register_cityCorporation'))
-        self.assertEqual(response.status_code, 200)
-        # self.assertContains(response, '')
-        self.assertTemplateUsed(response, 'govt_registration.html')
-
     def test_is_cityCor_label(self):
         user = CityCorporationProfileInfo.objects.get(id=1)
         field_label = user._meta.get_field('is_cityCor').verbose_name
@@ -168,23 +150,6 @@ class GovtProfileTest(TestCase):
         self.assertEqual(str(user), expected_object_name)
 
 
-# class LoginTest(TestCase):
-#     def setUp(self):
-#         self.credentials = {
-#             'username': 'testuser',
-#             'password': 'secret',
-#             'first_name': 'Samir',
-#             'last_name': 'Asif',
-#             'email': 'testemail@example.com'
-#         }
-#         User.objects.create_user(**self.credentials)
-#     def test_login(self):
-#         response = self.client.post('/user_login/', self.credentials, follow=True)
-#         print(response.context['user'])
-#         self.assertTrue(response.context['user'].is_active)
-
-
-
 class UpdatePriceTest(TestCase):
 
     def setUp(self):
@@ -198,12 +163,6 @@ class UpdatePriceTest(TestCase):
         self.assertEquals(expected_object_location, 'Dhaka')
         self.assertEquals(expected_object_current_price, '15.0')
         self.assertEquals(expected_object_update_date, '2021-08-21')
-
-    def test_priceUpdate_list_view(self):
-        response = self.client.get(reverse('current_price_update'))
-        self.assertEqual(response.status_code, 200)
-        # self.assertContains(response, 'Dhaka')
-        self.assertTemplateUsed(response, 'update_current_price.html')
 
     def test_update_date_label(self):
         price = CurrentPriceUpdate.objects.get(id=1)
@@ -254,12 +213,6 @@ class PostAdvertiseTest(TestCase):
         self.assertEquals(expected_object_price, '10.0')
         self.assertEquals(expected_object_short_desc, 'abcd')
         self.assertEquals(expected_object_post_date, '2021-08-21')
-
-    def test_priceUpdate_list_view(self):
-        response = self.client.get(reverse('post_form'))
-        self.assertEqual(response.status_code, 200)
-        # self.assertContains(response, 'Dhaka')
-        self.assertTemplateUsed(response, 'post_form.html')
 
     def test_Spec_loc_label(self):
         post = PostAdvertiseTable.objects.get(id=1)

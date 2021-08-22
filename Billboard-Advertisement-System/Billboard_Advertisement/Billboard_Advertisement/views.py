@@ -81,26 +81,29 @@ def user_login(request):
         user = authenticate(username=username, password=password)
 
         if user:
-            if user.is_active:
-                login(request, user)
-                try:
-                    c = CustomerProfileInfo.objects.get(user=request.user)
-                    if c.is_customer==True:
-                        return HttpResponseRedirect(reverse('customerPanel'))
-                except CustomerProfileInfo.DoesNotExist:
+            if user.is_staff==False:
+                if user.is_active:
+                    login(request, user)
                     try:
-                        a = AdvertiserProfileInfo.objects.get(user=request.user)
-                        if a.is_advertiser == True:
-                            return HttpResponseRedirect(reverse('advertiserPanel'))
-                    except AdvertiserProfileInfo.DoesNotExist:
+                        c = CustomerProfileInfo.objects.get(user=request.user)
+                        if c.is_customer==True:
+                            return HttpResponseRedirect(reverse('customerPanel'))
+                    except CustomerProfileInfo.DoesNotExist:
                         try:
-                            ct = CityCorporationProfileInfo.objects.get(user=request.user)
-                            if ct.is_cityCor == True:
-                                return HttpResponseRedirect(reverse('cityCorporationPanel'))
-                        except CityCorporationProfileInfo.DoesNotExist:
-                            return HttpResponse("Account is Not Active.")
+                            a = AdvertiserProfileInfo.objects.get(user=request.user)
+                            if a.is_advertiser == True:
+                                return HttpResponseRedirect(reverse('advertiserPanel'))
+                        except AdvertiserProfileInfo.DoesNotExist:
+                            try:
+                                ct = CityCorporationProfileInfo.objects.get(user=request.user)
+                                if ct.is_cityCor == True:
+                                    return HttpResponseRedirect(reverse('cityCorporationPanel'))
+                            except CityCorporationProfileInfo.DoesNotExist:
+                                return HttpResponse("Account is Not Active.")
+                else:
+                    return HttpResponse("Account is Not Active.")
             else:
-                return HttpResponse("Account is Not Active.")
+                isuser = 'staff_user'
         else:
             isuser = 'not_user'
 
