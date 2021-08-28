@@ -83,7 +83,8 @@
         <p class="card-text h6">Posted By (username): &nbsp;{{ post.author }}</p>
         <p class="card-text h6">Posted By (Name): &nbsp;{{ post.author.first_name}} {{post.author.last_name}}</p>
         <p class="card-text h6">Posted By (E-mail): &nbsp;{{ post.author.email }}</p>
-          <p class="card-text h6">Location: &nbsp;{{ post.Spec_loc }}</p>
+        <p class="card-text h6">District: &nbsp;{{ post.location }}</p>
+          <p class="card-text h6">Specific Location: &nbsp;{{ post.Spec_loc }}, {{ post.location }}</p>
             <p class="card-text h6">Billboard Width: &nbsp;{{ post.width }} sq. feet</p>
             <p class="card-text h6">Billboard Height: &nbsp;{{ post.height }} sq. feet</p>
             <p class="card-text h6">Billboard Size: &nbsp;{{ post.width }}x{{ post.height }} &nbsp; ({{ post.size }} sq. feet)</p>

@@ -10,6 +10,11 @@
 </style>
 <div class="content">
     <br>
+    {% if posted == "yes" %}
+    <br>
+    <h1 style="color: lime;"><b>Advertise is Successfully Posted</b></h1>
+    <br>
+    {% endif %}
     <h3 style="color: gainsboro;">Fill out the below form</h3>
     {% load crispy_forms_tags %}
     <form method="POST" enctype="multipart/form-data" class="formStyle">
@@ -28,11 +33,6 @@
     <a href="/advertiserPanel/">
         <button class="button"><span>Back</span></button>
     </a>
-    {% if posted == "yes" %}
-    <br>
-    <h1 style="color: lime; padding: 10px 0px 0px 60px;"><b>Advertise is Successfully Posted</b></h1>
-    {% endif %}
-    <br><br>
 </div>
 </body>
 {% endblock %}

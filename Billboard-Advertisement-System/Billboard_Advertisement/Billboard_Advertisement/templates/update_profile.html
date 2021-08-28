@@ -87,16 +87,17 @@
     </div>
     <button type="submit" class="button" style="margin-top : 30px; margin-left: 730px;"><span>Submit</span></button>
 </form>
-    {% if t.is_customer == True %}
+    {% if t2.is_customer == True %}
         <a href="/customerPanel/"><button class="button" style="margin-left: 722px;"><span>Back</span></button></a>
-    {% elif t.is_advertiser == True %}
+    {% elif t2.is_advertiser == True %}
         <a href="/advertiserPanel/"><button class="button" style="margin-left: 722px;"><span>Back</span></button></a>
-    {% elif t.is_cityCor == True %}
+    {% elif t2.is_cityCor == True %}
         <a href="/cityCorporationPanel/"><button class="button" style="margin-left: 722px;"><span>Back</span></button></a>
     {% endif %}
 </div>
 </body>
 {% endblock %}
+
 
 
 

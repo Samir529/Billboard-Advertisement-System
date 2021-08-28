@@ -9,7 +9,7 @@
         <div class="col-12">
             <div class="card2" style="background-color: whitesmoke;">
 
-                <div class="card-header text-white" style="background-color: darkorange;">
+                <div class="card-header text-white" style="background-color: darkorange; border-radius: 5px 5px 0px 0px;">
             <h4 class="card-title">Profile information</h4>
         </div>
 
@@ -44,8 +44,10 @@
                                 <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">&nbsp;{{user.first_name}} {{user.last_name}}</h2>
                                 {% if profile.is_customer == True %}
                                     <h6 class="d-block">&nbsp;Customer</h6>
+                                    <h6 class="d-block" style="color: dimgray;">&nbsp;- You have confirmed total {{confirmed_post_count}} advertisements</h6>
                                 {% elif profile.is_advertiser == True %}
                                     <h6 class="d-block">&nbsp;Advertiser</h6>
+                                    <h6 class="d-block" style="color: dimgray;">&nbsp;- You have posted total {{post_count}} advertisements</h6>
                                 {% elif profile.is_cityCor == True %}
                                     <h6 class="d-block">&nbsp;City corporation</h6>
                                 {% endif %}
@@ -72,7 +74,7 @@
                     <hr/>
                     <div class="row">
                         <div class="col-sm-3 col-md-2 col-5">
-                            <label style="font-weight:bold;">&nbsp;First name</label>
+                            <label style="font-weight:bold;">&nbsp;First Name</label>
                         </div>
                         <div class="col-md-8 col-6">
                             &nbsp;{{user.first_name}}
@@ -81,7 +83,7 @@
                     <hr/>
                     <div class="row">
                         <div class="col-sm-3 col-md-2 col-5">
-                            <label style="font-weight:bold;">&nbsp;Last name</label>
+                            <label style="font-weight:bold;">&nbsp;Last Name</label>
                         </div>
                         <div class="col-md-8 col-6">
                             &nbsp;{{user.last_name}}
@@ -90,7 +92,7 @@
                     <hr/>
                     <div class="row">
                         <div class="col-sm-3 col-md-2 col-5">
-                            <label style="font-weight:bold;">&nbsp;Email address</label>
+                            <label style="font-weight:bold;">&nbsp;Email Address</label>
                         </div>
                         <div class="col-md-8 col-6">
                             &nbsp;{{user.email}}
@@ -115,9 +117,20 @@
                         </div>
                     </div>
                     <hr/>
+                    {% if profile.is_customer == True or profile.is_advertiser == True %}
                     <div class="row">
                         <div class="col-sm-3 col-md-2 col-5">
-                            <label style="font-weight:bold;"> &nbsp;Account created on</label>
+                            <label style="font-weight:bold;">&nbsp;No. of Current Deals</label>
+                        </div>
+                        <div class="col-md-8 col-6">
+                            &nbsp;{{confirmed_post_count}}
+                        </div>
+                    </div>
+                    <hr/>
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2 col-5">
+                            <label style="font-weight:bold;"> &nbsp;Account Created On</label>
                         </div>
                         <div class="col-md-8 col-6">
                             &nbsp;{{profile.currentdate}}

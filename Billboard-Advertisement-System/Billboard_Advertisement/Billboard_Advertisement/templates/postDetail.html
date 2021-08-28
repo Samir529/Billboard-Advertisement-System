@@ -4,6 +4,11 @@
 <body>
     <div class="content">
         <br>
+        {% if posted == "yes" %}
+        <br>
+        <h2 style="color: lime;"><b>Confirmed successfully</b></h2>
+        <br>
+        {% endif %}
 <form method="POST" enctype="multipart/form-data" class="formStyle">
     {% csrf_token %}
     <table>
@@ -18,11 +23,6 @@
     </table>
 </form>
         <a href="/advertiserPanel/"><button class="button"><span>Back</span></button></a>
-        {% if posted == "yes" %}
-        <br>
-        <h2 style="color: lime; padding: 10px 0px 0px 60px;"><b>Confirmed successfully</b></h2>
-        {% endif %}
-        <br><br>
     </div>
     </body>
 {% endblock %}

@@ -4,10 +4,10 @@
 <body>
 <div class="content">
     <br>
-    {% if isStaff == "b" %}
+    {% if isStaff == "not_staff" %}
         <h1 style="color: red">You are not a staff type user.</h1>
     {% endif %}
-    {% if isStaff == "c" %}
+    {% if isStaff == "not_user" %}
         <h1 style="color: red">Incorrect username or password.</h1>
     {% endif %}
     <br><br>
@@ -21,7 +21,11 @@
         <br><br>
         <label for="password" style="color:white;">Password:</label>
         <input type="password" name="password" id="password" placeholder="password" required>
-        <br><br><br>
+        <br><br>
+        &nbsp;&nbsp;<label>
+      <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+        <br><br>
         <button class="button"><span>Login</span></button>
     </form>
     <a href="/">

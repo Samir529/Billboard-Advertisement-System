@@ -85,7 +85,7 @@ class PostAdvertiseTable(models.Model):
     height = models.FloatField(max_length=100, default='0')
     size = models.FloatField(max_length=100, default='0')
     price = models.CharField(max_length=100, default=None)
-    short_desc = models.TextField(max_length=1000, default=None)
+    short_desc = models.TextField(max_length=500, default=None)
     post_date = models.DateField(default=timezone.now)
     posted_billboards_pic = models.ImageField(upload_to='posted_billboards_pic/billboards_images',
                                             default='/posted_billboards_pic/billboards_images/demo_billboard_image.JPG',
@@ -106,6 +106,11 @@ class confirm_post(models.Model):
     month = models.CharField(max_length=100)
     day = models.CharField(max_length=100)
     adCode = models.CharField(max_length=100, unique=True)
+    advertiser = models.CharField(max_length=100, default=None)
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.adCode
 
 
 class CurrentPriceUpdate(models.Model):
@@ -116,6 +121,15 @@ class CurrentPriceUpdate(models.Model):
 
     def __str__(self):
         return str(self.update_date)
+
+
+
+
+
+
+
+
+
 
 
 
