@@ -79,7 +79,7 @@ class PostAdvertiseTable(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     code = models.CharField(max_length=100, unique=True)
     title = models.CharField(max_length = 100, default=None)
-    location = models.CharField(max_length=30, default='', choices=locations)
+    location = models.CharField(max_length=30, default='', blank=False, choices=locations)
     Spec_loc = models.CharField(max_length=100, default=None)
     width = models.FloatField(max_length=100, default='0')
     height = models.FloatField(max_length=100, default='0')
@@ -93,7 +93,7 @@ class PostAdvertiseTable(models.Model):
     objects = models.Manager()
 
     def save(self, *args, **kwargs):
-        self.size = self.width * self.height
+        self.size = float(self.width) * float(self.height)
         super(PostAdvertiseTable, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -105,7 +105,7 @@ class confirm_post(models.Model):
     year = models.CharField(max_length=100)
     month = models.CharField(max_length=100)
     day = models.CharField(max_length=100)
-    adCode = models.CharField(max_length=100, unique=True)
+    adCode = models.CharField(max_length=10, unique=True)
     advertiser = models.CharField(max_length=100, default=None)
     objects = models.Manager()
 

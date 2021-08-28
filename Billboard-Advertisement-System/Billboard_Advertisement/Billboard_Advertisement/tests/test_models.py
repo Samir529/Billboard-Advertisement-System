@@ -8,7 +8,7 @@ from django.utils.datetime_safe import datetime
 from django.contrib.auth import get_user_model
 
 from Billboard_Advertisement.models import CustomerProfileInfo, AdvertiserProfileInfo, CityCorporationProfileInfo, \
-    CurrentPriceUpdate, PostAdvertiseTable
+    CurrentPriceUpdate, PostAdvertiseTable, confirm_post
 
 
 class CustomerProfileTest(TestCase):
@@ -169,8 +169,42 @@ class PostAdvertiseTest(TestCase):
     #     self.assertEqual(str(post), expected_object_name)
 
 
+class confirm_postTest(TestCase):
 
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username='testuser', password='secret', first_name='Samir', last_name='Asif', email='testemail@example.com')
+        confirm_post.objects.create(confirmed_by=self.user, year='2022', month='12', day='13', adCode='1234', advertiser='testadvertiser')
 
+    def test_content(self):
+        postConfirm = confirm_post.objects.get(id=1)
+        expected_object_confirmed_by = f'{postConfirm.confirmed_by}'
+        expected_object_year = f'{postConfirm.year}'
+        expected_object_month = f'{postConfirm.month}'
+        expected_object_day = f'{postConfirm.day}'
+        expected_object_adCode = f'{postConfirm.adCode}'
+        expected_object_advertiser = f'{postConfirm.advertiser}'
+        self.assertEquals(expected_object_confirmed_by, self.user.username)
+        self.assertEquals(expected_object_year, '2022')
+        self.assertEquals(expected_object_month, '12')
+        self.assertEquals(postConfirm.day, '13')
+        self.assertEquals(expected_object_adCode, '1234')
+        self.assertEquals(expected_object_advertiser, 'testadvertiser')
+
+    # def test_confirmed_by_label(self):
+    #     label = confirm_post.objects.get(id=1)
+    #     field_label = label._meta.get_field('confirmed_by').verbose_name
+    #     self.assertEqual(field_label, 'confirmed by')
+
+    def test_adCode_max_length(self):
+        length = confirm_post.objects.get(id=1)
+        max_length = length._meta.get_field('adCode').max_length
+        self.assertEqual(max_length, 10)
+
+    # def test_object_name_is_adCode(self):
+    #     object_name = confirm_post.objects.get(id=1)
+    #     expected_object_name = f'{object_name.adCode}'
+    #     self.assertEqual(str(object_name), expected_object_name)
 
 
 

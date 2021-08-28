@@ -15,8 +15,8 @@ from django.shortcuts import render, redirect
 import datetime
 
 from .filter import billboardFilter
-from .forms import UserForm, customerProfilePicForm, advertiserProfilePicForm, cityCorporationProfilePicForm, post_from, \
-    confirm_post_form, changePassForm
+from .forms import UserForm, customerProfilePicForm, advertiserProfilePicForm, cityCorporationProfilePicForm, post_form, \
+    confirm_post_form, changePassForm, billboardPicForm
 from .models import CustomerProfileInfo, CityCorporationProfileInfo, AdvertiserProfileInfo, confirm_post, PostAdvertiseTable, CurrentPriceUpdate
 
 
@@ -238,7 +238,8 @@ def register_cityCorporation(request):
 
 @login_required
 def updateProfile(request):
-    registered = 'a'
+    registered = 'no'
+    updated = 'no'
     p=0
 
     if request.method == 'POST':
@@ -327,9 +328,9 @@ def updateProfile(request):
                     except CityCorporationProfileInfo.DoesNotExist:
                         return HttpResponse("Account is Not Actived.")
             if first_name=="" and last_name=="" and email=="" and mobileNo=="" and location=="" and p==0:
-                registered = 'all_are_null'
+                updated = 'all_are_null'
             else:
-                registered = 'all_are_not_null'
+                updated = 'all_are_not_null'
         else:
             registered = 'not_registered'
     else:
@@ -352,7 +353,7 @@ def updateProfile(request):
 
                 except CityCorporationProfileInfo.DoesNotExist:
                     return HttpResponse("Account is Not Active!")
-    return render(request, 'update_profile.html', {'profile_picture_form': profile_picture_form, 'registered': registered, 't2':t2})
+    return render(request, 'update_profile.html', {'profile_picture_form': profile_picture_form, 'registered': registered, 'updated': updated, 't2':t2})
 
 
 @login_required
@@ -467,14 +468,14 @@ def current_price_view(request):
 
 
 @login_required
-def post_form(request):
-    form_of_post = post_from(request.POST, request.FILES or None)
+def advertise_post_form(request):
+    form_of_post = post_form(request.POST, request.FILES or None)
     posted = 'no'
     if form_of_post.is_valid():
         instance = form_of_post.save(commit=False)
         instance.author = request.user
         instance.save()
-        form_of_post = post_from()
+        form_of_post = post_form()
         posted = 'yes'
 
     context = {
@@ -482,6 +483,65 @@ def post_form(request):
         'posted':posted
     }
     return render(request, 'post_form.html', context)
+
+@login_required
+def update_post_form(request):
+    registered = 'no'
+    updated = 'no'
+    p = 0
+
+    if request.method == 'POST':
+        code = request.POST.get('code')
+        title = request.POST.get('title')
+        location = request.POST.get('location')
+        Spec_loc = request.POST.get('Spec_loc')
+        width = request.POST.get('width')
+        height = request.POST.get('height')
+        size = request.POST.get('size')
+        price = request.POST.get('price')
+        short_desc = request.POST.get('short_desc')
+
+        if request.user.is_authenticated:
+            t = PostAdvertiseTable.objects.get(code=code)
+
+            billboard_pic_form = billboardPicForm(request.POST, request.FILES)
+            if billboard_pic_form.is_valid():
+                billboard_pic = billboard_pic_form.cleaned_data['posted_billboards_pic']
+            else:
+                print(billboard_pic_form.errors)
+            if title != "":
+                t.title = title
+            if location != "":
+                t.location = location
+            if Spec_loc != "":
+                t.Spec_loc = Spec_loc
+            if width != "":
+                t.width = width
+            if height != "":
+                t.height = height
+            if size != "":
+                t.size = size
+            if price != "":
+                t.price = price
+            if short_desc != "":
+                t.short_desc = short_desc
+            if billboard_pic != "/posted_billboards_pic/billboards_images/demo_billboard_image.JPG":
+                t.posted_billboards_pic = billboard_pic
+                p = 1
+            t.save()
+
+            if title == "" and location == "" and Spec_loc == "" and width == "" and height == "" and size == "" and price == "" and short_desc == "" and p == 0:
+                updated = 'all_are_null'
+            else:
+                updated = 'all_are_not_null'
+        else:
+            registered = 'not_registered'
+
+    else:
+        billboard_pic_form = billboardPicForm()
+    return render(request, 'update_post_form.html',
+              {'billboard_pic_form': billboard_pic_form, 'registered': registered, 'updated': updated})
+
 
 
 # def post_save(request):

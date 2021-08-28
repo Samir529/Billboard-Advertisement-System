@@ -102,6 +102,14 @@ class cityCorporationProfilePicForm(forms.ModelForm):
             "profile_picture": "Profile Picture:"
         }
 
+class billboardPicForm(forms.ModelForm):
+    class Meta:
+        model = PostAdvertiseTable
+        fields = ('posted_billboards_pic',)
+        labels = {
+            "posted_billboards_pic": "Billboard Picture:"
+        }
+
 class changePassForm(forms.Form):
     old_password_flag = True
     re_new_password_flag = True
@@ -132,7 +140,7 @@ class changePassForm(forms.Form):
 
 
 
-class post_from(forms.ModelForm):
+class post_form(forms.ModelForm):
     class Meta:
         model = PostAdvertiseTable
         fields = ('code', 'title', 'location', 'Spec_loc', 'width', 'height', 'price', 'short_desc', 'posted_billboards_pic')
@@ -148,14 +156,14 @@ class post_from(forms.ModelForm):
             "posted_billboards_pic": "Billboard Picture:"
         }
         widgets = {
-            'code': forms.TextInput(attrs={'placeholder': 'enter code'}),
+            'code': forms.TextInput(attrs={'placeholder': 'enter a code'}),
             'title': forms.TextInput(attrs={'placeholder': 'enter title'}),
             'Spec_loc': forms.TextInput(attrs={'placeholder': 'enter specific location'}),
             'width': forms.TextInput(attrs={'placeholder': 'enter width'}),
             'height': forms.TextInput(attrs={'placeholder': 'enter height'}),
             'price': forms.TextInput(attrs={'placeholder': 'enter rent'}),
             'short_desc': forms.Textarea(
-                attrs={'placeholder': 'Write a short description here..'}),
+                attrs={'rows': 6, 'cols': 50, 'placeholder': 'Write a short description here..'}),
         }
 
 
@@ -170,6 +178,8 @@ class confirm_post_form(forms.ModelForm):
             "adCode": "Advertisement Code:",
 
         }
+
+
 
 
 

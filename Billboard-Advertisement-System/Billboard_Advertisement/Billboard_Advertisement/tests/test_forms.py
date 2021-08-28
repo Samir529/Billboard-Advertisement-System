@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from Billboard_Advertisement.forms import confirm_post_form, post_from, changePassForm, customerProfilePicForm, UserForm
+from Billboard_Advertisement.forms import confirm_post_form, post_form, changePassForm, customerProfilePicForm, UserForm
 
 
 class TestForms(TestCase):
@@ -24,8 +24,8 @@ class TestForms(TestCase):
         self.assertEqual(len(form.errors),4)
 
 
-    def test_post_from_valid_data(self):
-        form = post_from(data = {
+    def test_post_form_valid_data(self):
+        form = post_form(data = {
             'code': "001",
             'title': "title",
             'location': "Dhaka",
@@ -39,7 +39,7 @@ class TestForms(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_post_from_form_no_data(self):
-        form = post_from(data={})
+        form = post_form(data={})
 
         self.assertFalse(form.is_valid())
         self.assertEqual(len(form.errors),8)
@@ -60,22 +60,23 @@ class TestForms(TestCase):
         self.assertEqual(len(form.errors),3)
 
 
-    def test_user_from_valid_data(self):
-        form = UserForm(data = {
-            'username': "testuser",
-            'password': "abcd1234",
-            'first_name': "Samir",
-            'last_name': "Asif",
-            'email': "testemail@example.com",
-        })
-        self.assertTrue(form.is_valid())
 
-    def test_user_form_no_data(self):
-        form = UserForm(data={})
 
-        self.assertFalse(form.is_valid())
-        self.assertEqual(len(form.errors),2)
-
+    # def test_user_from_valid_data(self):
+    #     form = UserForm(data = {
+    #         'username': "testuser",
+    #         'password': "abcd1234",
+    #         'first_name': "Samir",
+    #         'last_name': "Asif",
+    #         'email': "testemail@example.com",
+    #     })
+    #     self.assertTrue(form.is_valid())
+    #
+    # def test_user_form_no_data(self):
+    #     form = UserForm(data={})
+    #
+    #     self.assertFalse(form.is_valid())
+    #     self.assertEqual(len(form.errors),2)
 
     # def test_profilePic_from_valid_data(self):
     #     form = customerProfilePicForm(data = {
