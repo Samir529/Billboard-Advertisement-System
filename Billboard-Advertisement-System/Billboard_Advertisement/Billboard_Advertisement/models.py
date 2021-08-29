@@ -115,7 +115,8 @@ class confirm_post(models.Model):
 
 class CurrentPriceUpdate(models.Model):
     location = models.CharField(max_length=30, default='', choices=locations)
-    current_price = models.FloatField(max_length=10000, default='0')
+    min_price = models.FloatField(max_length=10000, default='0')
+    max_price = models.FloatField(max_length=10000, default='0')
     update_date = models.DateField(default=timezone.now)
     objects = models.Manager()
 

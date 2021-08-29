@@ -443,10 +443,12 @@ def current_price_update(request):
     if request.method == 'POST':
 
         location = request.POST.get('location')
-        current_price = request.POST.get('current_price')
+        min_price = request.POST.get('min_price')
+        max_price = request.POST.get('max_price')
         t = CurrentPriceUpdate()
         t.location = location
-        t.current_price = current_price
+        t.min_price = min_price
+        t.max_price = max_price
         t.save()
 
         updated = True
@@ -591,7 +593,27 @@ def viewPost(request):
     print(allConfirmedposts)
 
     billboard_filter = billboardFilter(request.GET, queryset=allPosts)
-    context = {'allPosts': allPosts, 'allConfirmedposts':allConfirmedposts, 'user':request.user, 'filter': billboard_filter}
+    try:
+        profile = CustomerProfileInfo.objects.get(user=request.user)
+    except CustomerProfileInfo.DoesNotExist:
+        try:
+            profile = AdvertiserProfileInfo.objects.get(user=request.user)
+        except AdvertiserProfileInfo.DoesNotExist:
+            msg = "There was an error"
+            print(msg)
+    has_filter = any(field in request.GET for field in set(billboard_filter.get_fields()))
+    if request.method == 'GET':
+        if 'all_post' in request.GET:
+            all_Posts = PostAdvertiseTable.objects.all()
+            billboard_filter = billboardFilter(request.GET, queryset=all_Posts)
+        if 'my_post' in request.GET:
+            myPosts = PostAdvertiseTable.objects.filter(author=request.user)
+            billboard_filter = billboardFilter(request.GET, queryset=myPosts)
+        if 'my_deals' in request.GET:
+            profile2 = confirm_post.objects.get(confirmed_by=request.user)
+            myDeals = PostAdvertiseTable.objects.filter(code=profile2.adCode)
+            billboard_filter = billboardFilter(request.GET, queryset=myDeals)
+    context = {'allPosts': allPosts, 'allConfirmedposts': allConfirmedposts, 'user': request.user, 'filter': billboard_filter, 'profile': profile}
     # context1 = {'allConfirmedposts': allConfirmedposts}
     return render(request, 'viewPost.html', context)
 
@@ -599,18 +621,30 @@ def viewPost(request):
 def postDetail(request):
     form_of_post = confirm_post_form(request.POST, request.FILES or None)
     posted = 'no'
+    msg = 'no'
     if form_of_post.is_valid():
-        adCode = form_of_post.cleaned_data['adCode']
-        code = PostAdvertiseTable.objects.get(code=adCode)
-        instance = form_of_post.save(commit=False)
-        instance.confirmed_by = request.user
-        instance.advertiser = code.author
-        instance.save()
-        form_of_post = confirm_post_form()
-        posted = 'yes'
+        try:
+            profile = CustomerProfileInfo.objects.get(user=request.user)
+            if profile.is_customer == True:
+                adCode = form_of_post.cleaned_data['adCode']
+                code = PostAdvertiseTable.objects.get(code=adCode)
+                instance = form_of_post.save(commit=False)
+                instance.confirmed_by = request.user
+                instance.advertiser = code.author
+                instance.save()
+                form_of_post = confirm_post_form()
+                posted = 'yes'
+        except CustomerProfileInfo.DoesNotExist:
+            try:
+                profile = AdvertiserProfileInfo.objects.get(user=request.user)
+                if profile.is_advertiser == True:
+                    msg = "You are an advertiser!"
+            except AdvertiserProfileInfo.DoesNotExist:
+                msg = "There was an error"
     context = {
         'form_of_post': form_of_post,
-        'posted': posted
+        'posted': posted,
+        'msg': msg
     }
     return render(request, 'postDetail.html', context)
 

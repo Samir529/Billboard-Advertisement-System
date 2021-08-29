@@ -1,7 +1,8 @@
 
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
-from Billboard_Advertisement.views import register_customer, home, sizeMoneyCalculation, viewPost, postDetail, post_form
+from Billboard_Advertisement.views import register_customer, home, sizeMoneyCalculation, viewPost, postDetail, \
+    advertise_post_form
 
 
 class TestUrls(SimpleTestCase):
@@ -27,9 +28,9 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(resolve(url).func, viewPost)
 
     def test_post_form_is_resolved(self):
-        url = reverse('post_form')
+        url = reverse('advertise_post_form')
         print(resolve(url))
-        self.assertEquals(resolve(url).func, post_form)
+        self.assertEquals(resolve(url).func, advertise_post_form)
 
     def test_postDetail_is_resolved(self):
         url = reverse('postDetail')

@@ -92,15 +92,17 @@ class GovtProfileTest(TestCase):
 class UpdatePriceTest(TestCase):
 
     def setUp(self):
-        CurrentPriceUpdate.objects.create(location='Dhaka', current_price=15.0, update_date='2021-08-21')
+        CurrentPriceUpdate.objects.create(location='Dhaka', min_price=15.0, max_price=22.0, update_date='2021-08-21')
 
     def test_content(self):
         priceUpdate = CurrentPriceUpdate.objects.get(id=1)
         expected_object_location = f'{priceUpdate.location}'
-        expected_object_current_price = f'{priceUpdate.current_price}'
+        expected_object_min_price = f'{priceUpdate.min_price}'
+        expected_object_max_price = f'{priceUpdate.max_price}'
         expected_object_update_date = f'{priceUpdate.update_date}'
         self.assertEquals(expected_object_location, 'Dhaka')
-        self.assertEquals(expected_object_current_price, '15.0')
+        self.assertEquals(expected_object_min_price, '15.0')
+        self.assertEquals(expected_object_max_price, '22.0')
         self.assertEquals(expected_object_update_date, '2021-08-21')
 
     # def test_update_date_label(self):
@@ -108,9 +110,9 @@ class UpdatePriceTest(TestCase):
     #     field_label = price._meta.get_field('update_date').verbose_name
     #     self.assertEqual(field_label, 'update date')
 
-    def test_current_price_max_length(self):
+    def test_min_price_max_length(self):
         price = CurrentPriceUpdate.objects.get(id=1)
-        max_length = price._meta.get_field('current_price').max_length
+        max_length = price._meta.get_field('min_price').max_length
         self.assertEqual(max_length, 10000)
 
     # def test_object_name_is_update_date(self):

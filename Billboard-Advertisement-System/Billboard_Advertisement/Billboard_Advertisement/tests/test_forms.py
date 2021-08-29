@@ -11,10 +11,9 @@ class TestForms(TestCase):
             'year': '2021',
             'month': 'January',
             'day': '01',
-            'adCode': '001',
+            'adCode': '0013',
 
         })
-
         self.assertTrue(form.is_valid())
 
     def test_confirm_post_form_no_data(self):
@@ -26,7 +25,7 @@ class TestForms(TestCase):
 
     def test_post_form_valid_data(self):
         form = post_form(data = {
-            'code': "001",
+            'code': "0013",
             'title': "title",
             'location': "Dhaka",
             'Spec_loc': "Jatrabari",

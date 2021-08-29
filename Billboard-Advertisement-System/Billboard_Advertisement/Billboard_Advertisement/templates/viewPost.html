@@ -7,7 +7,7 @@
     <div class="row">
       <div class=" col-md-8 col-md-10 mx-auto">
         <div class="site-heading">
-          <h3 class=" site-heading my-4 mt-3 text-black"><b>View Advertisements</b></h3>
+          <h3 class=" site-heading my-4 mt-3 text-black"><b>View Billboard Advertisements</b></h3>
         </div>
       </div>
     </div>
@@ -38,17 +38,36 @@
   card_opacity:hover {
   opacity: 1.0;
 }
+.new_container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 </style>
 <div class="container">
 
   <div class="">
     <div class="card" style="background-color: whitesmoke;">
       <div class="card-body">
-  <h3><b>Search by size</b></h3>
+  <h3><b>Search By</b></h3>
   <form method="get">
+    {% csrf_token %}
     {{ filter.form.as_p }}
 <!--    <input type="submit"/>-->
-  <button type="submit" class="btn btn-primary" style="background-color: #ff5733; margin-left: 464px; padding: 5px 22px 5px 22px; font-size: 18px;"><span>Submit</span></button>
+  <button type="submit" class="btn btn-primary" style="background-color: #ff5733; margin-left: 615px; padding: 5px 22px 5px 22px; font-size: 18px;"><span>Submit</span></button>
+    <a class="btn btn-warning" href="{% url 'viewPost' %}" style="font-size: 18px;">Reset</a>
+    <br><br><button type="submit" name="all_post" class="button3" style="font-size : 22px; width: 48.9%;"><span>Show all the advertisements</span></button>
+    {% if profile.is_customer == True %}
+        <button type="submit" name="my_deals" class="button3" style="font-size : 22px; width: 48.9%;"><span>Show my current deals only</span></button>
+    {% elif profile.is_advertiser == True %}
+        <button type="submit" name="my_post" class="button3" style="font-size : 22px; width: 48.9%;"><span>Show my advertisements only</span></button>
+    {% endif %}
   </form>
       </div>
     </div>
@@ -61,8 +80,15 @@
     <card_opacity>
     <div class="card2" style="background-color: whitesmoke;">
       {% load static %}
+      <div class="new_container">
       <a href="#" onClick="return false;"><img src="{{ post.posted_billboards_pic.url }}" class="card-img-top" alt="billboard image"
             onclick=enlargeImg() id="bb_img" style="border-radius: 5px 5px 0px 0px;"></a>
+      {% for post1 in allConfirmedposts %}
+      {% if post.code == post1.adCode %}
+        <div class="centered" style="font-size : 130px; color: gainsboro;"><b>SOLD</b></div>
+      {% endif %}
+      {% endfor %}
+      </div>
 <!--      <br/><br/><br/>-->
 <!--      <script>-->
 <!--          img = document.getElementById("bb_img");-->
@@ -89,7 +115,7 @@
             <p class="card-text h6">Billboard Height: &nbsp;{{ post.height }} sq. feet</p>
             <p class="card-text h6">Billboard Size: &nbsp;{{ post.width }} x {{ post.height }} &nbsp; ({{ post.size }} sq. feet)</p>
             <p class="card-text h6">Monthly Rent: &nbsp;{{ post.price }}</p>
-          <p class="card-text text-muted">{{post.short_desc|slice:":200"}}</p>
+          <p class="card-text text-muted">Desc: &nbsp;{{post.short_desc|slice:":200"}}</p>
 <!--        <a href="{% url 'postDetail' %}" class="btn btn-primary">Confirm Deal &rarr;</a>-->
 
 
@@ -105,12 +131,10 @@
 <!--            {% endif %}-->
 
         {% if post.code == post1.adCode %}
-        <br>
         <p class="card-text h6"><b>Deal Confirmed By: &nbsp;{{ post1.confirmed_by }}</b></p>
         <p class="card-text h6"><b>Name: &nbsp;{{ post1.confirmed_by.first_name }} {{ post1.confirmed_by.last_name }}</b></p>
         <p class="card-text h6"><b>Email: &nbsp;{{ post1.confirmed_by.email }}</b></p>
               <p class="card-text"><b>Deal Duration: &nbsp;{{ post1.day }}-{{ post1.month }}-{{ post1.year }}</b></p>
-
         {% endif %}
 
   {% endfor %}
@@ -118,8 +142,8 @@
         {% if user == post.author %}
           <a href="{% url 'update_post_form' %}" class="btn btn-primary">Update Post</a>
           <a href="{% url 'deletePost' %}" class="btn btn-primary" style="color:black; background-color: #f44336;">Delete Post &rarr;</a>
-        {% endif %}
         <br>
+        {% endif %}
       </div>
     </div>
       </card_opacity>
