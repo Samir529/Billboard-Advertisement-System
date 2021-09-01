@@ -141,7 +141,7 @@
 
         {% if user == post.author %}
           <a href="{% url 'update_post_form' %}" class="btn btn-primary">Update Post</a>
-          <a href="{% url 'deletePost' %}" class="btn btn-primary" style="color:black; background-color: #f44336;">Delete Post &rarr;</a>
+          <a href="{% url 'deletePost1' post.code %}" class="btn btn-primary" style="color:black; background-color: #f44336;">Delete Post &rarr;</a>
         <br>
         {% endif %}
       </div>

@@ -649,8 +649,23 @@ def postDetail(request):
     return render(request, 'postDetail.html', context)
 
 @login_required
-def deletePost(request):
-    return render(request, 'deletePost.html')
+def deletePost1(request, c):
+    event = PostAdvertiseTable.objects.get(pk=c)
+    event.delete()
+    # event1=confirm_post.objects.get(adCode=c)
+    # event1.delete()
+
+    try:
+        # obj = A.objects.get(name='John')
+        if confirm_post.objects.filter(adCode=c).exists():
+            event1 = confirm_post.objects.get(adCode=c)
+            event1.delete()
+    except:
+        pass
+
+    # event1 = confirm_post.objects.get(pk=code)
+    # event1.delete()
+    return redirect('viewPost')
 
 
 
