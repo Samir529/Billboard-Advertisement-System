@@ -16,7 +16,8 @@ class CustomerProfileTest(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(
             username='testuser', password='secret', first_name='Samir', last_name='Asif', email='testemail@example.com')
-        CustomerProfileInfo.objects.create(user=self.user, currentdate='2021-08-21', location='Dhaka', mobileNo='+8801845430242', is_customer=True)
+        CustomerProfileInfo.objects.create(user=self.user, currentdate='2021-08-21', location='Dhaka',
+                                           mobileNo='+8801845430242', is_customer=True, profile_picture='/profiles_pic/cityCor_profile_pic/demo_profile_pic2.png')
 
     def test_content(self):
         userInfo = CustomerProfileInfo.objects.get(id=1)
@@ -25,11 +26,13 @@ class CustomerProfileTest(TestCase):
         expected_object_location = f'{userInfo.location}'
         expected_object_mobileNo = f'{userInfo.mobileNo}'
         expected_object_is_customer = f'{userInfo.is_customer}'
+        expected_object_profile_picture = f'{userInfo.profile_picture}'
         self.assertEquals(expected_object_user, self.user.username)
         self.assertEquals(expected_object_currentdate, '2021-08-21')
         self.assertEquals(expected_object_location, 'Dhaka')
         self.assertEquals(expected_object_mobileNo, '+8801845430242')
         self.assertEquals(expected_object_is_customer, 'True')
+        self.assertEquals(expected_object_profile_picture, '/profiles_pic/cityCor_profile_pic/demo_profile_pic2.png')
 
     def test_is_customer_label(self):
         user = CustomerProfileInfo.objects.get(id=1)
@@ -52,7 +55,8 @@ class AdvertiserProfileTest(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(
             username='testuser', password='secret', first_name='Samir', last_name='Asif', email='testemail@example.com')
-        AdvertiserProfileInfo.objects.create(user=self.user, currentdate='2021-08-21', location='Dhaka', mobileNo='+8801845430242', is_advertiser=True)
+        AdvertiserProfileInfo.objects.create(user=self.user, currentdate='2021-08-21', location='Dhaka',
+                                             mobileNo='+8801845430242', is_advertiser=True, profile_picture='/profiles_pic/cityCor_profile_pic/demo_profile_pic2.png')
 
     def test_content(self):
         userInfo = AdvertiserProfileInfo.objects.get(id=1)
@@ -61,11 +65,13 @@ class AdvertiserProfileTest(TestCase):
         expected_object_location = f'{userInfo.location}'
         expected_object_mobileNo = f'{userInfo.mobileNo}'
         expected_object_is_advertiser = f'{userInfo.is_advertiser}'
+        expected_object_profile_picture = f'{userInfo.profile_picture}'
         self.assertEquals(expected_object_user, self.user.username)
         self.assertEquals(expected_object_currentdate, '2021-08-21')
         self.assertEquals(expected_object_location, 'Dhaka')
         self.assertEquals(expected_object_mobileNo, '+8801845430242')
         self.assertEquals(expected_object_is_advertiser, 'True')
+        self.assertEquals(expected_object_profile_picture, '/profiles_pic/cityCor_profile_pic/demo_profile_pic2.png')
 
 
 class GovtProfileTest(TestCase):
@@ -73,7 +79,9 @@ class GovtProfileTest(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(
             username='testuser', password='secret', first_name='Samir', last_name='Asif', email='testemail@example.com')
-        CityCorporationProfileInfo.objects.create(user=self.user, currentdate='2021-08-21', location='Dhaka', mobileNo='+8801845430242', is_cityCor=True)
+        CityCorporationProfileInfo.objects.create(user=self.user, currentdate='2021-08-21', location='Dhaka',
+                                                  mobileNo='+8801845430242', is_cityCor=True,
+                                                  profile_picture='/profiles_pic/cityCor_profile_pic/demo_profile_pic2.png')
 
     def test_content(self):
         userInfo = CityCorporationProfileInfo.objects.get(id=1)
@@ -82,11 +90,13 @@ class GovtProfileTest(TestCase):
         expected_object_location = f'{userInfo.location}'
         expected_object_mobileNo = f'{userInfo.mobileNo}'
         expected_object_is_cityCor = f'{userInfo.is_cityCor}'
+        expected_object_profile_picture = f'{userInfo.profile_picture}'
         self.assertEquals(expected_object_user, self.user.username)
         self.assertEquals(expected_object_currentdate, '2021-08-21')
         self.assertEquals(expected_object_location, 'Dhaka')
         self.assertEquals(expected_object_mobileNo, '+8801845430242')
         self.assertEquals(expected_object_is_cityCor, 'True')
+        self.assertEquals(expected_object_profile_picture, '/profiles_pic/cityCor_profile_pic/demo_profile_pic2.png')
 
 
 class UpdatePriceTest(TestCase):
@@ -126,9 +136,11 @@ class PostAdvertiseTest(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(
             username='testuser', password='secret', first_name='Samir', last_name='Asif', email='testemail@example.com')
-        PostAdvertiseTable.objects.create(author=self.user, code='ab12', title='ad1', location='Dhaka', Spec_loc='Badda',
+        PostAdvertiseTable.objects.create(author=self.user, code='ab12', title='ad1', location='Dhaka',
+                                          Spec_loc='Badda',
                                           width=12.0, height=8.0, size=96.0, price=10.0,
-                                          short_desc='abcd', post_date='2021-08-21')
+                                          short_desc='abcd', post_date='2021-08-21',
+                                          posted_billboards_pic='/posted_billboards_pic/billboards_images/demo_billboard_image.JPG')
 
     def test_content(self):
         post = PostAdvertiseTable.objects.get(id=1)
@@ -143,6 +155,7 @@ class PostAdvertiseTest(TestCase):
         expected_object_price = f'{post.price}'
         expected_object_short_desc = f'{post.short_desc}'
         expected_object_post_date = f'{post.post_date}'
+        expected_object_posted_billboards_pic = f'{post.posted_billboards_pic}'
         self.assertEquals(expected_object_author, self.user.username)
         self.assertEquals(expected_object_code, 'ab12')
         self.assertEquals(expected_object_title, 'ad1')
@@ -154,6 +167,8 @@ class PostAdvertiseTest(TestCase):
         self.assertEquals(expected_object_price, '10.0')
         self.assertEquals(expected_object_short_desc, 'abcd')
         self.assertEquals(expected_object_post_date, '2021-08-21')
+        self.assertEquals(expected_object_posted_billboards_pic,
+                          '/posted_billboards_pic/billboards_images/demo_billboard_image.JPG')
 
     # def test_Spec_loc_label(self):
     #     post = PostAdvertiseTable.objects.get(id=1)
@@ -176,7 +191,8 @@ class confirm_postTest(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(
             username='testuser', password='secret', first_name='Samir', last_name='Asif', email='testemail@example.com')
-        confirm_post.objects.create(confirmed_by=self.user, year='2022', month='12', day='13', adCode='1234', advertiser='testadvertiser')
+        confirm_post.objects.create(confirmed_by=self.user, year='2022', month='12', day='13', adCode='1234',
+                                    advertiser='testadvertiser')
 
     def test_content(self):
         postConfirm = confirm_post.objects.get(id=1)
@@ -207,22 +223,6 @@ class confirm_postTest(TestCase):
     #     object_name = confirm_post.objects.get(id=1)
     #     expected_object_name = f'{object_name.adCode}'
     #     self.assertEqual(str(object_name), expected_object_name)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

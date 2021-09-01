@@ -23,17 +23,18 @@ class TestForms(TestCase):
         self.assertEqual(len(form.errors),4)
 
 
+
     def test_post_form_valid_data(self):
         form = post_form(data = {
             'code': "0013",
-            'title': "title",
+            'title': "test_title",
             'location': "Dhaka",
             'Spec_loc': "Jatrabari",
             'width': "12.0",
             'height': "8.0",
             'price': "1000",
             'short_desc': "This is billboard",
-            'posted_billboards_pic': "Billboard Picture"
+            'posted_billboards_pic': "/posted_billboards_pic/billboards_images/demo_billboard_image.JPG"
         })
         self.assertTrue(form.is_valid())
 
@@ -42,6 +43,7 @@ class TestForms(TestCase):
 
         self.assertFalse(form.is_valid())
         self.assertEqual(len(form.errors),8)
+
 
 
     def test_changePassword_from_valid_data(self):
