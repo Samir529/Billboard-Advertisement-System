@@ -62,11 +62,11 @@
 <!--    <input type="submit"/>-->
   <button type="submit" class="btn btn-primary" style="background-color: #ff5733; margin-left: 615px; padding: 5px 22px 5px 22px; font-size: 18px;"><span>Submit</span></button>
     <a class="btn btn-warning" href="{% url 'viewPost' %}" style="font-size: 18px;">Reset</a>
-    <br><br><button type="submit" name="all_post" class="button3" style="font-size : 22px; width: 48.9%;"><span>Show all the advertisements</span></button>
+    <br><br><button type="submit" name="all_post" class="button2" style="font-size : 22px; width: 48.9%;"><span>Show all the advertisements</span></button>
     {% if profile.is_customer == True %}
-        <button type="submit" name="my_deals" class="button3" style="font-size : 22px; width: 48.9%;"><span>Show my current deals only</span></button>
+        <button type="submit" name="my_deals" class="button2" style="font-size : 22px; width: 48.9%;"><span>Show my current deals only</span></button>
     {% elif profile.is_advertiser == True %}
-        <button type="submit" name="my_post" class="button3" style="font-size : 22px; width: 48.9%;"><span>Show my advertisements only</span></button>
+        <button type="submit" name="my_post" class="button2" style="font-size : 22px; width: 48.9%;"><span>Show my advertisements only</span></button>
     {% endif %}
   </form>
       </div>
@@ -85,7 +85,7 @@
             onclick=enlargeImg() id="bb_img" style="border-radius: 5px 5px 0px 0px;"></a>
       {% for post1 in allConfirmedposts %}
       {% if post.code == post1.adCode %}
-        <div class="centered" style="font-size : 130px; color: gainsboro;"><b>SOLD</b></div>
+        <div class="centered" style="font-size : 140px; color: gainsboro;"><b>SOLD</b></div>
       {% endif %}
       {% endfor %}
       </div>
@@ -153,6 +153,7 @@
 </div>
 </div>
 </body>
+<br>
 <!--<a href="{% url 'postDetail' %}" class="btn btn-primary" style="font-size : 40px; width:100%; height:100px;">CLICK HERE TO CONFIRM ANY BILLBOARD &rarr;</a>-->
 <a href="{% url 'postDetail' %}" style="margin-left: -6px;"><button class="button2" style="font-size : 40px; width:100%; height:100px;"><span>CLICK HERE TO CONFIRM ANY BILLBOARD &rarr;</span></button></a>
 {%endblock%}
