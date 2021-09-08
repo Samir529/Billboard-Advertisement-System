@@ -10,15 +10,22 @@
 </style>
 <div class="content">
     <br>
+
+    {% if updated == "all_are_not_null" %}
+    <br>
+    <h1 style="color: lime"><b>Advertise Successfully Updated</b></h1>
+    <br>
+    {% endif %}
+
     {% if diff_advertiser == 'yes' %}
     <br>
     <h1 style="color: red">Cannot update another advertiser's post.</h1>
     <br>
     {% endif %}
 
-    {% if updated == "all_are_not_null" %}
+    {% if post_code == 0 %}
     <br>
-    <h1 style="color: lime"><b>Advertise Successfully Updated</b></h1>
+    <h1 style="color: red">Incorrect Post Code</h1>
     <br>
     {% endif %}
 

@@ -62,6 +62,15 @@
 <!--    <input type="submit"/>-->
   <button type="submit" class="btn btn-primary" style="background-color: #ff5733; margin-left: 615px; padding: 5px 22px 5px 22px; font-size: 18px;"><span>Submit</span></button>
     <a class="btn btn-warning" href="{% url 'viewPost' %}" style="font-size: 18px;">Reset</a>
+
+    {% if profile.is_customer == True %}
+        <a href="/customerPanel/" class="btn btn-primary" style="font-size: 18px;">Back to panel</a>
+    {% elif profile.is_advertiser == True %}
+        <a href="/advertiserPanel/" class="btn btn-primary" style="font-size: 18px;">Back to panel</a>
+    {% elif profile.is_cityCor == True %}
+        <a href="/cityCorporationPanel/" class="btn btn-primary" style="font-size: 18px;">Back to panel</a>
+    {% endif %}
+
     <br><br><button type="submit" name="all_post" class="button2" style="font-size : 22px; width: 48.9%;"><span>Show all the advertisements</span></button>
     {% if profile.is_customer == True %}
         <button type="submit" name="my_deals" class="button2" style="font-size : 22px; width: 48.9%;"><span>Show my current deals only</span></button>

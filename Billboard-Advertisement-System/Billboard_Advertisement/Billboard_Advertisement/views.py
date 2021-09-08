@@ -491,6 +491,7 @@ def update_post_form(request):
     registered = 'no'
     updated = 'no'
     different_advertiser = 'no'
+    post_code = 1
     p = 0
     billboard_pic_form = billboardPicForm()
 
@@ -506,47 +507,57 @@ def update_post_form(request):
         short_desc = request.POST.get('short_desc')
 
         if request.user.is_authenticated:
-            t = PostAdvertiseTable.objects.get(code=code)
+            try:
+                t = PostAdvertiseTable.objects.get(code=code)
 
-            if t.author == request.user:
-                billboard_pic_form = billboardPicForm(request.POST, request.FILES)
-                if billboard_pic_form.is_valid():
-                    billboard_pic = billboard_pic_form.cleaned_data['posted_billboards_pic']
+                if t.author == request.user:
+                    billboard_pic_form = billboardPicForm(request.POST, request.FILES)
+                    if billboard_pic_form.is_valid():
+                        billboard_pic = billboard_pic_form.cleaned_data['posted_billboards_pic']
+                    else:
+                        print(billboard_pic_form.errors)
+                    if title != "":
+                        t.title = title
+                    if location != "":
+                        t.location = location
+                    if Spec_loc != "":
+                        t.Spec_loc = Spec_loc
+                    if width != "":
+                        t.width = width
+                    if height != "":
+                        t.height = height
+                    if size != "":
+                        t.size = size
+                    if price != "":
+                        t.price = price
+                    if short_desc != "":
+                        t.short_desc = short_desc
+                    if billboard_pic != "/posted_billboards_pic/billboards_images/demo_billboard_image.JPG":
+                        t.posted_billboards_pic = billboard_pic
+                        p = 1
+                    t.save()
+                    if title == "" and location == "" and Spec_loc == "" and width == "" and height == "" and size == "" and price == "" and short_desc == "" and p == 0:
+                        updated = 'all_are_null'
+                    else:
+                        updated = 'all_are_not_null'
                 else:
-                    print(billboard_pic_form.errors)
-                if title != "":
-                    t.title = title
-                if location != "":
-                    t.location = location
-                if Spec_loc != "":
-                    t.Spec_loc = Spec_loc
-                if width != "":
-                    t.width = width
-                if height != "":
-                    t.height = height
-                if size != "":
-                    t.size = size
-                if price != "":
-                    t.price = price
-                if short_desc != "":
-                    t.short_desc = short_desc
-                if billboard_pic != "/posted_billboards_pic/billboards_images/demo_billboard_image.JPG":
-                    t.posted_billboards_pic = billboard_pic
-                    p = 1
-                t.save()
-                if title == "" and location == "" and Spec_loc == "" and width == "" and height == "" and size == "" and price == "" and short_desc == "" and p == 0:
-                    updated = 'all_are_null'
-                else:
-                    updated = 'all_are_not_null'
-            else:
-                different_advertiser = 'yes'
+                    different_advertiser = 'yes'
+            except:
+                post_code = 0
         else:
             registered = 'not_registered'
 
     # else:
     #     billboard_pic_form = billboardPicForm()
-    return render(request, 'update_post_form.html',
-              {'billboard_pic_form': billboard_pic_form, 'registered': registered, 'updated': updated, 'diff_advertiser': different_advertiser})
+    context = {
+        'billboard_pic_form': billboard_pic_form,
+        'registered': registered,
+        'updated': updated,
+        'diff_advertiser': different_advertiser,
+        'post_code': post_code,
+        # 'code': code
+    }
+    return render(request, 'update_post_form.html', context)
 
 
 
