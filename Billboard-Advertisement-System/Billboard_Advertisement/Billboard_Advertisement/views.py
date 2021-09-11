@@ -3,6 +3,7 @@ import random
 
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.db.models import Count
 from django.utils import timezone
 
 from django.contrib.auth import authenticate, login, update_session_auth_hash
@@ -615,8 +616,11 @@ def viewPost(request):
         try:
             profile = AdvertiserProfileInfo.objects.get(user=request.user)
         except AdvertiserProfileInfo.DoesNotExist:
-            msg = "There was an error"
-            print(msg)
+            try:
+                profile = CityCorporationProfileInfo.objects.get(user=request.user)
+            except CityCorporationProfileInfo.DoesNotExist:
+                msg = "There was an error"
+                print(msg)
     has_filter = any(field in request.GET for field in set(billboard_filter.get_fields()))
     if request.method == 'GET':
         if 'all_post' in request.GET:
@@ -685,7 +689,7 @@ def deletePost1(request, c):
 
 @login_required
 def viewAdvertisersRecords(request):
-    allPosts = PostAdvertiseTable.objects.all()
+    allPosts = PostAdvertiseTable.objects.values('author').distinct()
     # allConfirmedposts = confirm_post.objects.all()
 
     return render(request, 'view_advertisers_records.html', {'allPosts': allPosts})
