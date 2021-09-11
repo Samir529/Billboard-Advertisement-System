@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+<body>
+<style>
+        label {
+            color: deepskyblue
+        }
+        form label {font-weight:bold}
+</style>
+<div class="content">
+    <br>
+
+    {% if updated == "all_are_not_null" %}
+    <br>
+    <h1 style="color: lime"><b>Advertise Successfully Updated</b></h1>
+    <br>
+    {% endif %}
+
+    {% if diff_advertiser == 'yes' %}
+    <br>
+    <h1 style="color: red">Cannot update another advertiser's post.</h1>
+    <br>
+    {% endif %}
+
+    {% if post_code == 0 %}
+    <br>
+    <h1 style="color: red">Incorrect Post Code</h1>
+    <br>
+    {% endif %}
+
+    {% if registered == "not_registered" %}
+    <div style="white-space:nowrap"><h1 style="color: red">You are not registered. Register here first.
+        <a href="/sign_in_options/"><button class="button" style="width: 25%;  padding: 6px;"><span>Register</span></button></a></h1>
+    </div>
+    {% endif %}
+
+    <h2 style="color: gainsboro;">Update Advertise Information</h2>
+<form class="row g-3" action="{% url 'update_post_form' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h5 style="color: lightgray;">Enter the CODE of your post, which post you want to update</h5>
+        <div>
+      <label for="code" class="form-label">Post Code:</label>
+    <input style="font-weight: bold;" type="text" name="code" class="form-control" id="code" placeholder="enter the code" required="required"
+       oninvalid="this.setCustomValidity('Please enter the code first.')"
+       oninput="this.setCustomValidity('')">
+  </div>
+        <div>
+      <label for="title" class="form-label">Title:</label>
+    <input type="text" name="title" class="form-control" id="title" placeholder="enter title">
+  </div>
+  <div>
+      <label for="location">District:</label>
+            <select type="text" class="form-control" id="location" name="location" placeholder="choose a location">
+                <option value="">---------</option>
+                <option value="Dhaka">Dhaka</option>
+                <option value="Narayanganj">Narayanganj</option>
+                <option value="Gazipur">Gazipur</option>
+                <option value="Cumilla">Cumilla</option>
+                <option value="Chittagong">Chittagong</option>
+                <option value="Noakhali">Noakhali</option>
+                <option value="Jessore">Jessore</option>
+                <option value="Khulna">Khulna</option>
+                <option value="Barisal">Barisal</option>
+                <option value="Rajshahi">Rajshahi</option>
+                <option value="Sylhet">Sylhet</option>
+                <option value="Rangpur">Rangpur</option>
+                <option value="Feni">Feni</option>
+                <option value="Pabna">Pabna</option>
+                <option value="Faridpur">Faridpur</option>
+                <option value="Dinajpur">Dinajpur</option>
+                <option value="Cox's Bazar">Cox's Bazar</option>
+                <option value="Bogra">Bogra</option>
+                <option value="Tangail">Tangail</option>
+                <option value="Patuakhali">Patuakhali</option>
+                <option value="Lalmonirhat">Lalmonirhat</option>
+                <option value="Madaripur">Madaripur</option>
+                <option value="Naogaon">Naogaon</option>
+                <option value="Rajbari">Rajbari</option>
+                <option value="Narail">Narail</option>
+                <option value="Pirojpur">Pirojpur</option>
+                <option value="Sherpur">Sherpur</option>
+                <option value="Mars">Mars</option>
+            </select>
+  </div>
+        <div>
+      <label for="Spec_loc" class="form-label">Specific Location:</label>
+    <input type="text" name="Spec_loc" class="form-control" id="Spec_loc" placeholder="enter specific location">
+  </div>
+        <div>
+      <label for="width" class="form-label">Width of billboard:</label>
+    <input type="number" name="width" class="form-control" id="width" placeholder="enter width">
+  </div>
+        <div>
+      <label for="height" class="form-label">Height of billboard:</label>
+    <input type="number" name="height" class="form-control" id="height" placeholder="enter height">
+  </div>
+        <div>
+      <label for="price" class="form-label">Rent:</label>
+    <input type="number" name="price" class="form-control" id="price" placeholder="enter rent">
+  </div>
+        <div>
+      <label for="short_desc" class="form-label">Short Description:</label>
+    <textarea rows="6" cols="50" name="short_desc" class="form-control" id="short_desc" placeholder="Write a short description here.."></textarea>
+  </div>
+    <div class="formStyle">
+        {{billboard_pic_form.as_p}}
+    </div>
+    <button type="submit" class="button" name="update_button" style="margin-top : 30px; margin-left: 13px;"><span>Update Advertise</span></button>
+</form>
+    <a href="/viewPost/"><button class="button"><span>Back</span></button></a>
+</div>
+</body>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

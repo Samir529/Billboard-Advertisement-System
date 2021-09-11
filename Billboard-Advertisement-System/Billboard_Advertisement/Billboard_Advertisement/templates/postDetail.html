@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    <div class="content">
+        <br>
+        {% if msg == "You are an advertiser!" %}
+        <br>
+        <h1 style="color: red;">Advertisers are not allowed to confirm any post.</h1>
+        <br>
+        {% endif %}
+        {% if posted == "yes" %}
+        <br>
+        <h2 style="color: lime;"><b>Confirmed successfully</b></h2>
+        <br>
+        {% endif %}
+<form method="POST" enctype="multipart/form-data" class="formStyle">
+    {% csrf_token %}
+    <table>
+        {{form_of_post.as_table}}
+        <tr>
+            <td colspan="2">
+<!--                <input type='Submit' value="Post Advertise" />-->
+                <br>
+                <button type="submit" class="button"><span>Confirm Advertise</span></button>
+            </td>
+        </tr>
+    </table>
+</form>
+        <a href="/advertiserPanel/"><button class="button"><span>Back</span></button></a>
+    </div>
+    </body>
+{% endblock %}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    <style>
+        label {
+            color: deepskyblue
+        }
+        form label {font-weight:bold}
+    </style>
+<div class="content">
+    <br>
+    {% if updated == "all_are_not_null" %}
+    <h1 style="color: #0BB5FF"><b>Your profile is successfully updated</b></h1>
+    <br>
+    {% endif %}
+    {% if registered == "not_registered" %}
+    <div style="white-space:nowrap"><h1 style="color: red">You are not registered. Register here first.
+        <a href="/sign_in_options/"><button class="button" style="width: 25%;  padding: 6px;"><span>Register</span></button></a></h1>
+    </div>
+    {% endif %}
+    <h1 style="color: white">Update profile</h1>
+<form class="row g-3" action="{% url 'updateProfile' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+<!--    <h4 style="color: gainsboro">Enter username and password first to verify your account</h4>-->
+<!--        <div class="col-md-6">-->
+<!--            <input type="text" name="username" class="form-control" id="username" placeholder="Username"/>-->
+<!--        </div>-->
+<!--        <div class="col-md-6">-->
+<!--            <input type="password" name="password" class="form-control" id="password" placeholder="Password"/>-->
+<!--        </div>-->
+<!--        <br><br>-->
+    <h3 style="color: gainsboro">Fill out the below form</h3>
+
+  <div class="col-md-6">
+    <input type="text" name="first_name" class="form-control" placeholder="First name" aria-label="First name">
+  </div>
+  <div class="col-md-6">
+    <input type="text" name="last_name" class="form-control" placeholder="Last name" aria-label="Last name">
+  </div>
+
+  <div class="col-md-6">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" name="email" class="form-control" id="email" placeholder="abcd@gmail.com">
+  </div>
+  <div class="col-md-6">
+    <label for="mobileNo" class="form-label">Mobile No.</label>
+    <input type="number" name="mobileNo" class="form-control" id="mobileNo" placeholder="+880xxxxxxxxxx">
+  </div>
+
+  <div class="col-12">
+      <label for="location">Location:</label>
+            <select type="text" class="form-control" id="location" name="location" placeholder="choose a location">
+                <option value="">---------</option>
+                <option value="Dhaka">Dhaka</option>
+                <option value="Narayanganj">Narayanganj</option>
+                <option value="Gazipur">Gazipur</option>
+                <option value="Cumilla">Cumilla</option>
+                <option value="Chittagong">Chittagong</option>
+                <option value="Noakhali">Noakhali</option>
+                <option value="Jessore">Jessore</option>
+                <option value="Khulna">Khulna</option>
+                <option value="Barisal">Barisal</option>
+                <option value="Rajshahi">Rajshahi</option>
+                <option value="Sylhet">Sylhet</option>
+                <option value="Rangpur">Rangpur</option>
+                <option value="Feni">Feni</option>
+                <option value="Pabna">Pabna</option>
+                <option value="Faridpur">Faridpur</option>
+                <option value="Dinajpur">Dinajpur</option>
+                <option value="Cox's Bazar">Cox's Bazar</option>
+                <option value="Bogra">Bogra</option>
+                <option value="Tangail">Tangail</option>
+                <option value="Patuakhali">Patuakhali</option>
+                <option value="Lalmonirhat">Lalmonirhat</option>
+                <option value="Madaripur">Madaripur</option>
+                <option value="Naogaon">Naogaon</option>
+                <option value="Rajbari">Rajbari</option>
+                <option value="Narail">Narail</option>
+                <option value="Pirojpur">Pirojpur</option>
+                <option value="Sherpur">Sherpur</option>
+                <option value="Mars">Mars</option>
+            </select>
+  </div>
+    <div class="formStyle">
+        {{profile_picture_form.as_p}}
+    </div>
+    <button type="submit" class="button" style="margin-top : 30px; margin-left: 730px;"><span>Submit</span></button>
+</form>
+    {% if t2.is_customer == True %}
+        <a href="/customerPanel/"><button class="button" style="margin-left: 722px;"><span>Back</span></button></a>
+    {% elif t2.is_advertiser == True %}
+        <a href="/advertiserPanel/"><button class="button" style="margin-left: 722px;"><span>Back</span></button></a>
+    {% elif t2.is_cityCor == True %}
+        <a href="/cityCorporationPanel/"><button class="button" style="margin-left: 722px;"><span>Back</span></button></a>
+    {% endif %}
+</div>
+</body>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

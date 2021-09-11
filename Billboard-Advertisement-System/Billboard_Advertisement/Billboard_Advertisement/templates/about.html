@@ -1,0 +1,126 @@
+
+
+<!DOCTYPE html>
+{% extends 'newBase.html' %}
+{% block content %}
+{% load static %}
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+h4 {text-align: center;}
+p {text-align: center;}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.column {
+  float: left;
+  width: 33.3%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 8px;
+}
+
+.about-section {
+  padding: 50px;
+  text-align: center;
+  background-color: #000000;
+  color: white;
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #555;
+}
+
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="about-section">
+  <h1>About Us</h1>
+  <p>This is a billboard advertisement system of Bangladesh.</p>
+  <p>Our mission is to provide a system where dealers and customers can make deals very easily.</p>
+</div>
+
+<h2 style="text-align:center">Our Team</h2>
+
+<div class="container">
+  <div class="card-columns d-flex justify-content-center">
+    <div class="card2" style="background-color: whitesmoke;">
+        <img src="/static/assets/image/ashik.jpeg" alt="ashik" style="width:100%; border-radius: 5px 5px 0px 0px;">
+      <div class="card-block">
+          <br>
+        <h4 class="card-title">Md.Ashikur Rahman</h4>
+        <p class="card-text">Student</p>
+          <p class="card-text">Computer Science & Engineering Department</p>
+            <p class="card-text">East West University</p>
+                <p class="card-text">ashikur16jan@gmail.com</p>
+                    <p style="margin-right: 10px;"><a href="https://www.linkedin.com/in/md-ashikur-rahman-008196215/" class="button">LinkedIn</a></p>
+      </div>
+    </div>
+    <div class="card2" style="background-color: whitesmoke;">
+        <img src="/static/assets/image/samir.jpeg" alt="samir" style="width:100%; border-radius: 5px 5px 0px 0px;">
+      <div class="card-block">
+          <br>
+        <h4 class="card-title">Samir Asif</h4>
+        <p class="card-text">Student</p>
+          <p class="card-text">Computer Science & Engineering Department</p>
+            <p class="card-text">East West University</p>
+                <p class="card-text">samirasif116@gmail.com</p>
+                    <p style="margin-right: 10px;"><a href="https://www.linkedin.com/in/samir-asif-715ab51b8/" class="button">LinkedIn</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+</body>
+</html>
+{% endblock %}
