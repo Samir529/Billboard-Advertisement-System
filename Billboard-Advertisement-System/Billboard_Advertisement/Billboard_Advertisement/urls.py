@@ -49,6 +49,7 @@ urlpatterns = [
     path('deletePost1/<c>', views.deletePost1, name='deletePost1'),
     path('current_price_update/',views.current_price_update, name='current_price_update'),
     path('current_price_view/',views.current_price_view, name='current_price_view'),
+    path('viewAdvertisersRecords/',views.viewAdvertisersRecords, name='viewAdvertisersRecords'),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -436,7 +436,7 @@ def change_password(request):
     else:
         return redirect('user_login')
 
-@login_required
+# @login_required
 def current_price_update(request):
     updated = False
 
@@ -469,7 +469,7 @@ def current_price_view(request):
     return render(request, 'view_current_price.html', {'filter': view_current_price})
 
 
-@login_required
+# @login_required
 def advertise_post_form(request):
     form_of_post = post_form(request.POST, request.FILES or None)
     posted = 'no'
@@ -604,6 +604,7 @@ def conv(request):
 def viewPost(request):
     allPosts = PostAdvertiseTable.objects.all()
     allConfirmedposts = confirm_post.objects.all()
+    profile = 0
     print(allPosts)
     print(allConfirmedposts)
 
@@ -682,8 +683,12 @@ def deletePost1(request, c):
     # event1.delete()
     return redirect('viewPost')
 
+@login_required
+def viewAdvertisersRecords(request):
+    allPosts = PostAdvertiseTable.objects.all()
+    # allConfirmedposts = confirm_post.objects.all()
 
-
+    return render(request, 'view_advertisers_records.html', {'allPosts': allPosts})
 
 
 

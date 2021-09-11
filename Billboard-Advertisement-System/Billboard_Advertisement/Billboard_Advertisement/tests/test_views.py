@@ -10,38 +10,37 @@ from Billboard_Advertisement.models import CurrentPriceUpdate, PostAdvertiseTabl
 
 class TestViews(TestCase):
 
-    def setUp(self):
-        self.user = get_user_model().objects.create_user(
-            username='testuser', password='secret', first_name='Samir', last_name='Asif', email='testemail@example.com')
-
     # def setUp(self):
-    #     self.update = CurrentPriceUpdate.objects.create(location='Khulna', current_price=15.0, update_date='2021-08-21')
+    #     self.user = get_user_model().objects.create_user(
+    #         username='testuser', password='secret', first_name='Samir', last_name='Asif', email='testemail@example.com')
+    #
+    #     self.update = CurrentPriceUpdate.objects.create(location='Khulna', min_price=15.0, max_price=15.0, update_date='2021-08-21')
 
-    # def test_current_price_update_view_POST(self):
-    #     response = self.client.post(reverse('current_price_update'), data={
-    #         'location': 'Dhaka',
-    #         'min_price': '12.5',
-    #         'max_price': '16.5',
-    #         'update_date': timezone.now,
-    #     })
-    #     post = CurrentPriceUpdate.objects.last()
-    #     self.assertEqual(CurrentPriceUpdate.objects.count(), 1)
-    #     self.assertEquals(response.status_code, 302)
-    #     self.assertEquals(post.location, 'Khulna')
-    #     self.assertEquals(post.min_price, 12.5)
-    #     self.assertEquals(post.max_price, 16.5)
-    #     self.assertEquals(post.update_date, datetime.date.today())
-    #     self.assertTemplateUsed(response, 'update_current_price.html')
+    def test_current_price_update_view_POST(self):
+        response = self.client.post(reverse('current_price_update'), data={
+            'location': 'Khulna',
+            'min_price': '12.5',
+            'max_price': '16.5',
+            'update_date': timezone.now,
+        })
+        post = CurrentPriceUpdate.objects.last()
+        self.assertEqual(CurrentPriceUpdate.objects.count(), 1)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(post.location, 'Khulna')
+        self.assertEquals(post.min_price, 12.5)
+        self.assertEquals(post.max_price, 16.5)
+        self.assertEquals(post.update_date, datetime.date.today())
+        self.assertTemplateUsed(response, 'update_current_price.html')
 
     def test_current_price_view_view(self):
         response = self.client.post(reverse('current_price_view'))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'view_current_price.html')
 
-    def test_post_form_view(self):
+    def test_advertise_post_form_view(self):
         response = self.client.get(reverse('advertise_post_form'))
-        self.assertEquals(response.status_code, 302)
-        # self.assertTemplateUsed(response, 'post_form.html')
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'post_form.html')
 
     def test_register_customer_view(self):
         response = self.client.get(reverse('register_customer'))
@@ -60,6 +59,13 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         # self.assertContains(response, '')
         self.assertTemplateUsed(response, 'govt_registration.html')
+
+
+
+
+
+
+
 
     # def test_advertise_post_form_view_POST(self):
     #     response = self.client.post(reverse('advertise_post_form'), data={
@@ -85,6 +91,7 @@ class TestViews(TestCase):
     #     self.assertEquals(post.short_desc, 'This is a billboard')
     #     self.assertEquals(post.posted_billboards_pic, "/posted_billboards_pic/billboards_images/demo_billboard_image.JPG")
     #     self.assertTemplateUsed(response, 'post_form.html')
+
 
     # def test_register_customer_view_POST(self):
     #     response = self.client.post(reverse('register_customer'), data={

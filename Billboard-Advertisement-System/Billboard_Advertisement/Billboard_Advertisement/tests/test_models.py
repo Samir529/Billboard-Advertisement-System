@@ -143,7 +143,7 @@ class PostAdvertiseTest(TestCase):
                                           posted_billboards_pic='/posted_billboards_pic/billboards_images/demo_billboard_image.JPG')
 
     def test_content(self):
-        post = PostAdvertiseTable.objects.get(id=1)
+        post = PostAdvertiseTable.objects.get(code='ab12')
         expected_object_author = f'{post.author}'
         expected_object_code = f'{post.code}'
         expected_object_title = f'{post.title}'
@@ -176,7 +176,7 @@ class PostAdvertiseTest(TestCase):
     #     self.assertEqual(field_label, 'Spec loc')
 
     def test_short_desc_max_length(self):
-        post = PostAdvertiseTable.objects.get(id=1)
+        post = PostAdvertiseTable.objects.get(code='ab12')
         max_length = post._meta.get_field('short_desc').max_length
         self.assertEqual(max_length, 500)
 

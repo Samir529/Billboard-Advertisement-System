@@ -76,7 +76,7 @@ class CityCorporationProfileInfo(models.Model):
 
 
 class PostAdvertiseTable(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default=None, related_name="adPoster")
     code = models.CharField(max_length=100, primary_key=True)
     title = models.CharField(max_length = 100, default=None)
     location = models.CharField(max_length=30, default='', blank=False, choices=locations)

@@ -21,7 +21,7 @@
 <!--        </div>-->
 <!--        {% endif %}-->
     <br><br>
-    <h1 style="color: white;">Login here</h1>
+    <h1 style="color: white;">Sign-In here</h1>
     <br>
     <form action="{% url 'user_login' %}" method="post" class="formStyle">
         {% csrf_token %}
@@ -35,7 +35,7 @@
       <input type="checkbox" checked="checked" name="remember"> Remember me
     </label>
         <br><br>
-        <button class="button"><span>Login</span></button>
+        <button class="button"><span>Sign-In</span></button>
     </form>
     <a href="/"><button class="button"><span>Back</span></button></a>
 </div>
