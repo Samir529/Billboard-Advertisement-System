@@ -1,7 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import CustomerProfileInfo, AdvertiserProfileInfo, CityCorporationProfileInfo, confirm_post, PostAdvertiseTable
+from .models import CustomerProfileInfo, AdvertiserProfileInfo, CityCorporationProfileInfo, confirm_post, \
+    PostAdvertiseTable, CurrentPriceUpdate
 
 admin.site.site_header = 'Billboard Advertisement System admin'
 admin.site.site_title = 'Billboard Advertisement System admin'
@@ -13,3 +14,4 @@ admin.site.register(AdvertiserProfileInfo)
 admin.site.register(CityCorporationProfileInfo)
 admin.site.register(PostAdvertiseTable)
 admin.site.register(confirm_post)
+admin.site.register(CurrentPriceUpdate)

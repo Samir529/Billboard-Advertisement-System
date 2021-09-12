@@ -642,6 +642,7 @@ def postDetail(request):
     form_of_post = confirm_post_form(request.POST, request.FILES or None)
     posted = 'no'
     msg = 'no'
+    profile = 0
     if form_of_post.is_valid():
         try:
             profile = CustomerProfileInfo.objects.get(user=request.user)
@@ -660,11 +661,17 @@ def postDetail(request):
                 if profile.is_advertiser == True:
                     msg = "You are an advertiser!"
             except AdvertiserProfileInfo.DoesNotExist:
-                msg = "There was an error"
+                try:
+                    profile = CityCorporationProfileInfo.objects.get(user=request.user)
+                    if profile.is_cityCor == True:
+                        msg = "You are city corporation!"
+                except CityCorporationProfileInfo.DoesNotExist:
+                    msg = "There was an error"
     context = {
         'form_of_post': form_of_post,
         'posted': posted,
-        'msg': msg
+        'msg': msg,
+        'profile': profile
     }
     return render(request, 'postDetail.html', context)
 

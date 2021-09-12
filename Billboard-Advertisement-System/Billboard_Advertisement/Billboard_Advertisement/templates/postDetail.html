@@ -9,6 +9,19 @@
         <h1 style="color: red;">Advertisers are not allowed to confirm any post.</h1>
         <br>
         {% endif %}
+
+        {% if msg == "You are city corporation!" %}
+        <br>
+        <h1 style="color: red;">You are not allowed to confirm any post.</h1>
+        <br>
+        {% endif %}
+
+        {% if msg == "There was an error" %}
+        <br>
+        <h1 style="color: red;">You can not confirm any post / You do not have an account.</h1>
+        <br>
+        {% endif %}
+
         {% if posted == "yes" %}
         <br>
         <h2 style="color: lime;"><b>Confirmed successfully</b></h2>
@@ -27,7 +40,16 @@
         </tr>
     </table>
 </form>
-        <a href="/advertiserPanel/"><button class="button"><span>Back</span></button></a>
+        <a href="/viewPost/"><button class="button"><span>Back</span></button></a>
+<!--        {% if profile.is_customer == True %}-->
+<!--            <a href="/customerPanel/"><button class="button"><span>Back</span></button></a>-->
+<!--        {% elif profile.is_advertiser == True %}-->
+<!--            <a href="/advertiserPanel/"><button class="button"><span>Back</span></button></a>-->
+<!--        {% elif profile.is_cityCor == True %}-->
+<!--            <a href="/cityCorporationPanel/"><button class="button"><span>Back</span></button></a>-->
+<!--        {% elif user.is_staff == True %}-->
+<!--            <a href="/staffPanel/"><button class="button"><span>Back</span></button></a>-->
+<!--        {% endif %}-->
     </div>
     </body>
 {% endblock %}

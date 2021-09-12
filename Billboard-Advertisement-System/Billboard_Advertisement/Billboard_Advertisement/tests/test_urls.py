@@ -16,7 +16,6 @@ class TestUrls(SimpleTestCase):
         print(resolve(url))
         self.assertEquals(resolve(url).func, register_customer)
 
-
     def test_sizeMoneyCalculation_url_is_resolved(self):
         url = reverse('sizeMoneyCalculation')
         print(resolve(url))

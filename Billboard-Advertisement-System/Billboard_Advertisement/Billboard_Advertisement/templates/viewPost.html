@@ -69,6 +69,8 @@
         <a href="/advertiserPanel/" class="btn btn-primary" style="font-size: 18px;">Back to panel</a>
     {% elif profile.is_cityCor == True %}
         <a href="/cityCorporationPanel/" class="btn btn-primary" style="font-size: 18px;">Back to panel</a>
+    {% elif user.is_staff == True %}
+        <a href="/staffPanel/" class="btn btn-primary" style="font-size: 18px;">Back to panel</a>
     {% endif %}
 
     <br><br><button type="submit" name="all_post" class="button2" style="font-size : 22px; width: 48.9%;"><span>Show all the advertisements</span></button>
@@ -94,7 +96,7 @@
             onclick=enlargeImg() id="bb_img" style="border-radius: 5px 5px 0px 0px;"></a>
       {% for post1 in allConfirmedposts %}
       {% if post.code == post1.adCode %}
-        <div class="centered" style="font-size : 140px; color: gainsboro;"><b>SOLD</b></div>
+        <div class="centered" style="font-size : 140px; color: #e8e8e8;"><b>SOLD</b></div>
       {% endif %}
       {% endfor %}
       </div>
