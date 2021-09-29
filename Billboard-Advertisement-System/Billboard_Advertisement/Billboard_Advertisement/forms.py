@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django import forms
 from django.contrib.auth.models import User
 
@@ -6,7 +7,8 @@ from .models import CustomerProfileInfo, AdvertiserProfileInfo, CityCorporationP
 
 class UserForm(forms.ModelForm):
     # password = forms.CharField(min_length=4, widget=forms.PasswordInput())
-
+    password = forms.CharField(widget=forms.PasswordInput())
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
     class Meta():
         model = User
         fields = ('username', 'password', 'first_name', 'last_name', 'email')
@@ -49,9 +51,9 @@ class billboardPicForm(forms.ModelForm):
 class changePassForm(forms.Form):
     old_password_flag = True
     re_new_password_flag = True
-    old_password = forms.CharField(label="Old Password", min_length=4, widget=forms.PasswordInput(attrs={'placeholder': 'enter old password'}))
-    new_password = forms.CharField(label="New Password", min_length=4, widget=forms.PasswordInput(attrs={'placeholder': 'enter new password'}))
-    re_new_password = forms.CharField(label="Re-type New Password", min_length=4,widget=forms.PasswordInput(attrs={'placeholder': 're-type new password'}))
+    old_password = forms.CharField(label="Old Password", min_length=4, widget=forms.PasswordInput(attrs={'placeholder': ' enter old password'}))
+    new_password = forms.CharField(label="New Password", min_length=4, widget=forms.PasswordInput(attrs={'placeholder': ' enter new password'}))
+    re_new_password = forms.CharField(label="Re-type New Password", min_length=4,widget=forms.PasswordInput(attrs={'placeholder': ' re-type new password'}))
 
     def set_old_password_flag(self):
         self.old_password_flag = False
@@ -83,8 +85,8 @@ class post_form(forms.ModelForm):
             "title": "Title:",
             "location": "District:",
             "Spec_loc": "Specific Location:",
-            "width": "Width of billboard:",
-            "height": "Height of billboard:",
+            "width": "Width of Billboard:",
+            "height": "Height of Billboard:",
             "price": "Rent:",
             "short_desc": "Short Description:",
             "posted_billboards_pic": "Billboard Picture:"
@@ -93,8 +95,8 @@ class post_form(forms.ModelForm):
             'code': forms.TextInput(attrs={'placeholder': 'enter a code'}),
             'title': forms.TextInput(attrs={'placeholder': 'enter title'}),
             'Spec_loc': forms.TextInput(attrs={'placeholder': 'enter specific location'}),
-            'width': forms.TextInput(attrs={'placeholder': 'enter width'}),
-            'height': forms.TextInput(attrs={'placeholder': 'enter height'}),
+            'width': forms.TextInput(attrs={'placeholder': 'in sq. feet'}),
+            'height': forms.TextInput(attrs={'placeholder': 'in sq. feet'}),
             'price': forms.TextInput(attrs={'placeholder': 'enter rent'}),
             'short_desc': forms.Textarea(
                 attrs={'rows': 6, 'cols': 50, 'placeholder': 'Write a short description here..'}),
@@ -103,13 +105,19 @@ class post_form(forms.ModelForm):
 class confirm_post_form(forms.ModelForm):
     class Meta:
         model = confirm_post
-        fields = ('year', 'month', 'day', 'adCode')
+        dealDuration = forms.DateField(initial=timezone.now())
+        fields = ('adCode', 'dealDuration')
         labels = {
-            "year": "Year:",
-            "month": "Month:",
-            "day": "Day:",
+            # "year": "Year:",
+            # "month": "Month:",
+            # "day": "Day:",
             "adCode": "Advertisement Code:",
+            "dealDuration": "Deal Duration:",
 
+        }
+        widgets = {
+            'adCode': forms.TextInput(attrs={'placeholder': ' enter code'}),
+            'dealDuration': forms.SelectDateWidget()
         }
 
 

@@ -52,8 +52,8 @@ def sign_in_options(request):
             return HttpResponseRedirect(reverse('register_customer'))
         elif 'Advertiser' in request.POST:
             return HttpResponseRedirect(reverse('register_advertiser'))
-        elif 'City_Corporation' in request.POST:
-            return HttpResponseRedirect(reverse('register_cityCorporation'))
+        # elif 'City_Corporation' in request.POST:
+        #     return HttpResponseRedirect(reverse('register_cityCorporation'))
     return render(request, 'sign_in_options.html')
 
 
@@ -94,8 +94,9 @@ def user_login(request):
             if user.is_staff==False:
                 if user.is_active:
                     login(request, user)
-                    if not remember_me:
-                        request.session.set_expiry(0)
+                    if not remember_me:     # unchecked
+                        request.session.set_expiry(0)   # if exits from browser then login will lost,
+                                                        # else, if exits from browser then login will not lost
                     try:
                         c = CustomerProfileInfo.objects.get(user=request.user)
                         if c.is_customer==True:
@@ -130,6 +131,7 @@ def user_logout(request):
 
 def register_customer(request):
     registered = False
+    match_password = 1
 
     if request.method == 'POST':
 
@@ -138,7 +140,7 @@ def register_customer(request):
 
         user_form = UserForm(data=request.POST)
         profile_picture_form = customerProfilePicForm(request.POST, request.FILES)
-        if user_form.is_valid() and profile_picture_form.is_valid():
+        if user_form.is_valid() and profile_picture_form.is_valid() and user_form.cleaned_data['password'] == user_form.cleaned_data['confirm_password']:
             user = user_form.save()
             user.set_password(user.password)
             user.save()
@@ -160,17 +162,22 @@ def register_customer(request):
 
             registered = True
 
+        elif user_form.data['password'] != user_form.data['confirm_password']:
+            # print('password and confirm password does not match')
+            match_password = 0
+            # user_form.add_error('confirm_password', 'password and confirm password does not match')
         else:
             print(user_form.errors, profile_picture_form.errors)
     else:
         user_form = UserForm()
         profile_picture_form = customerProfilePicForm()
     return render(request, 'customer_registration.html',
-            {'user_form': user_form, 'profile_picture_form': profile_picture_form, 'registered': registered})
+            {'user_form': user_form, 'profile_picture_form': profile_picture_form, 'registered': registered, 'match_password': match_password})
 
 
 def register_advertiser(request):
     registered = False
+    match_password = 1
 
     if request.method == 'POST':
 
@@ -179,7 +186,7 @@ def register_advertiser(request):
 
         user_form = UserForm(data=request.POST)
         profile_picture_form = advertiserProfilePicForm(request.POST, request.FILES)
-        if user_form.is_valid() and profile_picture_form.is_valid():
+        if user_form.is_valid() and profile_picture_form.is_valid() and user_form.cleaned_data['password'] == user_form.cleaned_data['confirm_password']:
             user = user_form.save()
             user.set_password(user.password)
             user.save()
@@ -194,17 +201,22 @@ def register_advertiser(request):
 
             registered = True
 
+        elif user_form.data['password'] != user_form.data['confirm_password']:
+            # print('password and confirm password does not match')
+            match_password = 0
+            # user_form.add_error('confirm_password', 'password and confirm password does not match')
         else:
             print(user_form.errors, profile_picture_form.errors)
     else:
         user_form = UserForm()
         profile_picture_form = advertiserProfilePicForm()
     return render(request, 'advertiser_registration.html',
-            {'user_form': user_form, 'profile_picture_form': profile_picture_form, 'registered': registered})
+            {'user_form': user_form, 'profile_picture_form': profile_picture_form, 'registered': registered, 'match_password': match_password})
 
 
 def register_cityCorporation(request):
     registered = False
+    match_password = 1
 
     if request.method == 'POST':
 
@@ -213,7 +225,7 @@ def register_cityCorporation(request):
 
         user_form = UserForm(data=request.POST)
         profile_picture_form = cityCorporationProfilePicForm(request.POST, request.FILES)
-        if user_form.is_valid() and profile_picture_form.is_valid():
+        if user_form.is_valid() and profile_picture_form.is_valid() and user_form.cleaned_data['password'] == user_form.cleaned_data['confirm_password']:
             user = user_form.save()
             user.set_password(user.password)
             user.save()
@@ -228,13 +240,17 @@ def register_cityCorporation(request):
 
             registered = True
 
+        elif user_form.data['password'] != user_form.data['confirm_password']:
+            # print('password and confirm password does not match')
+            match_password = 0
+            # user_form.add_error('confirm_password', 'password and confirm password does not match')
         else:
             print(user_form.errors, profile_picture_form.errors)
     else:
         user_form = UserForm()
         profile_picture_form = cityCorporationProfilePicForm()
     return render(request, 'govt_registration.html',
-            {'user_form': user_form, 'profile_picture_form': profile_picture_form, 'registered': registered})
+            {'user_form': user_form, 'profile_picture_form': profile_picture_form, 'registered': registered, 'match_password': match_password})
 
 
 @login_required
@@ -359,6 +375,7 @@ def updateProfile(request):
 
 @login_required
 def viewProfile(request):
+    profile = 0
     if request.user.is_authenticated:
         user = User.objects.get(username=request.user)
         try:
@@ -606,8 +623,8 @@ def viewPost(request):
     allPosts = PostAdvertiseTable.objects.all()
     allConfirmedposts = confirm_post.objects.all()
     profile = 0
-    print(allPosts)
-    print(allConfirmedposts)
+    # print(allPosts)
+    # print(allConfirmedposts)
 
     billboard_filter = billboardFilter(request.GET, queryset=allPosts)
     try:
@@ -640,6 +657,7 @@ def viewPost(request):
 @login_required
 def postDetail(request):
     form_of_post = confirm_post_form(request.POST, request.FILES or None)
+    post_code = 1
     posted = 'no'
     msg = 'no'
     profile = 0
@@ -648,13 +666,16 @@ def postDetail(request):
             profile = CustomerProfileInfo.objects.get(user=request.user)
             if profile.is_customer == True:
                 adCode = form_of_post.cleaned_data['adCode']
-                code = PostAdvertiseTable.objects.get(code=adCode)
-                instance = form_of_post.save(commit=False)
-                instance.confirmed_by = request.user
-                instance.advertiser = code.author
-                instance.save()
-                form_of_post = confirm_post_form()
-                posted = 'yes'
+                try:
+                    code = PostAdvertiseTable.objects.get(code=adCode)
+                    instance = form_of_post.save(commit=False)
+                    instance.confirmed_by = request.user
+                    instance.advertiser = code.author
+                    instance.save()
+                    form_of_post = confirm_post_form()
+                    posted = 'yes'
+                except:
+                    post_code = 0
         except CustomerProfileInfo.DoesNotExist:
             try:
                 profile = AdvertiserProfileInfo.objects.get(user=request.user)
@@ -671,7 +692,8 @@ def postDetail(request):
         'form_of_post': form_of_post,
         'posted': posted,
         'msg': msg,
-        'profile': profile
+        'profile': profile,
+        'post_code': post_code
     }
     return render(request, 'postDetail.html', context)
 
@@ -694,21 +716,56 @@ def deletePost1(request, c):
     # event1.delete()
     return redirect('viewPost')
 
+# @login_required
+# def viewAdvertisersRecords(request):
+#     allPosts = PostAdvertiseTable.objects.values('author').distinct()
+#     # allConfirmedposts = confirm_post.objects.all()
+#
+#     return render(request, 'view_advertisers_records.html', {'allPosts': allPosts})
+
+def myPanel(request):
+    profile = 0
+    if request.user.is_authenticated:
+        try:
+            profile = CustomerProfileInfo.objects.get(user=request.user)
+            if profile.is_customer == True:
+                return HttpResponseRedirect(reverse('customerPanel'))
+        except CustomerProfileInfo.DoesNotExist:
+            try:
+                profile = AdvertiserProfileInfo.objects.get(user=request.user)
+                if profile.is_advertiser == True:
+                    return HttpResponseRedirect(reverse('advertiserPanel'))
+            except AdvertiserProfileInfo.DoesNotExist:
+                try:
+                    profile = CityCorporationProfileInfo.objects.get(user=request.user)
+                    if profile.is_cityCor == True:
+                        return HttpResponseRedirect(reverse('cityCorporationPanel'))
+                except CityCorporationProfileInfo.DoesNotExist:
+                    msg = "User is not logged in"
+                    print(msg)
+    else:
+        return render(request, 'user_login.html', {'profile': profile})
+
 @login_required
-def viewAdvertisersRecords(request):
-    allPosts = PostAdvertiseTable.objects.values('author').distinct()
-    # allConfirmedposts = confirm_post.objects.all()
+def viewCurrentDealRecords(request):
+    allPosts = confirm_post.objects.all()
 
-    return render(request, 'view_advertisers_records.html', {'allPosts': allPosts})
+    return render(request, 'view_current_deal_records.html', {'allPosts': allPosts})
 
+@login_required
+def viewAdveriserRecords(request):
+    allPosts = AdvertiserProfileInfo.objects.all()
 
+    return render(request, 'view_advertiser_records.html', {'allPosts': allPosts})
 
+@login_required
+def viewCustomerRecords(request):
+    allPosts = CustomerProfileInfo.objects.all()
 
+    return render(request, 'view_customer_records.html', {'allPosts': allPosts})
 
-
-
-
-
+def viewRecords(request):
+    return render(request, 'view_records.html')
 
 
 

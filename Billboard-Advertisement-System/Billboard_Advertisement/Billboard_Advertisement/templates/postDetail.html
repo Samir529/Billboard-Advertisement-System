@@ -7,38 +7,36 @@
         {% if msg == "You are an advertiser!" %}
         <br>
         <h1 style="color: red;">Advertisers are not allowed to confirm any post.</h1>
-        <br>
         {% endif %}
 
         {% if msg == "You are city corporation!" %}
         <br>
         <h1 style="color: red;">You are not allowed to confirm any post.</h1>
-        <br>
         {% endif %}
 
         {% if msg == "There was an error" %}
         <br>
         <h1 style="color: red;">You can not confirm any post / You do not have an account.</h1>
+        {% endif %}
+
+        {% if post_code == 0 %}
         <br>
+        <h1 style="color: red">Incorrect Post Code</h1>
         {% endif %}
 
         {% if posted == "yes" %}
         <br>
         <h2 style="color: lime;"><b>Confirmed successfully</b></h2>
-        <br>
         {% endif %}
+        <br>
+        <h1 style="color: white;">Confirm Deal</h1>
+    <br>
 <form method="POST" enctype="multipart/form-data" class="formStyle">
     {% csrf_token %}
-    <table>
-        {{form_of_post.as_table}}
-        <tr>
-            <td colspan="2">
+    {{form_of_post.as_p}}
 <!--                <input type='Submit' value="Post Advertise" />-->
-                <br>
-                <button type="submit" class="button"><span>Confirm Advertise</span></button>
-            </td>
-        </tr>
-    </table>
+    <br>
+    <button type="submit" class="button"><span>Confirm Advertise</span></button>
 </form>
         <a href="/viewPost/"><button class="button"><span>Back</span></button></a>
 <!--        {% if profile.is_customer == True %}-->
