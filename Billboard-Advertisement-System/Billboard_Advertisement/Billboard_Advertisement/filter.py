@@ -14,18 +14,27 @@ class billboardFilter(django_filters.FilterSet):
                                                   attrs={'style': 'width:210px'}))
     size = django_filters.RangeFilter(label='• Billboard Size (in square feet)',
                                       widget=django_filters.widgets.RangeWidget(
-                                          attrs={'placeholder': '0', 'style': 'width:250px'}))
+                                          attrs={'placeholder': ' 0', 'style': 'width:250px'}))
     price = django_filters.RangeFilter(label='• Billboard Price Range',
                                        widget=django_filters.widgets.RangeWidget(
-                                           attrs={'placeholder': '0', 'style': 'width:250px'}))
+                                           attrs={'placeholder': ' 0', 'style': 'width:250px'}))
+    # author = django_filters.AllValuesFilter(field_name='author__username', lookup_expr='iexact')
 
-    # author = django_filters.CharFilter(field_name='author__username', lookup_expr='iexact',
-    #                                    label='• Advertiser Username',
-    #                                    widget=forms.TextInput(attrs={'placeholder': 'username'}))
+    author = django_filters.CharFilter(field_name='author__username', lookup_expr='iexact',
+                                       label='• Advertiser Username',
+                                       widget=forms.TextInput(attrs={'placeholder': ' enter username', 'style': 'width:250px'}))
 
     class Meta:
         model = PostAdvertiseTable
         fields = ['size', 'price', 'location']
+
+
+class billboardFilter2(django_filters.FilterSet):
+    location = django_filters.AllValuesFilter(label="")
+
+    class Meta:
+        model = PostAdvertiseTable
+        fields = ['location']
 
 
 # class viewCurPriceByLoc(django_filters.FilterSet):

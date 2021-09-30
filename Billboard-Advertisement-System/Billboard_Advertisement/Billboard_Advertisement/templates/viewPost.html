@@ -32,136 +32,163 @@
 <!--  </div>-->
 <!--</div>-->
 <style>
-  card_opacity {
-  opacity: 0.85;
-}
-  card_opacity:hover {
-  opacity: 1.0;
-}
-.new_container {
-  position: relative;
-  text-align: center;
-  color: white;
-}
-.centered {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+    card_opacity {
+      opacity: 0.9;
+    }
+    card_opacity:hover {
+      opacity: 1.0;
+    }
+    .new_container {
+      position: relative;
+      text-align: center;
+      color: white;
+    }
+    .centered {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .modal-backdrop {
+      z-index: -1;
+    }
 </style>
 <div class="container">
 
   <div class="">
     <div class="card" style="background-color: whitesmoke;">
       <div class="card-body">
-  <h3><b>Search By</b></h3>
-  <form method="get">
-    {% csrf_token %}
-    {{ filter.form.as_p }}
-<!--    <input type="submit"/>-->
-  <button type="submit" class="btn btn-primary" style="background-color: #ff5733; margin-left: 615px; padding: 5px 22px 5px 22px; font-size: 18px;"><span>Submit</span></button>
-    <a class="btn btn-warning" href="{% url 'viewPost' %}" style="font-size: 18px;">Reset</a>
+        <h3><b>Search By Options</b></h3>
+        <form method="get">
+          {% csrf_token %}
+          {{ filter.form.as_p }}
+      <!--    <input type="submit"/>-->
+          <button type="submit" class="btn btn-primary" style="background-color: #ff5733; border: 2px solid #ff5733;
+            margin-left: 615px; padding: 5px 22px 5px 22px; font-size: 18px;"><span>Submit</span>
+          </button>
+          <a class="btn btn-warning" href="{% url 'viewPost' %}" style="color: white; font-size: 18px;">Reset</a>
 
-    {% if profile.is_customer == True %}
-        <a href="/customerPanel/" class="btn btn-primary" style="font-size: 18px;">Back to panel</a>
-    {% elif profile.is_advertiser == True %}
-        <a href="/advertiserPanel/" class="btn btn-primary" style="font-size: 18px;">Back to panel</a>
-    {% elif profile.is_cityCor == True %}
-        <a href="/cityCorporationPanel/" class="btn btn-primary" style="font-size: 18px;">Back to panel</a>
-    {% elif user.is_staff == True %}
-        <a href="/staffPanel/" class="btn btn-primary" style="font-size: 18px;">Back to panel</a>
-    {% endif %}
+          {% if profile.is_customer == True %}
+              <a href="/customerPanel/" class="btn btn-primary" style="color: white; font-size: 18px;">Back to panel</a>
+          {% elif profile.is_advertiser == True %}
+              <a href="/advertiserPanel/" class="btn btn-primary" style="color: white; font-size: 18px;">Back to panel</a>
+          {% elif profile.is_cityCor == True %}
+              <a href="/cityCorporationPanel/" class="btn btn-primary" style="color: white; font-size: 18px;">Back to panel</a>
+          {% elif user.is_staff == True %}
+              <a href="/staffPanel/" class="btn btn-primary" style="font-size: 18px;">Back to panel</a>
+          {% endif %}
 
-    <br><br><button type="submit" name="all_post" class="button2" style="font-size : 22px; width: 48.9%;"><span>Show all the advertisements</span></button>
-    {% if profile.is_customer == True %}
-        <button type="submit" name="my_deals" class="button2" style="font-size : 22px; width: 48.9%;"><span>Show my current deals only</span></button>
-    {% elif profile.is_advertiser == True %}
-        <button type="submit" name="my_post" class="button2" style="font-size : 22px; width: 48.9%;"><span>Show my advertisements only</span></button>
-    {% endif %}
-  </form>
+          <br><br><button type="submit" name="all_post" class="button2" style="font-size : 22px; width: 48.875%;"><span>Show all the advertisements</span></button>
+          {% if profile.is_customer == True %}
+              <button type="submit" name="my_deals" class="button2" style="font-size : 22px; width: 48.875%;"><span>Show my current deals only</span></button>
+          {% elif profile.is_advertiser == True %}
+              <button type="submit" name="my_post" class="button2" style="font-size : 22px; width: 48.875%;"><span>Show my advertisements only</span></button>
+          {% endif %}
+        </form>
       </div>
     </div>
-</div>
+  </div>
 
-  <br><br><br>
-<div class="row row-cols-1 row-cols-md-2 g-4">
-  {% for post in filter.qs %}
-  <div class="col" style="padding-bottom: 35px">
-    <card_opacity>
-    <div class="card2" style="background-color: whitesmoke;">
-      {% load static %}
-      <div class="new_container">
-      <a href="#" onClick="return false;"><img src="{{ post.posted_billboards_pic.url }}" class="card-img-top" alt="billboard image"
-            onclick=enlargeImg() id="bb_img" style="border-radius: 5px 5px 0px 0px;"></a>
-      {% for post1 in allConfirmedposts %}
-      {% if post.code == post1.adCode %}
-        <div class="centered" style="font-size : 140px; color: #e8e8e8;"><b>SOLD</b></div>
-      {% endif %}
-      {% endfor %}
-      </div>
-<!--      <br/><br/><br/>-->
-<!--      <script>-->
-<!--          img = document.getElementById("bb_img");-->
+  <br><br>
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for post in filter.qs %}
+    <div class="col" style="padding-bottom: 35px">
+      <card_opacity>
+      <div class="card2" style="background-color: whitesmoke;">
+        {% load static %}
+        <div class="new_container">
+        <a href="#" onClick="return false;"><img src="{{ post.posted_billboards_pic.url }}" class="card-img-top" alt="billboard image"
+              onclick=enlargeImg() id="bb_img" style="border-radius: 5px 5px 0px 0px;"></a>
+        {% for post1 in allConfirmedposts %}
+        {% if post.code == post1.adCode %}
+          <div class="centered" style="font-size : 140px; color: #e8e8e8;"><b>SOLD</b></div>
+        {% endif %}
+        {% endfor %}
+        </div>
+  <!--      <br/><br/><br/>-->
+  <!--      <script>-->
+  <!--          img = document.getElementById("bb_img");-->
 
-<!--          function enlargeImg() {-->
-<!--              img.style.transform = "scale(1.3)";-->
-<!--              img.style.transition = "transform 0.25s ease";-->
-<!--          }-->
-<!--          function resetImg() {-->
-<!--              img.style.transform = "scale(1)";-->
-<!--              img.style.transition = "transform 0.25s ease";-->
-<!--          }-->
-<!--      </script>-->
+  <!--          function enlargeImg() {-->
+  <!--              img.style.transform = "scale(1.3)";-->
+  <!--              img.style.transition = "transform 0.25s ease";-->
+  <!--          }-->
+  <!--          function resetImg() {-->
+  <!--              img.style.transform = "scale(1)";-->
+  <!--              img.style.transition = "transform 0.25s ease";-->
+  <!--          }-->
+  <!--      </script>-->
 
-      <div class="card-body">
-          <h2 class="card-title" style="text-align:center">{{ post.title }}</h2>
-        <p class="card-text h6">Post Code: &nbsp;{{ post.code }}</p>
-        <p class="card-text h6">Posted By (Username): &nbsp;{{ post.author }}</p>
-        <p class="card-text h6">Posted By (Name): &nbsp;{{ post.author.first_name}} {{post.author.last_name}}</p>
-        <p class="card-text h6">Posted By (E-mail): &nbsp;{{ post.author.email }}</p>
-        <p class="card-text h6">District: &nbsp;{{ post.location }}</p>
-          <p class="card-text h6">Specific Location: &nbsp;{{ post.Spec_loc }}, {{ post.location }}</p>
+        <div class="card-body">
+            <h2 class="card-title" style="text-align:center">{{ post.title }}</h2>
+            <p class="card-text h6">Post Code: &nbsp;{{ post.code }}</p>
+            <p class="card-text h6">Posted By (Username): &nbsp;{{ post.author }}</p>
+            <p class="card-text h6">Posted By (Name): &nbsp;{{ post.author.first_name}} {{post.author.last_name}}</p>
+            <p class="card-text h6">Posted By (E-mail): &nbsp;{{ post.author.email }}</p>
+            <p class="card-text h6">District: &nbsp;{{ post.location }}</p>
+            <p class="card-text h6">Specific Location: &nbsp;{{ post.Spec_loc }}, {{ post.location }}</p>
             <p class="card-text h6">Billboard Width: &nbsp;{{ post.width }} sq. feet</p>
             <p class="card-text h6">Billboard Height: &nbsp;{{ post.height }} sq. feet</p>
             <p class="card-text h6">Billboard Size: &nbsp;{{ post.width }} x {{ post.height }} &nbsp; ({{ post.size }} sq. feet)</p>
             <p class="card-text h6">Monthly Rent: &nbsp;{{ post.price }}</p>
-          <p class="card-text text-muted">Desc: &nbsp;{{post.short_desc|slice:":200"}}</p>
-<!--        <a href="{% url 'postDetail' %}" class="btn btn-primary">Confirm Deal &rarr;</a>-->
+            <p class="card-text text-muted">Desc: &nbsp;{{post.short_desc|slice:":200"}}</p>
+  <!--        <a href="{% url 'postDetail' %}" class="btn btn-primary">Confirm Deal &rarr;</a>-->
 
 
+            {% for post1 in allConfirmedposts %}
+  <!--              a = {{post.code}}-->
+  <!--            {% if post.code != post1.adCode %}-->
+  <!--                <a href="{% url 'postDetail' %}" class="btn btn-primary">Confirm Deal &rarr;</a>-->
+  <!--            {% endif %}-->
+  <!--            {% if post.code == post1.adCode %}-->
+  <!--              <p class="card-text text-muted h6">Deal Coonfirmed By: {{ post1.confirmed_by }}</p>-->
+  <!--              <p class="card-text text-muted h6">Deal Duration: {{ post1.day }} {{ post1.month }}, {{ post1.year }}</p>-->
+  <!--            {% endif %}-->
 
-          {% for post1 in allConfirmedposts %}
-<!--              a = {{post.code}}-->
-<!--            {% if post.code != post1.adCode %}-->
-<!--                <a href="{% url 'postDetail' %}" class="btn btn-primary">Confirm Deal &rarr;</a>-->
-<!--            {% endif %}-->
-<!--            {% if post.code == post1.adCode %}-->
-<!--              <p class="card-text text-muted h6">Deal Coonfirmed By: {{ post1.confirmed_by }}</p>-->
-<!--              <p class="card-text text-muted h6">Deal Duration: {{ post1.day }} {{ post1.month }}, {{ post1.year }}</p>-->
-<!--            {% endif %}-->
+              {% if post.code == post1.adCode %}
+                <p class="card-text h6"><b>Deal Confirmed By: &nbsp;{{ post1.confirmed_by }}</b></p>
+                <p class="card-text h6"><b>Name: &nbsp;{{ post1.confirmed_by.first_name }} {{ post1.confirmed_by.last_name }}</b></p>
+                <p class="card-text h6"><b>Email: &nbsp;{{ post1.confirmed_by.email }}</b></p>
+                <p class="card-text"><b>Deal Duration: &nbsp;{{ post1.dealDuration }}</b></p>
+              {% endif %}
 
-        {% if post.code == post1.adCode %}
-        <p class="card-text h6"><b>Deal Confirmed By: &nbsp;{{ post1.confirmed_by }}</b></p>
-        <p class="card-text h6"><b>Name: &nbsp;{{ post1.confirmed_by.first_name }} {{ post1.confirmed_by.last_name }}</b></p>
-        <p class="card-text h6"><b>Email: &nbsp;{{ post1.confirmed_by.email }}</b></p>
-              <p class="card-text"><b>Deal Duration: &nbsp;{{ post1.day }}-{{ post1.month }}-{{ post1.year }}</b></p>
-        {% endif %}
+            {% endfor %}
 
-  {% endfor %}
+            {% if user == post.author %}
+              <a href="{% url 'update_post_form' %}" class="btn btn-primary" style="color: white;">Update Post</a>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteAdvertisementModal"
+                style="color:black; background-color: #f44336;">Delete Post &rarr;</button>
 
-        {% if user == post.author %}
-          <a href="{% url 'update_post_form' %}" class="btn btn-primary">Update Post</a>
-          <a href="{% url 'deletePost1' post.code %}" class="btn btn-primary" style="color:black; background-color: #f44336;">Delete Post &rarr;</a>
-        <br>
-        {% endif %}
+          <!-- Modal -->
+  <div class="modal fade" id="deleteAdvertisementModal" tabindex="-1" role="dialog" aria-labelledby="deleteAdvertisementModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteAdvertisementModalLabel"><b>Delete advertisement</b></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Do you want to delete this advertisement?</p>
+        </div>
+        <div class="modal-footer">
+          <a href="{% url 'deletePost1' post.code %}" class="btn btn-primary"
+             style="color: white; background-color: #0BDA51; border: 1px solid #0BDA51;">Yes</a>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        </div>
       </div>
     </div>
-      </card_opacity>
   </div>
-  {% endfor %}
+          <br>
+          {% endif %}
+        </div>
+      </div>
+        </card_opacity>
+    </div>
+    {% endfor %}
 
-</div>
+  </div>
 </div>
 </body>
 <br>
