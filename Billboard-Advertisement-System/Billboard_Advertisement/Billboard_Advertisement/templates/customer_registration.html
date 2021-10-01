@@ -13,28 +13,41 @@
     <br>
         <h1 style="color: #0BB5FF"><b>Thank you for registering.</b></h1>
         <br><br>
-        <a href="/user_login"><button class="button"><span>Login</span></button></a><br>
-    <a href="/sign_in_options"><button class="button"><span>Back</span></button></a>
+        <a href="/user_login/"><button class="button"><span>Login</span></button></a><br>
+    <a href="/sign_in_options/"><button class="button"><span>Back</span></button></a>
     </div>
     {% else %}
     <br>
     {% if user_form.errors %}
-    <h1 style="color: red;">An user with that username already exists.</h1>
+    <br>
+        <h1 style="color: red;">An user with that username already exists.</h1>
     {% endif %}
+    {% if match_password == 0 %}
+    <br>
+        <h1 style="color: red;">password and confirm password does not match</h1>
+    {% endif %}
+
     <h1 style="color: white;">Register here</h1>
     <h3 style="color: gainsboro;">Fill out the below form</h3>
     <br>
     <!--        {% load crispy_forms_tags %}-->
     <form class="row g-3" action="{% url 'register_customer' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="col-md-6">
+        <div class="col-md-4">
             <label for="username" class="form-label">Username</label>
             <input type="text" name="username" class="form-control" id="username" placeholder="Username" required>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <label for="password" class="form-label">Password</label>
-            <input type="password" name="password" minlength="4" class="form-control" id="password"
+            <input type="password" name="password" minlength="4" class="form-control" aria-describedby="passwordHelpBlock" id="password"
                    placeholder="Password" required>
+            <small id="passwordHelpBlock" class="form-text" style="color: silver;">Minimum 4 characters, contain letters and numbers.</small>
+        </div>
+        <div class="col-md-4">
+            <label for="confirm_password" class="form-label">Confirm Password</label>
+            <input type="password" name="confirm_password" minlength="4" class="form-control" aria-describedby="passwordHelpBlock2" id="confirm_password"
+                   placeholder="Confirm Password" required>
+            <small id="passwordHelpBlock2" class="form-text" style="color: silver;">Minimum 4 characters, contain letters and numbers.</small>
         </div>
 
         <div class="col-md-6">
@@ -50,13 +63,16 @@
 
         <div class="col-md-6">
             <label for="email" class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" id="email" placeholder="abcd@gmail.com" required>
+            <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" required>
         </div>
         <div class="col-md-6">
             <label for="mobileNo" class="form-label">Mobile No.</label>
             <input type="number" name="mobileNo" minlength="14" class="form-control" id="mobileNo"
-                   placeholder="+880xxxxxxxxxx">
+                   placeholder="+880xxxxxxxxxx"/>
         </div>
+        <script>
+            document.getElementById('mobileNo').value = '+880';
+        </script>
 
         <div class="col-12">
             <label for="location">Location:</label>
@@ -95,12 +111,12 @@
             {{profile_picture_form.as_p}}
         </div>
         <div class="form-check form-switch" style="margin-left: 10px;">
-            <label class="form-check-label" for="confirm">Confirm</label>
             <input class="form-check-input" type="checkbox" value="checkbox" name="confirm" id="confirm" required>
+            <label class="form-check-label" for="confirm">Confirm</label>
         </div>
         <button type="submit" class="button" style="margin-top : 35px; margin-left: 13px;"><span>Submit</span></button>
     </form>
-        <a href="/sign_in_options"><button class="button"><span>Back</span></button></a>
+        <a href="/sign_in_options/"><button class="button"><span>Back</span></button></a>
     {% endif %}
 </div>
 </body>
