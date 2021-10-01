@@ -15,7 +15,9 @@
     <h1 style="color: lime;"><b>Advertise Successfully Posted</b></h1>
     <br>
     {% endif %}
-    <h2 style="color: gainsboro;">Fill out the below form</h2>
+
+    <h1 style="color: white;">Post advertise</h1>
+    <h3 style="color: gainsboro;">Fill out the below form</h3>
     {% load crispy_forms_tags %}
     <form method="POST" enctype="multipart/form-data" class="formStyle">
         {% csrf_token %}

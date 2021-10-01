@@ -1,3 +1,4 @@
+import datetime
 from datetime import date
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser
@@ -102,9 +103,8 @@ class PostAdvertiseTable(models.Model):
 
 class confirm_post(models.Model):
     confirmed_by = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
-    year = models.CharField(max_length=100)
-    month = models.CharField(max_length=100)
-    day = models.CharField(max_length=100)
+    confirmed_date = models.DateField(default=timezone.now)
+    dealDuration = models.DateField(default=None)
     adCode = models.CharField(max_length=10, unique=True)
     advertiser = models.CharField(max_length=100, default=None)
     objects = models.Manager()

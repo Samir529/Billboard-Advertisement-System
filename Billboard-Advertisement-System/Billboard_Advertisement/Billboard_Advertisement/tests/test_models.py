@@ -191,21 +191,17 @@ class confirm_postTest(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(
             username='testuser', password='secret', first_name='Samir', last_name='Asif', email='testemail@example.com')
-        confirm_post.objects.create(confirmed_by=self.user, year='2022', month='12', day='13', adCode='1234',
+        confirm_post.objects.create(confirmed_by=self.user, dealDuration='2021-08-21', adCode='1234',
                                     advertiser='testadvertiser')
 
     def test_content(self):
         postConfirm = confirm_post.objects.get(id=1)
         expected_object_confirmed_by = f'{postConfirm.confirmed_by}'
-        expected_object_year = f'{postConfirm.year}'
-        expected_object_month = f'{postConfirm.month}'
-        expected_object_day = f'{postConfirm.day}'
+        expected_object_dealDuration = f'{postConfirm.dealDuration}'
         expected_object_adCode = f'{postConfirm.adCode}'
         expected_object_advertiser = f'{postConfirm.advertiser}'
         self.assertEquals(expected_object_confirmed_by, self.user.username)
-        self.assertEquals(expected_object_year, '2022')
-        self.assertEquals(expected_object_month, '12')
-        self.assertEquals(postConfirm.day, '13')
+        self.assertEquals(expected_object_dealDuration, '2021-08-21')
         self.assertEquals(expected_object_adCode, '1234')
         self.assertEquals(expected_object_advertiser, 'testadvertiser')
 

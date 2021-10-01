@@ -35,15 +35,17 @@
     </div>
     {% endif %}
 
-    <h2 style="color: gainsboro;">Update Advertise Information</h2>
+    <h1 style="color: white;">Update advertise</h1>
+    <h3 style="color: gainsboro;">Fill the field that you want to update</h3>
 <form class="row g-3" action="{% url 'update_post_form' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <h5 style="color: lightgray;">Enter the CODE of your post, which post you want to update</h5>
+<!--    <h5 style="color: lightgray;">Enter the CODE of your post, which post you want to update</h5>-->
         <div>
       <label for="code" class="form-label">Post Code:</label>
-    <input style="font-weight: bold;" type="text" name="code" class="form-control" id="code" placeholder="enter the code" required="required"
-       oninvalid="this.setCustomValidity('Please enter the code first.')"
+    <input style="font-weight: bold;" type="text" name="code" class="form-control" id="code" aria-describedby="codeHelpBlock" placeholder="enter the code" required="required"
+       oninvalid="this.setCustomValidity('Please enter the post code first.')"
        oninput="this.setCustomValidity('')">
+            <small id="codeHelpBlock" class="form-text" style="color: silver;">(enter the code of your post that you want to update)</small>
   </div>
         <div>
       <label for="title" class="form-label">Title:</label>
@@ -88,12 +90,12 @@
     <input type="text" name="Spec_loc" class="form-control" id="Spec_loc" placeholder="enter specific location">
   </div>
         <div>
-      <label for="width" class="form-label">Width of billboard:</label>
-    <input type="number" name="width" class="form-control" id="width" placeholder="enter width">
+      <label for="width" class="form-label">Width of Billboard:</label>
+    <input type="number" name="width" class="form-control" id="width" placeholder="in sq. feet">
   </div>
         <div>
-      <label for="height" class="form-label">Height of billboard:</label>
-    <input type="number" name="height" class="form-control" id="height" placeholder="enter height">
+      <label for="height" class="form-label">Height of Billboard:</label>
+    <input type="number" name="height" class="form-control" id="height" placeholder="in sq. feet">
   </div>
         <div>
       <label for="price" class="form-label">Rent:</label>

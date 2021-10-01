@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home,name='home'),
     path('about/',views.about, name="about"),
+    path('aboutUs/',views.aboutUs, name="aboutUs"),
     path('base/',views.base,name='base'),
     path('register_customer/',views.register_customer,name='register_customer'),
     path('register_advertiser/',views.register_advertiser,name='register_advertiser'),
@@ -49,7 +50,15 @@ urlpatterns = [
     path('deletePost1/<c>', views.deletePost1, name='deletePost1'),
     path('current_price_update/',views.current_price_update, name='current_price_update'),
     path('current_price_view/',views.current_price_view, name='current_price_view'),
-    path('viewAdvertisersRecords/',views.viewAdvertisersRecords, name='viewAdvertisersRecords'),
+    # path('viewAdvertisersRecords/',views.viewAdvertisersRecords, name='viewAdvertisersRecords'),
+    path('myPanel/',views.myPanel, name='myPanel'),
+    path('viewCurrentDealRecords/',views.viewCurrentDealRecords, name='viewCurrentDealRecords'),
+    path('viewAdveriserRecords/',views.viewAdveriserRecords, name='viewAdveriserRecords'),
+    path('viewCustomerRecords/',views.viewCustomerRecords, name='viewCustomerRecords'),
+    path('viewRecords/',views.viewRecords, name='viewRecords'),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
