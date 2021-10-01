@@ -1,5 +1,10 @@
 import os
+import django_heroku
 from pathlib import Path
+import cloudinary
+import cloudinary_storage
+# from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3w7i)%8bs1kd)rhz6&ck4rm_7)q2umdx!oajrpc@y3iu+g+_)$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -28,7 +33,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Billboard_Advertisement',
     'crispy_forms',  ##
-    'django_filters'   ##
+    'django_filters',   ##
+    # Media Cloudinary
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4' ##
@@ -43,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'Billboard_Advertisement.urls'
@@ -115,10 +124,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static-root")
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static-files"),
+    os.path.join(BASE_DIR, "Billboard_Advertisement/static"),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -127,6 +139,26 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Cloudinary stuff
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'billboard-advertisement-system-of-bangladesh',
+    'API_KEY': '583232386577829',
+    'API_SECRET': 'Bw6ToJEpRJ6-66e0IBqk2zF1spo',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
+
+
+
+
+
+
 
 
 

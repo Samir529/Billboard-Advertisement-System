@@ -30,7 +30,7 @@
 <!--            <input type="password" name="password" class="form-control" id="password" placeholder="Password"/>-->
 <!--        </div>-->
 <!--        <br><br>-->
-    <h3 style="color: gainsboro">Fill out the below form</h3>
+    <h3 style="color: gainsboro">Fill the field that you want to update</h3>
 
   <div class="col-md-6">
     <input type="text" name="first_name" class="form-control" placeholder="First name" aria-label="First name">
@@ -41,12 +41,15 @@
 
   <div class="col-md-6">
     <label for="email" class="form-label">Email</label>
-    <input type="email" name="email" class="form-control" id="email" placeholder="abcd@gmail.com">
+    <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com">
   </div>
   <div class="col-md-6">
     <label for="mobileNo" class="form-label">Mobile No.</label>
     <input type="number" name="mobileNo" class="form-control" id="mobileNo" placeholder="+880xxxxxxxxxx">
   </div>
+    <script>
+            document.getElementById('mobileNo').value = '+880';
+        </script>
 
   <div class="col-12">
       <label for="location">Location:</label>
