@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+<body>
+<div class="content">
+    <br>
+    {% if isStaff == "not_staff" %}
+        <h1 style="color: red">You are not a staff type user.</h1>
+    {% endif %}
+    {% if isStaff == "not_user" %}
+        <h1 style="color: red">Incorrect username or password.</h1>
+    {% endif %}
+    <br>
+    <h1 style="color: white;">Sign-In here</h1>
+    <h3 style="color: red">For staff only</h3>
+    <br>
+    <form action="{% url 'staff_login' %}" method="post" class="formStyle">
+        {% csrf_token %}
+        <label for="username" style="color:white;">Username:</label>
+        <input type="text" name="username" id="username" placeholder=" username" required>
+        <br><br>
+        <label for="password" style="color:white;">Password:</label>
+        <input type="password" name="password" id="password" placeholder=" password" required>
+        <br><br>
+        &nbsp;&nbsp;<label>
+      <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+        <br><br>
+        <button class="button"><span>Sign-In</span></button>
+    </form>
+    <a href="/"><button class="button"><span>Back</span></button></a>
+</div>
+</body>
+{% endblock %}

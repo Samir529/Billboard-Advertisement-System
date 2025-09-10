@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+<body style="background-color: #3b3c36;">
+<style type="text/css">
+        .content {
+            max-width: 1000px;
+            margin: auto;
+        }
+        .text {
+            color: #157DEC;
+        }
+        a:hover {
+            color: #0F52BA;
+            text-decoration: none!important;
+        }
+        .card2 {
+            background-color: #E5E4E2;
+            border-radius: 10px;
+            transition: transform .2s;
+        }
+        .card2:hover {
+            background-color: #f2f2f2;
+            transform: scale(1.1);
+        }
+</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<div class="content">
+    <br><br><br>
+    <h1 style="color:white; padding: 0px 0px 20px 0px; text-align: center;"><b>City Corporation Panel</b></h1>
+    <br><br>
+<!--    <button onclick="hideFunction()" class="button3 dropdown-toggle">View Records<span class="caret"-->
+<!--                                                                                       style="margin-left: 15px;"></span>-->
+<!--    </button>-->
+<!--    <script type="text/javascript">-->
+<!--            function hideFunction() {-->
+<!--                var x = document.getElementById("options");-->
+<!--                if (x.style.display == 'block') {-->
+<!--                    x.style.display = 'none';-->
+<!--                } else {-->
+<!--                    x.style.display = 'block';-->
+<!--                }-->
+<!--            }-->
+
+<!--    </script>-->
+<!--    <div class="hidden" id="options">-->
+<!--        <style>-->
+<!--                .button2 { background-color: #080808; }-->
+
+<!--        </style>-->
+<!--        <a href="/viewCurrentDealRecords/">-->
+<!--            <button class="button2" style="width: 90%; margin: 1px 10px 5px 10px; padding: 4px;">-->
+<!--                <span>Current Deals</span></button>-->
+<!--        </a>-->
+<!--        <a href="/viewAdveriserRecords/">-->
+<!--            <button class="button2" style="width: 90%; margin: 2px 10px 5px 10px; padding: 4px;">-->
+<!--                <span>Advertisers</span></button>-->
+<!--        </a>-->
+<!--        <a href="/viewCustomerRecords/">-->
+<!--            <button class="button2" style="width: 90%; margin: 2px 10px 5px 10px; padding: 4px;"><span>Customers</span>-->
+<!--            </button>-->
+<!--        </a>-->
+<!--    </div>-->
+<!--    <br><br>-->
+<!--    <a href="/viewPost/">-->
+<!--        <button class="button"><span>View Advertise</span></button>-->
+<!--    </a>-->
+<!--    &lt;!&ndash;        <br><br>&ndash;&gt;-->
+<!--    &lt;!&ndash;        <a href="/viewAdvertisersRecords/"><button class="button"><span>View Advertiser Records</span></button></a>&ndash;&gt;-->
+<!--    <br><br>-->
+<!--    <a href="/view_profile/">-->
+<!--        <button class="button"><span>View Profile</span></button>-->
+<!--    </a>-->
+<!--    <br><br>-->
+<!--    <a href="/update_profile/">-->
+<!--        <button class="button"><span>Update Profile</span></button>-->
+<!--    </a>-->
+<!--    <br><br>-->
+<!--    <a href="/password/">-->
+<!--        <button class="button"><span>Change Password</span></button>-->
+<!--    </a>-->
+<!--    <br><br>-->
+<!--    <a href="/sizeMoneyCalculation/">-->
+<!--        <button class="button"><span>Price Calculator</span></button>-->
+<!--    </a>-->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 d-flex align-items-stretch mb-4">
+                <div class="card2" style="width: 20rem;">
+                    <div class="card-body text-center">
+                        <a href="/viewRecords/" class="stretched-link">
+                            <h1 class="card-text text"><b>View Records</b></h1>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex align-items-stretch mb-4">
+                <div class="card2" style="width: 20rem;">
+                    <div class="card-body text-center">
+                        <a href="/viewPost/" class="stretched-link">
+                            <h1 class="card-text text"><b>View Advertise</b></h1>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex align-items-stretch mb-4">
+                <div class="card2" style="width: 20rem;">
+                    <div class="card-body text-center">
+                        <a href="/view_profile/" class="stretched-link">
+                            <h1 class="card-text text"><b>View Profile</b></h1>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex align-items-stretch mb-4">
+                <div class="card2" style="width: 20rem;">
+                    <div class="card-body text-center">
+                        <a href="/update_profile/" class="stretched-link">
+                            <h1 class="card-text text"><b>Update Profile</b></h1>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex align-items-stretch mb-4">
+                <div class="card2" style="width: 20rem;">
+                    <div class="card-body text-center">
+                        <a href="/password/" class="stretched-link">
+                            <h1 class="card-text text"><b>Change Password</b></h1>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex align-items-stretch mb-4">
+                <div class="card2" style="width: 20rem;">
+                    <div class="card-body text-center">
+                        <a href="/sizeMoneyCalculation/" class="stretched-link">
+                            <h1 class="card-text text"><b>Price Calculator</b></h1>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--        <a href="/"><button class="button" style="width: 155px; margin-top : 120px; margin-left: 70px; font-size: 18px;"><span>Back</span></button></a>-->
+</div>
+</body>
+{% endblock %}

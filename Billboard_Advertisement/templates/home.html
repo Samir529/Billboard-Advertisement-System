@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <title>Billboard Advertisement System</title>
+    <link rel="icon" href="/static/assets/image/icon2.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+</head>
+<body id="page-top" style="background-color: #3b3c36;">
+    <style>
+        a:link {
+          color: white;
+        }
+        a:visited {
+
+        }
+        a:hover {
+          color: tomato;
+        }
+        a:active {
+          color: white;
+        }
+    </style>
+    <style>
+        .fa {
+            padding: 5px;
+            font-size: 26px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            text-shadow: 3px 3px 22px #272634;
+        }
+        .fa:hover {
+            opacity: 1.0;
+            color: deepskyblue;
+            text-shadow: 3px 3px 16px #272634;
+            transition: all 0.1s;
+        }
+        .fa-youtube:hover {
+            color: #FF0000;
+        }
+        .fa-twitter:hover {
+            color: #1DA1F2;
+        }
+        .fa-facebook:hover {
+            color: #4267B2;
+        }
+    </style>
+
+<div class="home-header" style="z-index:1;">
+    <a href="/about"><img src="/static/assets/image/logo3.png" alt="Logo" width="235" height="60"
+                          style="float:left; margin: -15px 0px -10px -5px;"/></a>
+    <a href="#" onClick="return false;" style="float:right; margin: -5px 0px 0px 10px;" class="fa fa-youtube"></a>
+    <a href="#" onClick="return false;" style="float:right; margin: -5px 0px 0px 10px;" class="fa fa-twitter"></a>
+    <a href="#" onClick="return false;" style="float:right; margin: -5px 0px 0px 15px;" class="fa fa-facebook"></a>
+    <span class="button5" style="color: white; float: right; margin: -5px 0px 0px 10px;" onclick="openNav()">&#9776; Menu</span>
+    <a href="/admin" class="button4" style="color: #171717; float:right; margin: -5px 0px 0px 10px;">Admin-site</a>
+    <a href="/aboutUs" class="button4" style="color: #171717; float:right; margin: -5px 0px 0px 10px;">About-us</a>
+    <a href="/" class="button4" style="color: #171717; float:right; margin: -5px 0px 0px 10px;">Home</a>
+    <a href="#page-top" class="button4" style="color: #171717; float:right; margin: -5px 0px 0px 10px;">Page-top</a>
+    <a href="/current_price_view" class="button4" style="color: #171717; float:right; margin: -5px 0px 0px 10px;">Current-price</a>
+    {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="button4" style="color: #171717; float:right; margin: -5px 0px 0px 10px;"><span>Logout</span></a>
+    {% endif %}
+</div>
+<div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/about">About</a>
+        <a href="#" onClick="return false;">Contact</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a>
+        {% endif %}
+</div>
+<script src="{% static 'JavaScript/script.js' %}"></script>
+<style>
+    body { background-color: #3b3c36; }
+    .button2 { background-color: #0a0a0a; }
+    footer {
+        background-color: #3b3c36;
+        height:50px;
+        margin-top:-0.4%
+    }
+</style>
+<!--    <style>-->
+<!--        body { background-color:gainsboro; }-->
+<!--        .highlightme { background-color:black; }-->
+<!--        body { background-image: url('/static/assets/image/background_image.png');-->
+<!--        background-repeat:no-repeat;-->
+<!--        background-size:100% 125vh;}-->
+<!--    </style>-->
+{% block content %}
+<div class="video-overlay">
+    <h1 style="font-size: 42px; text-align: center; color: gainsboro; text-shadow: 3px 3px 10px #272634;">Welcome to Billboard Advertisement System</h1>
+    <br><br><br><br><br><br>
+    {% if user.is_authenticated %}
+    <button onclick="location.href='logout/'" type="button" class="button2" style="display: block; margin: auto; width: 30%;">
+         <span>Logout</span></button>
+    {% else %}
+    <button onclick="location.href='user_login/'" type="button" class="button2" style="display: block; margin: auto; width: 30%;">
+         <span>Login</span></button>
+    {% endif %}
+    <br>
+    <button onclick="location.href='sign_in_options/'" type="button" class="button2" style="display: block; margin: auto; width: 30%;">
+         <span>Sign-Up</span></button>
+    <br>
+<!--    <a href="staff_login/" class="button" style="display: block; margin: auto; width: 30%;"><span>Staff login</span></a>-->
+    <button onclick="location.href='staff_login/'" type="button" class="button2" style="display: block; margin: auto; width: 30%;">
+         <span>Staff Login</span></button>
+<!--    <br>-->
+<!--    <button onclick="location.href='sizeMoneyCalculation/'" type="button" class="button2" style="display: block; margin: auto; width: 30%;">-->
+<!--         <span>Price Calculator</span></button>-->
+    <br>
+    <button onclick="location.href='myPanel/'" type="button" class="button2" style="display: block; margin: auto; width: 30%;">
+         <span>My Panel</span></button>
+    {% endblock %}
+<!--    name of the views function in urls.py-->
+</div>
+<video autoplay muted loop id="backgroundVideo">
+    <source src="/static/assets/image/Billboard1.mp4" type="video/mp4">
+</video>
+
+    <section style="background-color: black;">
+        <style>
+            card_opacity {
+              opacity: 0.9;
+            }
+            card_opacity:hover {
+              opacity: 1.0;
+            }
+            .new_container {
+              position: relative;
+              text-align: center;
+              color: white;
+            }
+            .centered {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
+        </style>
+
+        <div class="container">
+            <br><br><br>
+            <div class="card" style="background-color: black;">
+                <h2 style="color: silver;"><b>Location</b></h2>
+                {% load crispy_forms_tags %}
+                <form method="get">
+                    {% csrf_token %}
+                    {{ filter.form|crispy }}
+                    <br>
+                    <a class="btn btn-warning" href="{% url 'home' %}" style="color: white; float: right;">Reset</a>
+                    <button type="submit" class="btn btn-primary" style="color: white; float: right; margin-right: 5px;">Submit</button>
+                </form>
+            </div>
+
+            <br><br>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+              {% for post in filter.qs %}
+              <div class="col" style="padding-bottom: 35px">
+                <card_opacity>
+                <div class="card2" style="background-color: whitesmoke;">
+                  {% load static %}
+                  <div class="new_container">
+                  <a href="#" onClick="return false;"><img src="{{ post.posted_billboards_pic.url }}" class="card-img-top" alt="billboard image"
+                        onclick=enlargeImg() id="bb_img2" style="border-radius: 5px 5px 0px 0px;"></a>
+                  {% for post1 in allConfirmedposts %}
+                  {% if post.code == post1.adCode %}
+                    <div class="centered" style="font-size : 140px; color: #e8e8e8;"><b>SOLD</b></div>
+                  {% endif %}
+                  {% endfor %}
+                  </div>
+
+                  <div class="card-body">
+                      <h2 class="card-title" style="text-align:center">{{ post.title }}</h2>
+                      <p class="card-text h6">Post Code: &nbsp;{{ post.code }}</p>
+                      <p class="card-text h6">Posted By (Username): &nbsp;{{ post.author }}</p>
+                      <p class="card-text h6">Posted By (Name): &nbsp;{{ post.author.first_name}} {{post.author.last_name}}</p>
+                      <p class="card-text h6">Posted By (E-mail): &nbsp;{{ post.author.email }}</p>
+                      <p class="card-text h6">District: &nbsp;{{ post.location }}</p>
+                      <p class="card-text h6">Specific Location: &nbsp;{{ post.Spec_loc }}, {{ post.location }}</p>
+                      <p class="card-text h6">Billboard Width: &nbsp;{{ post.width }} sq. feet</p>
+                      <p class="card-text h6">Billboard Height: &nbsp;{{ post.height }} sq. feet</p>
+                      <p class="card-text h6">Billboard Size: &nbsp;{{ post.width }} x {{ post.height }} &nbsp; ({{ post.size }} sq. feet)</p>
+                      <p class="card-text h6">Monthly Rent: &nbsp;{{ post.price }}</p>
+                      <p class="card-text h6">Posted On: &nbsp;{{ post.post_date }}</p>
+                      <p class="card-text text-muted">Description: &nbsp;{{post.short_desc|slice:":200"}}</p>
+
+                      {% for post1 in allConfirmedposts %}
+
+                        {% if post.code == post1.adCode %}
+                            <p class="card-text h6"><b>Deal Confirmed By: &nbsp;{{ post1.confirmed_by }}</b></p>
+                            <p class="card-text h6"><b>Name: &nbsp;{{ post1.confirmed_by.first_name }} {{ post1.confirmed_by.last_name }}</b></p>
+                            <p class="card-text h6"><b>Email: &nbsp;{{ post1.confirmed_by.email }}</b></p>
+                            <p class="card-text"><b>Deal Duration: &nbsp;{{ post1.dealDuration }}</b></p>
+                        {% endif %}
+
+                      {% endfor %}
+
+                  </div>
+                </div>
+                  </card_opacity>
+              </div>
+              {% endfor %}
+            </div>
+
+        </div>
+        <br><br>
+    </section>
+<footer class="py-3 bg-grey">
+    <p class="m-0 text-center" style="color: gainsboro;">© 2021 Billboard Advertisement System</p>
+</footer>
+</body>
+</html>

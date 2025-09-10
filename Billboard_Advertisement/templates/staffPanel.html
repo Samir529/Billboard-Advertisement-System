@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+<body style="background-color: #3b3c36;">
+<style>
+        .content {
+            max-width: 1000px;
+            margin: auto;
+        }
+        .text {
+            color: #157DEC;
+        }
+        a:hover {
+            color: #0F52BA;
+            text-decoration: none!important;
+        }
+        .card2 {
+            background-color: #E5E4E2;
+            border-radius: 10px;
+            transition: transform .2s;
+        }
+        .card2:hover {
+            background-color: #f2f2f2;
+            transform: scale(1.1);
+        }
+</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<div class="content">
+    <br><br><br>
+    <h1 style="color:white; padding: 0px 0px 20px 0px; text-align: center;"><b>Staff Panel</b></h1>
+    <br><br>
+    <!--        <a href="/current_price_update/"><button class="button"><span>Update Price</span></button></a>-->
+    <!--        <br><br>-->
+    <!--        <a href="/register_cityCorporation/"><button class="button"><span>Create Account</span></button></a>-->
+    <!--        <br><br>-->
+    <!--        <a href="/viewPost/"><button class="button"><span>View advertisements</span></button></a>-->
+    <!--        <br><br>-->
+    <!--        <a href="/view_profile/"><button class="button"><span>View my profile</span></button></a>-->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 d-flex align-items-stretch mb-4">
+                <div class="card2" style="width: 20rem;">
+                    <div class="card-body text-center">
+                        <a href="/current_price_update/" class="stretched-link">
+                            <h1 class="card-text text"><b>Update Price</b></h1>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex align-items-stretch mb-4">
+                <div class="card2" style="width: 20rem;">
+                    <div class="card-body text-center">
+                        <a href="/register_cityCorporation/" class="stretched-link">
+                            <h1 class="card-text text"><b>Create Account</b></h1>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex align-items-stretch mb-4">
+                <div class="card2" style="width: 20rem;">
+                    <div class="card-body text-center">
+                        <a href="/viewPost/" class="stretched-link">
+                            <h1 class="card-text text"><b>View Advertise</b></h1>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex align-items-stretch mb-4">
+                <div class="card2" style="width: 20rem;">
+                    <div class="card-body text-center">
+                        <a href="/view_profile/" class="stretched-link">
+                            <h1 class="card-text text"><b>View Own Profile</b></h1>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+{% endblock %}
