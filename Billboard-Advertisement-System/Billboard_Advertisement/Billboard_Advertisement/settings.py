@@ -32,14 +32,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Billboard_Advertisement',
-    'crispy_forms',  ##
-    'django_filters',   ##
+    'crispy_forms', 
+    'crispy_bootstrap4',
+    'django_filters',   
     # Media Cloudinary
     'cloudinary',
     'cloudinary_storage',
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4' ##
+CRISPY_TEMPLATE_PACK = 'bootstrap4' 
 
 # AUTH_USER_MODEL = 'user_app.CustomerProfileInfo'
 
