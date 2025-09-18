@@ -17,11 +17,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first (for Docker caching)
-COPY requirements.txt /app/
+COPY requirements.txt .
 
 # Upgrade pip and install Python dependencies
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Copy the rest of the application
 COPY . .
@@ -33,4 +33,4 @@ RUN python manage.py collectstatic --noinput
 EXPOSE 8000
 
 # Start Gunicorn using PORT env variable provided by Render
-CMD ["gunicorn", "Billboard_Advertisement.wsgi:application", "--bind", "0.0.0.0:$PORT", "--workers", "4"]
+CMD ["gunicorn", "Billboard_Advertisement.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "4"]
