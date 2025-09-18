@@ -3,6 +3,7 @@ from datetime import date
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser
 from django.utils import timezone
+from django.templatetags.static import static
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
@@ -43,37 +44,65 @@ class CustomerProfileInfo(models.Model):
     currentdate = models.DateField(default=timezone.now)
     location = models.CharField(max_length=30, default='', blank=True, null=True, choices=locations)
     mobileNo = models.CharField(max_length=14, default=None, blank=True, null=True)
-    profile_picture = models.ImageField(upload_to='profiles_pic/Customer_profile_pic/', default='/profiles_pic/Customer_profile_pic/demo_profile_pic2.png', blank=True)
+    profile_picture = models.ImageField(
+        upload_to='profiles_pic/Customer_profile_pic/',
+        blank=True
+    )
     is_customer = models.BooleanField(default=False)
     objects = models.Manager()
 
     def __str__(self):
         return str(self.user)
 
+    @property
+    def image_url(self):
+        if self.profile_picture and hasattr(self.profile_picture, "url"):
+            return self.profile_picture.url
+        return static("assets/image/Default images/profile_pic/demo_profile_pic2.png")
+
+
 class AdvertiserProfileInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     currentdate = models.DateField(default=timezone.now)
     location = models.CharField(max_length=30, default='', blank=True, null=True, choices=locations)
     mobileNo = models.CharField(max_length=14, default=None, blank=True, null=True)
-    profile_picture = models.ImageField(upload_to='profiles_pic/Advertiser_profile_pic/', default='/profiles_pic/Advertiser_profile_pic/demo_profile_pic2.png', blank=True)
+    profile_picture = models.ImageField(
+        upload_to='profiles_pic/Advertiser_profile_pic/',
+        blank=True
+    )
     is_advertiser = models.BooleanField(default=False)
     objects = models.Manager()
 
     def __str__(self):
         return str(self.user)
 
+    @property
+    def image_url(self):
+        if self.profile_picture and hasattr(self.profile_picture, "url"):
+            return self.profile_picture.url
+        return static("assets/image/Default images/profile_pic/demo_profile_pic2.png")
+
+
 class CityCorporationProfileInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     currentdate = models.DateField(default=timezone.now)
     location = models.CharField(max_length=30, default='', blank=True, null=True, choices=locations)
     mobileNo = models.CharField(max_length=14, default=None, blank=True, null=True)
-    profile_picture = models.ImageField(upload_to='profiles_pic/cityCor_profile_pic', default='/profiles_pic/cityCor_profile_pic/demo_profile_pic2.png', blank=True)
+    profile_picture = models.ImageField(
+        upload_to='profiles_pic/cityCor_profile_pic',
+        blank=True
+    )
     is_cityCor = models.BooleanField(default=False)
     objects = models.Manager()
 
     def __str__(self):
         return str(self.user)
 
+    @property
+    def image_url(self):
+        if self.profile_picture and hasattr(self.profile_picture, "url"):
+            return self.profile_picture.url
+        return static("assets/image/Default images/profile_pic/demo_profile_pic2.png")
 
 
 class PostAdvertiseTable(models.Model):
@@ -88,9 +117,10 @@ class PostAdvertiseTable(models.Model):
     price = models.CharField(max_length=100, default=None)
     short_desc = models.TextField(max_length=500, default=None)
     post_date = models.DateField(default=timezone.now)
-    posted_billboards_pic = models.ImageField(upload_to='posted_billboards_pic/billboards_images',
-                                            default='/posted_billboards_pic/billboards_images/demo_billboard_image.JPG',
-                                            blank=True)
+    posted_billboards_pic = models.ImageField(
+        upload_to='posted_billboards_pic/billboards_images',
+        blank=True
+    )
     objects = models.Manager()
 
     def save(self, *args, **kwargs):
@@ -99,6 +129,12 @@ class PostAdvertiseTable(models.Model):
 
     def __str__(self):
         return self.code
+
+    @property
+    def image_url(self):
+        if self.posted_billboards_pic and hasattr(self.posted_billboards_pic, "url"):
+            return self.posted_billboards_pic.url
+        return static("assets/image/Default images/billboard_image/demo_billboard_image.JPG")
 
 
 class confirm_post(models.Model):
@@ -122,18 +158,6 @@ class CurrentPriceUpdate(models.Model):
 
     def __str__(self):
         return str(self.update_date)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

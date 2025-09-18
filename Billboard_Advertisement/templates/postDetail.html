@@ -19,12 +19,17 @@
         <h1 style="color: red;">You can not confirm any post / You do not have an account.</h1>
         {% endif %}
 
-        {% if post_code == 0 %}
+<!--        {% if already_sold %}-->
+<!--        <br>-->
+<!--        <h1 style="color: red">Billboard with code '{{ adCode }}' is already sold!</h1>-->
+<!--        {% endif %}-->
+
+        {% if msg == "Does not exist!" %}
         <br>
-        <h1 style="color: red">Incorrect Post Code</h1>
+        <h1 style="color: red">Billboard with code '{{ adCode }}' does not exist!</h1>
         {% endif %}
 
-        {% if posted == "yes" %}
+        {% if confirmed == "yes" %}
         <br>
         <h2 style="color: lime;"><b>Confirmed successfully</b></h2>
         {% endif %}

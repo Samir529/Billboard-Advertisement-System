@@ -29,30 +29,38 @@ def home(req):
     context = {'allPosts': allPosts, 'allConfirmedposts': allConfirmedposts, 'filter': billboard_filter}
     return render(req, 'home.html', context)
 
+
 def base(req):
     return render(req, 'base.html')
+
 
 def about(request):
     return render(request, 'about.html')
 
+
 def aboutUs(request):
     return render(request, 'about_us.html')
+
 
 @login_required
 def staffPanel(request):
     return render(request, 'staffPanel.html')
 
+
 @login_required
 def customerPanel(request):
     return render(request, 'Customer_panel.html')
+
 
 @login_required
 def advertiserPanel(request):
     return render(request, 'Advertiser_panel.html')
 
+
 @login_required
 def cityCorporationPanel(request):
     return render(request, 'cityCorporation_panel.html')
+
 
 def sign_in_options(request):
     if request.method == 'POST':
@@ -420,6 +428,7 @@ def viewProfile(request):
     user = 0
     return render(request, 'view_profile.html', {'profile': profile, 'user': user})
 
+
 # def change_password(request):
 #     if request.method == 'POST':
 #         if request.user.is_authenticated:
@@ -468,6 +477,7 @@ def change_password(request):
             return render(request, 'change_password.html', {"form": form, "updated": updated})
     else:
         return redirect('user_login')
+
 
 # @login_required
 def current_price_update(request):
@@ -518,6 +528,7 @@ def advertise_post_form(request):
         'posted':posted
     }
     return render(request, 'post_form.html', context)
+
 
 @login_required
 def update_post_form(request):
@@ -593,7 +604,6 @@ def update_post_form(request):
     return render(request, 'update_post_form.html', context)
 
 
-
 # def post_save(request):
 #
 #     if request.method == "POST":
@@ -620,6 +630,7 @@ def update_post_form(request):
 
 def sizeMoneyCalculation(request):
     return render(request, 'sizeMoneyCalculation.html')
+
 
 def conv(request):
     num = "no"
@@ -669,18 +680,27 @@ def viewPost(request):
     # context1 = {'allConfirmedposts': allConfirmedposts}
     return render(request, 'viewPost.html', context)
 
+
 @login_required
 def postDetail(request):
     form_of_post = confirm_post_form(request.POST, request.FILES or None)
-    post_code = 1
-    posted = 'no'
+    # already_sold = False   # keeps track if billboard is available
+    confirmed = 'no'
     msg = 'no'
     profile = 0
+    adCode = None
+
     if form_of_post.is_valid():
         try:
             profile = CustomerProfileInfo.objects.get(user=request.user)
             if profile.is_customer == True:
                 adCode = form_of_post.cleaned_data['adCode']
+
+                # Check if billboard is already confirmed
+                # if confirm_post.objects.filter(adCode=adCode).exists():
+                #     already_sold = True
+                #     msg = "Billboard is already sold!"
+                # else:
                 try:
                     code = PostAdvertiseTable.objects.get(code=adCode)
                     instance = form_of_post.save(commit=False)
@@ -688,9 +708,9 @@ def postDetail(request):
                     instance.advertiser = code.author
                     instance.save()
                     form_of_post = confirm_post_form()
-                    posted = 'yes'
-                except:
-                    post_code = 0
+                    confirmed = 'yes'
+                except PostAdvertiseTable.DoesNotExist:
+                    msg = "Does not exist!"
         except CustomerProfileInfo.DoesNotExist:
             try:
                 profile = AdvertiserProfileInfo.objects.get(user=request.user)
@@ -705,12 +725,13 @@ def postDetail(request):
                     msg = "There was an error"
     context = {
         'form_of_post': form_of_post,
-        'posted': posted,
+        'confirmed': confirmed,
         'msg': msg,
         'profile': profile,
-        'post_code': post_code
+        'adCode': adCode
     }
     return render(request, 'postDetail.html', context)
+
 
 @login_required
 def deletePost1(request, c):
@@ -731,12 +752,14 @@ def deletePost1(request, c):
     # event1.delete()
     return redirect('viewPost')
 
+
 # @login_required
 # def viewAdvertisersRecords(request):
 #     allPosts = PostAdvertiseTable.objects.values('author').distinct()
 #     # allConfirmedposts = confirm_post.objects.all()
 #
 #     return render(request, 'view_advertisers_records.html', {'allPosts': allPosts})
+
 
 def myPanel(request):
     profile = 0
@@ -764,11 +787,13 @@ def myPanel(request):
     else:
         return render(request, 'user_login.html', {'profile': profile})
 
+
 @login_required
 def viewCurrentDealRecords(request):
     allPosts = confirm_post.objects.all()
 
     return render(request, 'view_current_deal_records.html', {'allPosts': allPosts})
+
 
 @login_required
 def viewAdveriserRecords(request):
@@ -776,23 +801,16 @@ def viewAdveriserRecords(request):
 
     return render(request, 'view_advertiser_records.html', {'allPosts': allPosts})
 
+
 @login_required
 def viewCustomerRecords(request):
     allPosts = CustomerProfileInfo.objects.all()
 
     return render(request, 'view_customer_records.html', {'allPosts': allPosts})
 
+
 def viewRecords(request):
     return render(request, 'view_records.html')
-
-
-
-
-
-
-
-
-
 
 
 

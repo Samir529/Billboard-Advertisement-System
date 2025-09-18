@@ -103,6 +103,10 @@ class post_form(forms.ModelForm):
         }
 
 class confirm_post_form(forms.ModelForm):
+    dealDuration = forms.DateField(
+        initial=timezone.now(),
+        widget=forms.SelectDateWidget()
+    )
     class Meta:
         model = confirm_post
         dealDuration = forms.DateField(initial=timezone.now())
@@ -117,8 +121,14 @@ class confirm_post_form(forms.ModelForm):
         }
         widgets = {
             'adCode': forms.TextInput(attrs={'placeholder': ' enter code'}),
-            'dealDuration': forms.SelectDateWidget()
         }
+
+    # Check if billboard is already confirmed
+    def clean_adCode(self):
+        adCode = self.cleaned_data.get("adCode")
+        if confirm_post.objects.filter(adCode=adCode).exists():
+            raise forms.ValidationError(f"Billboard with code '{adCode}' is already sold!")
+        return adCode
 
 
 

@@ -97,11 +97,11 @@
       <div class="card2" style="background-color: whitesmoke;">
         {% load static %}
         <div class="new_container">
-        <a href="#" onClick="return false;"><img src="{{ post.posted_billboards_pic.url }}" class="card-img-top" alt="billboard image"
+        <a href="#" onClick="return false;"><img src="{{ post.image_url }}" class="card-img-top" alt="billboard image"
               onclick=enlargeImg() id="bb_img" style="border-radius: 5px 5px 0px 0px;"></a>
         {% for post1 in allConfirmedposts %}
         {% if post.code == post1.adCode %}
-          <div class="centered" style="font-size : 140px; color: #e8e8e8;"><b>SOLD</b></div>
+          <div class="centered" style="font-size : 140px; color: lightgray;"><b>SOLD</b></div>
         {% endif %}
         {% endfor %}
         </div>
@@ -196,8 +196,6 @@
 <!--<a href="{% url 'postDetail' %}" class="btn btn-primary" style="font-size : 40px; width:100%; height:100px;">CLICK HERE TO CONFIRM ANY BILLBOARD &rarr;</a>-->
 <a href="{% url 'postDetail' %}" style="margin-left: -6px;"><button class="button2" style="font-size : 40px; width:100%; height:100px;"><span>CLICK HERE TO CONFIRM ANY BILLBOARD &rarr;</span></button></a>
 {%endblock%}
-
-
 
 
 
