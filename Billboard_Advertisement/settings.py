@@ -9,15 +9,17 @@ import cloudinary_storage
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-3w7i)%8bs1kd)rhz6&ck4rm_7)q2umdx!oajrpc@y3iu+g+_)$'
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
@@ -25,11 +27,13 @@ ALLOWED_HOSTS = [
     'billboard-advertisement-system.onrender.com'
 ]
 
+
 CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:8000",
     "http://localhost:8000",
     "https://billboard-advertisement-system.onrender.com",
 ]
+
 
 # Application definition
 
@@ -49,22 +53,27 @@ INSTALLED_APPS = [
     'cloudinary_storage',
 ]
 
+
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
 
 # AUTH_USER_MODEL = 'user_app.CustomerProfileInfo'
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
+
 ROOT_URLCONF = 'Billboard_Advertisement.urls'
+
 
 TEMPLATES = [
     {
@@ -82,6 +91,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'Billboard_Advertisement.wsgi.application'
 
@@ -120,13 +130,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'Asia/Dhaka'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
@@ -145,6 +151,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -157,6 +164,7 @@ CLOUDINARY_STORAGE = {
     'API_KEY': '583232386577829',
     'API_SECRET': 'Bw6ToJEpRJ6-66e0IBqk2zF1spo',
 }
+
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
