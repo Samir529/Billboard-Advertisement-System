@@ -177,7 +177,7 @@
                   </div>
 
                   <div class="card-body">
-                      <h2 class="card-title" style="text-align:center">{{ post.title }}</h2>
+                      <h3 class="card-title" style="text-align:center">{{ post.title }}</h3>
                       <p class="card-text h6">Post Code: &nbsp;{{ post.code }}</p>
                       <p class="card-text h6">Posted By (Username): &nbsp;{{ post.author }}</p>
                       <p class="card-text h6">Posted By (Name): &nbsp;{{ post.author.first_name}} {{post.author.last_name}}</p>
@@ -187,7 +187,7 @@
                       <p class="card-text h6">Billboard Width: &nbsp;{{ post.width }} sq. feet</p>
                       <p class="card-text h6">Billboard Height: &nbsp;{{ post.height }} sq. feet</p>
                       <p class="card-text h6">Billboard Size: &nbsp;{{ post.width }} x {{ post.height }} &nbsp; ({{ post.size }} sq. feet)</p>
-                      <p class="card-text h6">Monthly Rent: &nbsp;{{ post.price }}</p>
+                      <p class="card-text h6">Monthly Rent: &nbsp;{{ post.price }} Tk</p>
                       <p class="card-text h6">Posted On: &nbsp;{{ post.post_date }}</p>
                       <p class="card-text text-muted">Description: &nbsp;{{post.short_desc|slice:":200"}}</p>
 
