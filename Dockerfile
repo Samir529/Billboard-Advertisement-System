@@ -30,7 +30,11 @@ COPY . .
 RUN python manage.py collectstatic --noinput
 
 # Expose port Render will provide
+# Expose default port (optional, Render provides $PORT)
 EXPOSE 8000
 
 # Start Gunicorn server using PORT env variable provided by Render
-CMD ["gunicorn", "Billboard_Advertisement.wsgi:application", "--bind", "0.0.0.0:${PORT}", "--workers", "4"]
+#CMD ["gunicorn", "Billboard_Advertisement.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "4"]
+
+# Start Gunicorn server using PORT env variable provided by Render (shell form so $PORT is expanded)
+CMD gunicorn Billboard_Advertisement.wsgi:application --bind 0.0.0.0:$PORT --workers 4
