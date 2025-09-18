@@ -1,42 +1,36 @@
-# Use Python 3.11 slim/base image
-FROM python:3.11-slim
+# Use official Python 3.13 image
+FROM python:3.13-slim
 
+# Set environment variables
 # Prevent Python from buffering stdout/stderr
-ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
 # Set working directory
 WORKDIR /app
 
 # Install system dependencies for common Python packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y \
     build-essential \
-    gcc \
-    g++ \
-    python3-dev \
-    libssl-dev \
-    libffi-dev \
     libpq-dev \
-    libjpeg-dev \
-    zlib1g-dev \
-    libzmq3-dev \
     curl \
-    git \
     && rm -rf /var/lib/apt/lists/*
 
-# Upgrade pip, setuptools, wheel to latest versions first (important for pyzmq, cryptography, etc.)
-RUN python -m pip install --upgrade pip setuptools wheel
+# Copy requirements first (for Docker caching)
+COPY requirements.txt /app/
 
-# Copy only requirements first for Docker caching
-COPY requirements.txt .
-
-# Install Python dependencies (prefer binary wheels to avoid source builds)
-RUN pip install --no-cache-dir --prefer-binary -r requirements.txt
+# Upgrade pip and install Python dependencies
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application
 COPY . .
 
-# Expose port for Django
+# Collect static files (ensure STATIC_ROOT is set in settings.py)
+RUN python manage.py collectstatic --noinput
+
+# Expose port Render will provide
 EXPOSE 8000
 
-# Default command for Django app
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Start Gunicorn using PORT env variable provided by Render
+CMD ["gunicorn", "Billboard_Advertisement.wsgi:application", "--bind", "0.0.0.0:$PORT", "--workers", "4"]

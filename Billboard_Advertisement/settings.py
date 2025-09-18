@@ -1,6 +1,6 @@
 import os
-import django_heroku
 from pathlib import Path
+# import django_heroku
 import cloudinary
 import cloudinary_storage
 # from decouple import config
@@ -42,14 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Billboard_Advertisement',
     'crispy_forms',
-    'crispy_bootstrap4',
+    'crispy_bootstrap5',
     'django_filters',
     # Media Cloudinary
     'cloudinary',
     'cloudinary_storage',
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 # AUTH_USER_MODEL = 'user_app.CustomerProfileInfo'
 
@@ -162,18 +162,7 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 # Activate Django-Heroku.
-django_heroku.settings(locals())
-
-
-
-
-
-
-
-
-
-
-
+# django_heroku.settings(locals())
 
 
 

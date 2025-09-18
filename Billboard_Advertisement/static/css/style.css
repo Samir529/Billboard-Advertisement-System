@@ -29,17 +29,19 @@
     box-shadow: 0 16px 32px 0 rgba(0,0,0,0.6);
 }
 #backgroundVideo {
-  /*position: fixed;*/
-  right: 0;
-  bottom: 0;
+  top: 0;
+  left: 0;
   min-width: 100%;
   min-height: 100%;
+  z-index: 0;            /* behind everything */
+  pointer-events: none;  /* allow clicks to pass through */
 }
 .video-overlay {
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding: 0px 0px 100px 0px;
+    padding: 0 0 100px 0;
+    z-index: 10;          /* make sure overlay and buttons are clickable */
 }
 .button {
   display: inline-block;

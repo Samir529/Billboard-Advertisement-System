@@ -3,7 +3,6 @@ from urllib import request
 import django_filters
 
 from django import forms
-from spyder.config import user
 
 from .models import PostAdvertiseTable, CurrentPriceUpdate
 
@@ -43,21 +42,6 @@ class billboardFilter2(django_filters.FilterSet):
 #     class Meta:
 #         model = CurrentPriceUpdate
 #         fields = ['location']
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
